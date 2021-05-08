@@ -3,7 +3,6 @@ import addProjects from '../helpers/data/ProjectsData';
 
 export default function ProjectsForm() {
   const [project, setProject] = useState({
-    projectFirebaseKey: '',
     projectName: '',
     projectImage: '',
     projectLink: '',

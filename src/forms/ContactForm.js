@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import addProjects from '../helpers/data/ProjectsData';
+import addContact from '../helpers/data/ContactData';
 
-export default function ProjectsForm() {
-  const [project, setProject] = useState({
-    projectName: '',
-    projectImage: '',
-    projectLink: '',
-    projectDate: '',
-    projectAuthors: ''
+export default function ContactForm() {
+  const [contact, setContact] = useState({
+    contactName: '',
+    contactEmail: '',
+    contactPhone: '',
+    contactDate: '',
+    contactReason: ''
   });
 
   const handleProjectInputChange = (e) => {
-    setProject((prevState) => ({
+    setContact((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -19,64 +19,64 @@ export default function ProjectsForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProjects(project);
+    addContact(contact);
   };
 
   return (
     <>
-      <div className="ProjectsForm">
+      <div className="ContactForm">
         <form
-          id="addProjectsForm"
+          id="addContactForm"
           autoComplete='off'
           onSubmit={handleSubmit}
         >
-          <h3 id="addProjectFormTitle">Add Projects</h3>
+          <h3 id="addContactFormTitle">Contact</h3>
           <label>Name: </label>
           <input
-            name='projectName'
+            name='contactName'
             type='text'
-            placeholder='Project Name'
-            value={project.projectName}
+            placeholder='Your Name'
+            value={contact.contactName}
             onChange={handleProjectInputChange}
           >
           </input>
-          <label>Image: </label>
+          <label>Email: </label>
           <input
-            name='projectImage'
+            name='contactEmail'
             type='text'
-            placeholder='Project Image URL'
-            value={project.projectImage}
+            placeholder='Your email'
+            value={contact.contactEmail}
             onChange={handleProjectInputChange}
           >
           </input>
-          <label>Link: </label>
+          <label>Phone: </label>
           <input
-            name='projectLink'
+            name='contactPhone'
             type='text'
-            placeholder='Project Link'
-            value={project.projectLink}
+            placeholder='Contact Phone'
+            value={contact.contactPhone}
             onChange={handleProjectInputChange}
           >
           </input>
           <label>Date: </label>
           <input
-            name='projectDate'
+            name='contacttDate'
             type='text'
-            placeholder='Project Date'
-            value={project.projectDate}
+            placeholder='Date'
+            value={contact.contactDate}
             onChange={handleProjectInputChange}
           >
           </input>
-          <label>Authors: </label>
+          <label>Reason: </label>
           <input
-            name='projectAuthors'
+            name='contactReason'
             type='text'
-            placeholder='Project Authors'
-            value={project.projectAuthors}
+            placeholder='Reason'
+            value={contact.contactReason}
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Add Project</button>
+          <button type="submit">Submit Inquiry</button>
         </form>
       </div>
     </>

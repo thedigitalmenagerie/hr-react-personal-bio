@@ -30,7 +30,7 @@ export default function TechForm() {
           autoComplete='off'
           onSubmit={handleSubmit}
         >
-          <h3 id="addTechFormTitle">Add Tech</h3>
+          <h3 id="addTechFormTitle">Add Technologies</h3>
           <label>Category: </label>
           <input
             name='techCategory'
@@ -76,7 +76,7 @@ export default function TechForm() {
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Add Project</button>
+          <button type="submit">Add Technology</button>
         </form>
       </div>
     </>
