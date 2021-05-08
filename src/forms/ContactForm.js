@@ -60,7 +60,7 @@ export default function ContactForm() {
           </input>
           <label>Date: </label>
           <input
-            name='contacttDate'
+            name='contactDate'
             type='text'
             placeholder='Date'
             value={contact.contactDate}
