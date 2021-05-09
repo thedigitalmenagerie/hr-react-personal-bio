@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import addProjects from '../helpers/data/ProjectsData';
+import PropTypes from 'prop-types';
+import { addProjects } from '../helpers/data/ProjectsData';
 
-export default function ProjectsForm() {
+const ProjectsForm = ({ projectsFormTitle }) => {
   const [project, setProject] = useState({
     projectName: '',
     projectImage: '',
     projectLink: '',
     projectDate: '',
-    projectAuthors: ''
+    projectAuthors: '',
+    projectTech: ''
   });
 
   const handleProjectInputChange = (e) => {
@@ -30,7 +32,7 @@ export default function ProjectsForm() {
           autoComplete='off'
           onSubmit={handleSubmit}
         >
-          <h3 id="addProjectFormTitle">Add Projects</h3>
+          <h3 id="addProjectFormTitle">{projectsFormTitle}</h3>
           <label>Name: </label>
           <input
             name='projectName'
@@ -76,9 +78,24 @@ export default function ProjectsForm() {
             onChange={handleProjectInputChange}
           >
           </input>
+          <label>Tech Used: </label>
+          <input
+            name='projectTech'
+            type='text'
+            placeholder='Project Tech Used'
+            value={project.projectTech}
+            onChange={handleProjectInputChange}
+          >
+          </input>
           <button type="submit">Add Project</button>
         </form>
       </div>
     </>
   );
-}
+};
+
+ProjectsForm.propTypes = {
+  projectsFormTitle: PropTypes.string.isRequired
+};
+
+export default ProjectsForm;

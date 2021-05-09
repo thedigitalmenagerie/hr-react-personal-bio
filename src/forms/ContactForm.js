@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import addContact from '../helpers/data/ContactData';
+import PropTypes from 'prop-types';
+import { addContact } from '../helpers/data/ContactData';
 
-export default function ContactForm() {
+const ContactForm = ({ contactFormTitle }) => {
   const [contact, setContact] = useState({
     contactName: '',
     contactEmail: '',
@@ -30,7 +31,7 @@ export default function ContactForm() {
           autoComplete='off'
           onSubmit={handleSubmit}
         >
-          <h3 id="addContactFormTitle">Contact</h3>
+          <h3 id="addContactFormTitle">{contactFormTitle}</h3>
           <label>Name: </label>
           <input
             name='contactName'
@@ -81,4 +82,10 @@ export default function ContactForm() {
       </div>
     </>
   );
-}
+};
+
+ContactForm.propTypes = {
+  contactFormTitle: PropTypes.string.isRequired
+};
+
+export default ContactForm;

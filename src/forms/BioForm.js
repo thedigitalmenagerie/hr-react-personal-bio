@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import addBio from '../helpers/data/BioData';
+import PropTypes from 'prop-types';
+import { addBio } from '../helpers/data/BioData';
 
-export default function BioForm() {
+const BioForm = ({ bioFormTitle }) => {
   const [bio, setBio] = useState({
     bioName: '',
     bioImage: '',
@@ -31,7 +32,7 @@ export default function BioForm() {
           autoComplete='off'
           onSubmit={handleSubmit}
         >
-          <h3 id="addBioFormTitle">Add Bio</h3>
+          <h3 id="addBioFormTitle">{bioFormTitle}</h3>
           <label>Name: </label>
           <input
             name='bioName'
@@ -91,4 +92,10 @@ export default function BioForm() {
       </div>
     </>
   );
-}
+};
+
+BioForm.propTypes = {
+  bioFormTitle: PropTypes.string.isRequired
+};
+
+export default BioForm;

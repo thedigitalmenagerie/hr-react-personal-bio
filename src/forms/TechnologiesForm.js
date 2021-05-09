@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import addTechnologies from '../helpers/data/ProjectsData';
+import PropTypes from 'prop-types';
+import { addTechnologies } from '../helpers/data/TechnologiesData';
 
-export default function TechForm() {
+const TechForm = ({ technologiesFormTitle }) => {
   const [tech, setTech] = useState({
     techCategory: '',
     techName: '',
@@ -30,7 +31,7 @@ export default function TechForm() {
           autoComplete='off'
           onSubmit={handleSubmit}
         >
-          <h3 id="addTechFormTitle">Add Technologies</h3>
+          <h3 id="addTechFormTitle">{technologiesFormTitle}</h3>
           <label>Category: </label>
           <input
             name='techCategory'
@@ -81,4 +82,10 @@ export default function TechForm() {
       </div>
     </>
   );
-}
+};
+
+TechForm.propTypes = {
+  technologiesFormTitle: PropTypes.string.isRequired
+};
+
+export default TechForm;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import addResume from '../helpers/data/ResumeData';
+import PropTypes from 'prop-types';
+import { addResume } from '../helpers/data/ResumeData';
 
-export default function ResumeForm() {
+const ResumeForm = ({ resumeFormTitle }) => {
   const [resume, setResume] = useState({
     resumeCompany: '',
     resumeRole: '',
@@ -31,7 +32,7 @@ export default function ResumeForm() {
           autoComplete='off'
           onSubmit={handleSubmit}
         >
-          <h3 id="addResumeFormTitle">Add Resume</h3>
+          <h3 id="addResumeFormTitle">{resumeFormTitle}</h3>
           <label>Company: </label>
           <input
             name='resumeCompany'
@@ -91,4 +92,10 @@ export default function ResumeForm() {
       </div>
     </>
   );
-}
+};
+
+ResumeForm.propTypes = {
+  resumeFormTitle: PropTypes.string.isRequired
+};
+
+export default ResumeForm;
