@@ -26,4 +26,15 @@ const deleteContacts = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getContacts, addContact, deleteContacts };
+const updateContacts = (contacts) => new Promise((resolve, reject) => {
+  axios.patch(`${DBURL}/contacts/${contacts.firebaseKey}.json`, contacts)
+    .then(() => getContacts().then(resolve))
+    .catch((error) => reject(error));
+});
+
+export {
+  getContacts,
+  addContact,
+  deleteContacts,
+  updateContacts
+};

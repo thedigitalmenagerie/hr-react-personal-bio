@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addProjects } from '../helpers/data/ProjectsData';
+import { addProjects, updateProjects } from '../helpers/data/ProjectsData';
 
-const ProjectsForm = ({ projectsFormTitle, setProjects }) => {
+const ProjectsForm = ({
+  projectsFormTitle,
+  setProjects,
+  firebaseKey,
+  projectName,
+  projectImage,
+  projectLink,
+  projectDate,
+  projectAuthors,
+  projectTech
+}) => {
   const [project, setProject] = useState({
-    projectName: '',
-    projectImage: '',
-    projectLink: '',
-    projectDate: '',
-    projectAuthors: '',
-    projectTech: ''
+    projectName: projectName || '',
+    projectImage: projectImage || '',
+    projectLink: projectLink || '',
+    projectDate: projectDate || '',
+    projectAuthors: projectAuthors || '',
+    projectTech: projectTech || '',
+    firebaseKey: firebaseKey || null
   });
 
   const handleProjectInputChange = (e) => {
@@ -21,7 +32,11 @@ const ProjectsForm = ({ projectsFormTitle, setProjects }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProjects(project).then((projectsArray) => setProjects(projectsArray));
+    if (project.firebaseKey) {
+      updateProjects(project).then((projectsArray) => setProjects(projectsArray));
+    } else {
+      addProjects(project).then((projectsArray) => setProjects(projectsArray));
+    }
   };
 
   return (
@@ -96,7 +111,14 @@ const ProjectsForm = ({ projectsFormTitle, setProjects }) => {
 
 ProjectsForm.propTypes = {
   projectsFormTitle: PropTypes.string.isRequired,
-  setProjects: PropTypes.func.isRequired
+  setProjects: PropTypes.func.isRequired,
+  firebaseKey: PropTypes.string,
+  projectName: PropTypes.string,
+  projectImage: PropTypes.string,
+  projectLink: PropTypes.string,
+  projectDate: PropTypes.string,
+  projectAuthors: PropTypes.string,
+  projectTech: PropTypes.string
 };
 
 export default ProjectsForm;

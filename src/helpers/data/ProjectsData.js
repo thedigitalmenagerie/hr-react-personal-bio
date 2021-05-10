@@ -26,4 +26,15 @@ const deleteProjects = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getProjects, addProjects, deleteProjects };
+const updateProjects = (projects) => new Promise((resolve, reject) => {
+  axios.patch(`${DBURL}/projects/${projects.firebaseKey}.json`, projects)
+    .then(() => getProjects().then(resolve))
+    .catch((error) => reject(error));
+});
+
+export {
+  getProjects,
+  addProjects,
+  deleteProjects,
+  updateProjects
+};

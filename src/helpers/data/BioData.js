@@ -26,4 +26,15 @@ const deleteBio = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getBio, addBio, deleteBio };
+const updateBio = (bios) => new Promise((resolve, reject) => {
+  axios.patch(`${DBURL}/bio/${bios.firebaseKey}.json`, bios)
+    .then(() => getBio().then(resolve))
+    .catch((error) => reject(error));
+});
+
+export {
+  getBio,
+  addBio,
+  deleteBio,
+  updateBio
+};

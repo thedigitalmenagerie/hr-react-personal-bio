@@ -21,9 +21,20 @@ const addReview = (reviews) => new Promise((resolve, reject) => {
 });
 
 const deleteReview = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.delete(`${DBURL}/projects/${firebaseKey}.json`)
+  axios.delete(`${DBURL}/reviews/${firebaseKey}.json`)
     .then(() => getReviews().then((reviewArray) => resolve(reviewArray)))
     .catch((error) => reject(error));
 });
 
-export { getReviews, addReview, deleteReview };
+const updateReview = (reviews) => new Promise((resolve, reject) => {
+  axios.patch(`${DBURL}/reviews/${reviews.firebaseKey}.json`, reviews)
+    .then(() => getReviews().then(resolve))
+    .catch((error) => reject(error));
+});
+
+export {
+  getReviews,
+  addReview,
+  deleteReview,
+  updateReview
+};

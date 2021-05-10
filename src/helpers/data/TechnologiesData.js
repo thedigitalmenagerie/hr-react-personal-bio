@@ -26,4 +26,15 @@ const deleteTech = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getTechnologies, addTechnologies, deleteTech };
+const updateTech = (techs) => new Promise((resolve, reject) => {
+  axios.patch(`${DBURL}/reviews/${techs.firebaseKey}.json`, techs)
+    .then(() => getTechnologies().then(resolve))
+    .catch((error) => reject(error));
+});
+
+export {
+  getTechnologies,
+  addTechnologies,
+  deleteTech,
+  updateTech
+};

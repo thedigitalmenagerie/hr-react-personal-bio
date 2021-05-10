@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   Button,
@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { deleteProjects } from '../helpers/data/ProjectsData';
+import ProjectsForm from '../forms/ProjectsForm';
 
 const ProjectCards = ({
   firebaseKey,
@@ -21,9 +22,20 @@ const ProjectCards = ({
   projectTech,
   setProjects
 }) => {
-  const handleClick = () => {
-    deleteProjects(firebaseKey)
-      .then((projectsArray) => setProjects(projectsArray));
+  const [editingProjects, setEditingProjects] = useState(false);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'delete':
+        deleteProjects(firebaseKey)
+          .then((projectsArray) => setProjects(projectsArray));
+        break;
+      case 'edit':
+        setEditingProjects((prevState) => !prevState);
+        break;
+      default:
+        console.warn('Nothing selected');
+    }
   };
 
   return (
@@ -35,7 +47,21 @@ const ProjectCards = ({
       <CardSubtitle tag="h6" className="mb-2 text-muted"><a>{projectDate}</a></CardSubtitle>
       <CardText>{projectAuthors}</CardText>
       <CardText>{projectTech}</CardText>
-      <Button onClick={handleClick}>Delete Project</Button>
+      <Button onClick={() => handleClick('delete')}>Delete Project</Button>
+      <Button onClick={() => handleClick('edit')}>
+      {editingProjects ? 'Close Form' : 'Edit Project'}
+      </Button>
+      {editingProjects && <ProjectsForm
+        projectsFormTitle='Edit Project'
+        setProjects={setProjects}
+        firebaseKey={firebaseKey}
+        projectImage={projectImage}
+        projectName={projectName}
+        projectLink={projectLink}
+        projectDate={projectDate}
+        projectAuthors={projectAuthors}
+        projectTech={projectTech}
+      />}
     </CardBody>
   </Card>
   );
