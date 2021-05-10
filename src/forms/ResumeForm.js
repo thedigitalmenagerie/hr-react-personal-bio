@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addResume } from '../helpers/data/ResumeData';
 
-const ResumeForm = ({ resumeFormTitle }) => {
+const ResumeForm = ({ resumeFormTitle, setResumes }) => {
   const [resume, setResume] = useState({
     resumeCompany: '',
     resumeRole: '',
@@ -21,7 +21,7 @@ const ResumeForm = ({ resumeFormTitle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addResume(resume);
+    addResume(resume).then((resumeArray) => setResumes(resumeArray));
   };
 
   return (
@@ -95,7 +95,8 @@ const ResumeForm = ({ resumeFormTitle }) => {
 };
 
 ResumeForm.propTypes = {
-  resumeFormTitle: PropTypes.string.isRequired
+  resumeFormTitle: PropTypes.string.isRequired,
+  setResumes: PropTypes.func
 };
 
 export default ResumeForm;

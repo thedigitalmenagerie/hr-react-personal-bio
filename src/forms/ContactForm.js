@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addContact } from '../helpers/data/ContactData';
 
-const ContactForm = ({ contactFormTitle }) => {
+const ContactForm = ({ contactFormTitle, setContacts }) => {
   const [contact, setContact] = useState({
     contactName: '',
     contactEmail: '',
@@ -20,7 +20,7 @@ const ContactForm = ({ contactFormTitle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addContact(contact);
+    addContact(contact).then((contactsArray) => setContacts(contactsArray));
   };
 
   return (
@@ -85,7 +85,8 @@ const ContactForm = ({ contactFormTitle }) => {
 };
 
 ContactForm.propTypes = {
-  contactFormTitle: PropTypes.string.isRequired
+  contactFormTitle: PropTypes.string.isRequired,
+  setContacts: PropTypes.func
 };
 
 export default ContactForm;

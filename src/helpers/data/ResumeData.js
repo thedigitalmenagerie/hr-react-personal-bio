@@ -5,7 +5,7 @@ const DBURL = firebaseConfig.databaseURL;
 
 const getResume = () => new Promise((resolve, reject) => {
   axios.get(`${DBURL}/resume.json`)
-    .then((response) => resolve(response))
+    .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
@@ -14,9 +14,16 @@ const addResume = (resumes) => new Promise((resolve, reject) => {
     .then((response) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${DBURL}/resume/${response.data.name}.json`, body)
-        .then(() => resolve(console.warn('Resume Added', resumes)));
-    })
+        .then(() => {
+          getResume().then((resumeArray) => resolve(resumeArray));
+        });
+    }).catch((error) => reject(error));
+});
+
+const deleteResume = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${DBURL}/resume/${firebaseKey}.json`)
+    .then(() => getResume().then((resumeArray) => resolve(resumeArray)))
     .catch((error) => reject(error));
 });
 
-export { getResume, addResume };
+export { getResume, addResume, deleteResume };

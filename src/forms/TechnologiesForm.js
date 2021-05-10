@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addTechnologies } from '../helpers/data/TechnologiesData';
 
-const TechForm = ({ technologiesFormTitle }) => {
+const TechForm = ({ technologiesFormTitle, setTechnologies }) => {
   const [tech, setTech] = useState({
     techCategory: '',
     techName: '',
@@ -20,7 +20,7 @@ const TechForm = ({ technologiesFormTitle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTechnologies(tech);
+    addTechnologies(tech).then((techArray) => setTechnologies(techArray));
   };
 
   return (
@@ -85,7 +85,8 @@ const TechForm = ({ technologiesFormTitle }) => {
 };
 
 TechForm.propTypes = {
-  technologiesFormTitle: PropTypes.string.isRequired
+  technologiesFormTitle: PropTypes.string.isRequired,
+  setTechnologies: PropTypes.func
 };
 
 export default TechForm;

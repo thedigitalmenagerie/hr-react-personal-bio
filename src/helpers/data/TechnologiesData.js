@@ -5,7 +5,7 @@ const DBURL = firebaseConfig.databaseURL;
 
 const getTechnologies = () => new Promise((resolve, reject) => {
   axios.get(`${DBURL}/technologies.json`)
-    .then((response) => resolve(response))
+    .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
@@ -14,9 +14,16 @@ const addTechnologies = (techs) => new Promise((resolve, reject) => {
     .then((response) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${DBURL}/technologies/${response.data.name}.json`, body)
-        .then(() => resolve(console.warn('Tech Added', techs)));
-    })
+        .then(() => {
+          getTechnologies().then((techArray) => resolve(techArray));
+        });
+    }).catch((error) => reject(error));
+});
+
+const deleteTech = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${DBURL}/technologies/${firebaseKey}.json`)
+    .then(() => getTechnologies().then((techArray) => resolve(techArray)))
     .catch((error) => reject(error));
 });
 
-export { getTechnologies, addTechnologies };
+export { getTechnologies, addTechnologies, deleteTech };

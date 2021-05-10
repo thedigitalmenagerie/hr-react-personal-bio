@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addReview } from '../helpers/data/ReviewData';
 
-const ReviewForm = ({ reviewFormTitle }) => {
+const ReviewForm = ({ reviewFormTitle, setReviews }) => {
   const [review, setReview] = useState({
     reviewerName: '',
     reviewerCompany: '',
@@ -21,7 +21,7 @@ const ReviewForm = ({ reviewFormTitle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addReview(review);
+    addReview(review).then((reviewArray) => setReviews(reviewArray));
   };
 
   return (
@@ -95,7 +95,8 @@ const ReviewForm = ({ reviewFormTitle }) => {
 };
 
 ReviewForm.propTypes = {
-  reviewFormTitle: PropTypes.string.isRequired
+  reviewFormTitle: PropTypes.string.isRequired,
+  setReviews: PropTypes.func
 };
 
 export default ReviewForm;

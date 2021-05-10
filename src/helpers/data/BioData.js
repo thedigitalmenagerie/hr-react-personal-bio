@@ -5,7 +5,7 @@ const DBURL = firebaseConfig.databaseURL;
 
 const getBio = () => new Promise((resolve, reject) => {
   axios.get(`${DBURL}/bio.json`)
-    .then((response) => resolve(response))
+    .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
@@ -14,9 +14,16 @@ const addBio = (bios) => new Promise((resolve, reject) => {
     .then((response) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${DBURL}/bio/${response.data.name}.json`, body)
-        .then(() => resolve(console.warn('Bio Added', bios)));
-    })
+        .then(() => {
+          getBio().then((bioArray) => resolve(bioArray));
+        });
+    }).catch((error) => reject(error));
+});
+
+const deleteBio = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${DBURL}/bio/${firebaseKey}.json`)
+    .then(() => getBio().then((bioArray) => resolve(bioArray)))
     .catch((error) => reject(error));
 });
 
-export { getBio, addBio };
+export { getBio, addBio, deleteBio };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addProjects } from '../helpers/data/ProjectsData';
 
-const ProjectsForm = ({ projectsFormTitle }) => {
+const ProjectsForm = ({ projectsFormTitle, setProjects }) => {
   const [project, setProject] = useState({
     projectName: '',
     projectImage: '',
@@ -21,7 +21,7 @@ const ProjectsForm = ({ projectsFormTitle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProjects(project);
+    addProjects(project).then((projectsArray) => setProjects(projectsArray));
   };
 
   return (
@@ -95,7 +95,8 @@ const ProjectsForm = ({ projectsFormTitle }) => {
 };
 
 ProjectsForm.propTypes = {
-  projectsFormTitle: PropTypes.string.isRequired
+  projectsFormTitle: PropTypes.string.isRequired,
+  setProjects: PropTypes.func.isRequired
 };
 
 export default ProjectsForm;

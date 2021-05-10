@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addBio } from '../helpers/data/BioData';
 
-const BioForm = ({ bioFormTitle }) => {
+const BioForm = ({ bioFormTitle, setBios }) => {
   const [bio, setBio] = useState({
     bioName: '',
     bioImage: '',
@@ -21,7 +21,7 @@ const BioForm = ({ bioFormTitle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addBio(bio);
+    addBio(bio).then((bioArray) => setBios(bioArray));
   };
 
   return (
@@ -95,7 +95,8 @@ const BioForm = ({ bioFormTitle }) => {
 };
 
 BioForm.propTypes = {
-  bioFormTitle: PropTypes.string.isRequired
+  bioFormTitle: PropTypes.string.isRequired,
+  setBios: PropTypes.func
 };
 
 export default BioForm;
