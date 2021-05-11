@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addReview } from '../helpers/data/ReviewData';
+import { addReview, updateReview } from '../helpers/data/ReviewData';
 
-const ReviewForm = ({ reviewFormTitle, setReviews }) => {
+const ReviewForm = ({
+  reviewFormTitle,
+  setReviews,
+  firebasKey,
+  reviewerName,
+  reviewerCompany,
+  reviewerRole,
+  reviewerLocation,
+  reviewerDescription,
+  reviewerDate
+}) => {
   const [review, setReview] = useState({
-    reviewerName: '',
-    reviewerCompany: '',
-    reviewerRole: '',
-    reviewerLocation: '',
-    reviewerDescription: '',
-    reviewerDate: '',
+    reviewerName: reviewerName || '',
+    reviewerCompany: reviewerCompany || '',
+    reviewerRole: reviewerRole || '',
+    reviewerLocation: reviewerLocation || '',
+    reviewerDescription: reviewerDescription || '',
+    reviewerDate: reviewerDate || '',
+    firebasKey: firebasKey || null
   });
 
   const handleProjectInputChange = (e) => {
@@ -21,7 +32,11 @@ const ReviewForm = ({ reviewFormTitle, setReviews }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addReview(review).then((reviewArray) => setReviews(reviewArray));
+    if (review.firebasKey) {
+      updateReview(review).then((reviewArray) => setReviews(reviewArray));
+    } else {
+      addReview(review).then((reviewArray) => setReviews(reviewArray));
+    }
   };
 
   return (
@@ -96,7 +111,14 @@ const ReviewForm = ({ reviewFormTitle, setReviews }) => {
 
 ReviewForm.propTypes = {
   reviewFormTitle: PropTypes.string.isRequired,
-  setReviews: PropTypes.func
+  setReviews: PropTypes.func,
+  firebasKey: PropTypes.string,
+  reviewerName: PropTypes.string,
+  reviewerCompany: PropTypes.string,
+  reviewerRole: PropTypes.string,
+  reviewerLocation: PropTypes.string,
+  reviewerDescription: PropTypes.string,
+  reviewerDate: PropTypes.string
 };
 
 export default ReviewForm;

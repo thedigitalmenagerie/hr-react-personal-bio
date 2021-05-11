@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   Button,
@@ -8,7 +8,8 @@ import {
   CardText
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { deleteResume } from '../helpers/data/ResumeData';
+import { deleteReview } from '../helpers/data/ReviewData';
+import ReviewForm from '../forms/ReviewForm';
 
 const ReviewCards = ({
   firebaseKey,
@@ -20,9 +21,20 @@ const ReviewCards = ({
   reviewerDescription,
   setReviews
 }) => {
-  const handleClick = () => {
-    deleteResume(firebaseKey)
-      .then((reviewArray) => setReviews(reviewArray));
+  const [editingReview, setEditingReview] = useState(false);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'delete':
+        deleteReview(firebaseKey)
+          .then((reviewArray) => setReviews(reviewArray));
+        break;
+      case 'edit':
+        setEditingReview((prevState) => !prevState);
+        break;
+      default:
+        console.warn('Nothing selected');
+    }
   };
   return (
     <Card>
@@ -33,7 +45,21 @@ const ReviewCards = ({
         <CardSubtitle tag="h6" className="mb-2 text-muted">{reviewerLocation}</CardSubtitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{reviewerDate}</CardSubtitle>
         <CardText>{reviewerDescription}</CardText>
-        <Button onClick={handleClick}>Button</Button>
+        <Button onClick={() => handleClick('delete')}>Delete Review</Button>
+        <Button onClick={() => handleClick('edit')}>
+          {editingReview ? 'Close Form' : 'Edit Review'}
+        </Button>
+          {editingReview && <ReviewForm
+          reviewFormTitle='Edit Review'
+          setReviews={setReviews}
+          firebaseKey={firebaseKey}
+          reviewerName={reviewerName}
+          reviewerCompany={reviewerCompany}
+          reviewerRole={reviewerRole}
+          reviewerLocation={reviewerLocation}
+          reviewerDate={reviewerDate}
+          reviewerDescription={reviewerDescription}
+          />}
       </CardBody>
     </Card>
   );

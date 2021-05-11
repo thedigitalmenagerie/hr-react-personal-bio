@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addBio } from '../helpers/data/BioData';
+import { addBio, updateBio } from '../helpers/data/BioData';
 
-const BioForm = ({ bioFormTitle, setBios }) => {
+const BioForm = ({
+  bioFormTitle,
+  setBios,
+  firebaseKey,
+  bioName,
+  bioImage,
+  bioLocation,
+  bioDate,
+  bioTitle,
+  bioDescription,
+}) => {
   const [bio, setBio] = useState({
-    bioName: '',
-    bioImage: '',
-    bioLocation: '',
-    bioDate: '',
-    bioTitle: '',
-    bioDescription: ''
+    bioName: bioName || '',
+    bioImage: bioImage || '',
+    bioLocation: bioLocation || '',
+    bioDate: bioDate || '',
+    bioTitle: bioTitle || '',
+    bioDescription: bioDescription || '',
+    firebaseKey: firebaseKey || null
   });
 
   const handleProjectInputChange = (e) => {
@@ -21,7 +32,11 @@ const BioForm = ({ bioFormTitle, setBios }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addBio(bio).then((bioArray) => setBios(bioArray));
+    if (bio.firebaseKey) {
+      updateBio(bio).then((bioArray) => setBios(bioArray));
+    } else {
+      addBio(bio).then((bioArray) => setBios(bioArray));
+    }
   };
 
   return (
@@ -96,7 +111,14 @@ const BioForm = ({ bioFormTitle, setBios }) => {
 
 BioForm.propTypes = {
   bioFormTitle: PropTypes.string.isRequired,
-  setBios: PropTypes.func
+  setBios: PropTypes.func,
+  firebaseKey: PropTypes.string,
+  bioName: PropTypes.string,
+  bioImage: PropTypes.string,
+  bioLocation: PropTypes.string,
+  bioDate: PropTypes.string,
+  bioTitle: PropTypes.string,
+  bioDescription: PropTypes.string
 };
 
 export default BioForm;

@@ -27,7 +27,7 @@ const deleteResume = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const updateResume = (resumes) => new Promise((resolve, reject) => {
-  axios.patch(`${DBURL}/projects/${resumes.firebaseKey}.json`, resumes)
+  axios.patch(`${DBURL}/resume/${resumes.firebaseKey}.json`, resumes)
     .then(() => getResume().then(resolve))
     .catch((error) => reject(error));
 });

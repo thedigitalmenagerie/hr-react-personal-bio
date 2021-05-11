@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addResume } from '../helpers/data/ResumeData';
+import { addResume, updateResume } from '../helpers/data/ResumeData';
 
-const ResumeForm = ({ resumeFormTitle, setResumes }) => {
+const ResumeForm = ({
+  resumeFormTitle,
+  setResumes,
+  firebaseKey,
+  resumeCompany,
+  resumeRole,
+  resumeLocation,
+  resumeDate,
+  resumeLength,
+  resumeSkills
+}) => {
   const [resume, setResume] = useState({
-    resumeCompany: '',
-    resumeRole: '',
-    resumeLocation: '',
-    resumeDate: '',
-    resumeLength: '',
-    resumeSkills: '',
+    resumeCompany: resumeCompany || '',
+    resumeRole: resumeRole || '',
+    resumeLocation: resumeLocation || '',
+    resumeDate: resumeDate || '',
+    resumeLength: resumeLength || '',
+    resumeSkills: resumeSkills || '',
+    firebaseKey: firebaseKey || null
   });
 
   const handleProjectInputChange = (e) => {
@@ -21,7 +32,11 @@ const ResumeForm = ({ resumeFormTitle, setResumes }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addResume(resume).then((resumeArray) => setResumes(resumeArray));
+    if (resume.firebaseKey) {
+      updateResume(resume).then((resumeArray) => setResumes(resumeArray));
+    } else {
+      addResume(resume).then((resumeArray) => setResumes(resumeArray));
+    }
   };
 
   return (
@@ -96,7 +111,14 @@ const ResumeForm = ({ resumeFormTitle, setResumes }) => {
 
 ResumeForm.propTypes = {
   resumeFormTitle: PropTypes.string.isRequired,
-  setResumes: PropTypes.func
+  setResumes: PropTypes.func,
+  firebaseKey: PropTypes.string,
+  resumeCompany: PropTypes.string,
+  resumeRole: PropTypes.string,
+  resumeLocation: PropTypes.string,
+  resumeDate: PropTypes.string,
+  resumeLength: PropTypes.string,
+  resumeSkills: PropTypes.string
 };
 
 export default ResumeForm;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
+import NavBar from '../components/NavBarCardComponent';
 import ProjectsForm from '../forms/ProjectsForm';
 import TechForm from '../forms/TechnologiesForm';
 import BioForm from '../forms/BioForm';
@@ -38,7 +39,11 @@ function App() {
 
   return (
     <div className='App'>
-      <BioForm bioFormTitle="Add Bio"/>
+      <NavBar/>
+      <BioForm
+      bioFormTitle="Add Bio"
+      setBios={setBios}
+      />
       <hr/>
       {bios.map((bioInfo) => (
         <BioCards key={bioInfo.firebaseKey}
@@ -52,7 +57,10 @@ function App() {
           setBios={setBios}
         />
       ))}
-      <ContactForm contactFormTitle="Contact Honey-Rae"/>
+      <ContactForm
+      contactFormTitle="Contact Honey-Rae"
+      setContacts={setContacts}
+      />
       <hr/>
       {contacts.map((contactInfo) => (
         <ContactCards key={contactInfo.firebaseKey}
@@ -78,11 +86,14 @@ function App() {
         projectLink={projectInfo.projectLink}
         projectDate={projectInfo.projectDate}
         projectAuthors={projectInfo.projectAuthors}
-        projectTech={projectInfo.projectAuthors}
+        projectTech={projectInfo.projectTech}
         setProjects={setProjects}
         />
       ))}
-      <ResumeForm resumeFormTitle="Add Resume"/>
+      <ResumeForm
+      resumeFormTitle="Add Resume"
+      setResumes={setResumes}
+      />
       <hr/>
       {resumes.map((resumeInfo) => (
         <ResumeCards key={resumeInfo.firebaseKey}
@@ -96,12 +107,15 @@ function App() {
         setResumes={setResumes}
         />
       ))}
-      <ReviewForm reviewFormTitle="Review Honey-Rae"/>
+      <ReviewForm
+      reviewFormTitle="Review Honey-Rae"
+      setReviews={setReviews}
+      />
       <hr/>
       {reviews.map((reviewInfo) => (
         <ReviewCards key={reviewInfo.firebaseKey}
         firebaseKey={reviewInfo.firebaseKey}
-        reviewerName={reviewInfo.reviewInfo}
+        reviewerName={reviewInfo.reviewerName}
         reviewerCompany={reviewInfo.reviewerCompany}
         reviewerRole={reviewInfo.reviewerRole}
         reviewerLocation={reviewInfo.reviewerLocation}
@@ -110,7 +124,10 @@ function App() {
         setReviews={setReviews}
         />
       ))}
-      <TechForm technologiesFormTitle="Add Technology"/>
+      <TechForm
+      technologiesFormTitle="Add Technology"
+      setTechnologies={setTechnologies}
+      />
       <hr/>
       {technologies.map((techInfo) => (
         <TechCards key={techInfo.firebaseKey}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   Button,
@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { deleteTech } from '../helpers/data/TechnologiesData';
+import TechForm from '../forms/TechnologiesForm';
 
 const TechCards = ({
   firebaseKey,
@@ -20,9 +21,20 @@ const TechCards = ({
   techDescription,
   setTechnologies
 }) => {
-  const handleClick = () => {
-    deleteTech(firebaseKey)
-      .then((techArray) => setTechnologies(techArray));
+  const [editingTech, setEditingTech] = useState(false);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'delete':
+        deleteTech(firebaseKey)
+          .then((techArray) => setTechnologies(techArray));
+        break;
+      case 'edit':
+        setEditingTech((prevState) => !prevState);
+        break;
+      default:
+        console.warn('Nothing selected');
+    }
   };
   return (
     <Card>
@@ -32,7 +44,19 @@ const TechCards = ({
         <CardSubtitle tag="h6" className="mb-2 text-muted">{techCategory}</CardSubtitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{techDate}</CardSubtitle>
         <CardText>{techDescription}</CardText>
-        <Button onClick={handleClick}>Button</Button>
+        <Button onClick={() => handleClick('delete')}>Delete</Button>
+        <Button onClick={() => handleClick('edit')}>
+          {editingTech ? 'Close Form' : 'Edit Tech'}
+        </Button>
+          {editingTech && <TechForm
+          technologiesFormTitle='Edit Tech'
+          setTechnologies={setTechnologies}
+          firebaseKey={firebaseKey}
+          techImage={techImage}
+          techCategory={techCategory}
+          techDate={techDate}
+          techDescription={techDescription}
+          />}
       </CardBody>
     </Card>
   );

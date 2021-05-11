@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   Button,
@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { deleteBio } from '../helpers/data/BioData';
+import BioForm from '../forms/BioForm';
 
 const BioCards = ({
   firebaseKey,
@@ -21,10 +22,22 @@ const BioCards = ({
   bioDate,
   setBios
 }) => {
-  const handleClick = () => {
-    deleteBio(firebaseKey)
-      .then((bioArray) => setBios(bioArray));
+  const [editingBios, setEditingBios] = useState(false);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'delete':
+        deleteBio(firebaseKey)
+          .then((bioArray) => setBios(bioArray));
+        break;
+      case 'edit':
+        setEditingBios((prevState) => !prevState);
+        break;
+      default:
+        console.warn('Nothing selected');
+    }
   };
+
   return (
     <Card>
       <CardImg top width="100%" src={bioImage} alt="Card image cap" />
@@ -34,7 +47,21 @@ const BioCards = ({
         <CardText>{bioLocation}</CardText>
         <CardText>{bioDescription}</CardText>
         <CardText>{bioDate}</CardText>
-        <Button onClick={handleClick}></Button>
+        <Button onClick={() => handleClick('delete')}>Delete Bio</Button>
+        <Button onClick={() => handleClick('edit')}>
+          {editingBios ? 'Close Form' : 'Edit Bio'}
+        </Button>
+        {editingBios && <BioForm
+          bioFormTitle='Edit Bio'
+          firebaseKey={firebaseKey}
+          bioImage={bioImage}
+          bioName={bioName}
+          bioTitle={bioTitle}
+          bioLocation={bioLocation}
+          bioDescription={bioDescription}
+          bioDate={bioDate}
+          setBios={setBios}
+      />}
       </CardBody>
     </Card>
   );

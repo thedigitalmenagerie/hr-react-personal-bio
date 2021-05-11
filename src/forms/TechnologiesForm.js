@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addTechnologies } from '../helpers/data/TechnologiesData';
+import { addTechnologies, updateTech } from '../helpers/data/TechnologiesData';
 
-const TechForm = ({ technologiesFormTitle, setTechnologies }) => {
+const TechForm = ({
+  technologiesFormTitle,
+  setTechnologies,
+  firebaseKey,
+  techCategory,
+  techName,
+  techDescription,
+  techImage,
+  techDate
+}) => {
   const [tech, setTech] = useState({
-    techCategory: '',
-    techName: '',
-    techDescription: '',
-    techImage: '',
-    techDate: '',
+    techCategory: techCategory || '',
+    techName: techName || '',
+    techDescription: techDescription || '',
+    techImage: techImage || '',
+    techDate: techDate || '',
+    firebaseKey: firebaseKey || null
   });
 
   const handleProjectInputChange = (e) => {
@@ -20,7 +30,11 @@ const TechForm = ({ technologiesFormTitle, setTechnologies }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTechnologies(tech).then((techArray) => setTechnologies(techArray));
+    if (tech.firebaseKey) {
+      updateTech(tech).then((techArray) => setTechnologies(techArray));
+    } else {
+      addTechnologies(tech).then((techArray) => setTechnologies(techArray));
+    }
   };
 
   return (
@@ -86,7 +100,13 @@ const TechForm = ({ technologiesFormTitle, setTechnologies }) => {
 
 TechForm.propTypes = {
   technologiesFormTitle: PropTypes.string.isRequired,
-  setTechnologies: PropTypes.func
+  setTechnologies: PropTypes.func,
+  firebaseKey: PropTypes.string,
+  techCategory: PropTypes.string,
+  techName: PropTypes.string,
+  techDescription: PropTypes.string,
+  techImage: PropTypes.string,
+  techDate: PropTypes.string,
 };
 
 export default TechForm;

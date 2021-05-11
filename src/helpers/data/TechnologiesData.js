@@ -27,7 +27,7 @@ const deleteTech = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const updateTech = (techs) => new Promise((resolve, reject) => {
-  axios.patch(`${DBURL}/reviews/${techs.firebaseKey}.json`, techs)
+  axios.patch(`${DBURL}/technologies/${techs.firebaseKey}.json`, techs)
     .then(() => getTechnologies().then(resolve))
     .catch((error) => reject(error));
 });

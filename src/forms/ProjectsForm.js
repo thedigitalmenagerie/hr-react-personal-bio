@@ -111,7 +111,7 @@ const ProjectsForm = ({
 
 ProjectsForm.propTypes = {
   projectsFormTitle: PropTypes.string.isRequired,
-  setProjects: PropTypes.func.isRequired,
+  setProjects: PropTypes.func,
   firebaseKey: PropTypes.string,
   projectName: PropTypes.string,
   projectImage: PropTypes.string,

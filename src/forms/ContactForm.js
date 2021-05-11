@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addContact } from '../helpers/data/ContactData';
+import { addContact, updateContacts } from '../helpers/data/ContactData';
 
-const ContactForm = ({ contactFormTitle, setContacts }) => {
+const ContactForm = ({
+  contactFormTitle,
+  setContacts,
+  firebaseKey,
+  contactName,
+  contactEmail,
+  contactPhone,
+  contactDate,
+  contactReason
+}) => {
   const [contact, setContact] = useState({
-    contactName: '',
-    contactEmail: '',
-    contactPhone: '',
-    contactDate: '',
-    contactReason: ''
+    contactName: contactName || '',
+    contactEmail: contactEmail || '',
+    contactPhone: contactPhone || '',
+    contactDate: contactDate || '',
+    contactReason: contactReason || '',
+    firebaseKey: firebaseKey || null
   });
 
   const handleProjectInputChange = (e) => {
@@ -20,7 +30,11 @@ const ContactForm = ({ contactFormTitle, setContacts }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addContact(contact).then((contactsArray) => setContacts(contactsArray));
+    if (contact.firebaseKey) {
+      updateContacts(contact).then((contactsArray) => setContacts(contactsArray));
+    } else {
+      addContact(contact).then((contactsArray) => setContacts(contactsArray));
+    }
   };
 
   return (
@@ -86,7 +100,13 @@ const ContactForm = ({ contactFormTitle, setContacts }) => {
 
 ContactForm.propTypes = {
   contactFormTitle: PropTypes.string.isRequired,
-  setContacts: PropTypes.func
+  setContacts: PropTypes.func,
+  firebaseKey: PropTypes.string,
+  contactName: PropTypes.string,
+  contactEmail: PropTypes.string,
+  contactPhone: PropTypes.string,
+  contactDate: PropTypes.string,
+  contactReason: PropTypes.string
 };
 
 export default ContactForm;

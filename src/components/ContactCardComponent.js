@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   Button,
@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { deleteContacts } from '../helpers/data/ContactData';
+import ContactForm from '../forms/ContactForm';
 
 const ContactCards = ({
   firebaseKey,
@@ -19,9 +20,20 @@ const ContactCards = ({
   contactReason,
   setContacts
 }) => {
-  const handleClick = () => {
-    deleteContacts(firebaseKey)
-      .then((contactsArray) => setContacts(contactsArray));
+  const [editingContacts, setEditingContacts] = useState(false);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'delete':
+        deleteContacts(firebaseKey)
+          .then((contactsArray) => setContacts(contactsArray));
+        break;
+      case 'edit':
+        setEditingContacts((prevState) => !prevState);
+        break;
+      default:
+        console.warn('Nothing selected');
+    }
   };
 
   return (
@@ -32,7 +44,20 @@ const ContactCards = ({
         <CardSubtitle tag="h6" className="mb-2 text-muted">{contactPhone}</CardSubtitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{contactDate}</CardSubtitle>
         <CardText>{contactReason}</CardText>
-        <Button onClick={handleClick}>Button</Button>
+        <Button onClick={() => handleClick('delete')}>Delete</Button>
+        <Button onClick={() => handleClick('edit')}>
+          {editingContacts ? 'Close Form' : 'Edit Contacts'}
+        </Button>
+          {editingContacts && <ContactForm
+          contactFormTitle='Edit Contact'
+          firebaseKey={firebaseKey}
+          setContacts={setContacts}
+          contactName={contactName}
+          contactEmail={contactEmail}
+          contactPhone={contactPhone}
+          contactDate={contactDate}
+          contactReason={contactReason}
+          />}
       </CardBody>
     </Card>
   );
