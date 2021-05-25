@@ -30,7 +30,6 @@ export default function TechnologiesView() {
             </div>
         }
       </div>
-      <hr/>
       {technologies.map((techInfo) => (
         <TechCards
         key={techInfo.firebaseKey}

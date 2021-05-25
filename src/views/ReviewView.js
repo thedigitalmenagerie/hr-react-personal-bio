@@ -30,7 +30,6 @@ export default function ReviewView() {
             </div>
         }
       </div>
-      <hr/>
       {reviews.map((reviewInfo) => (
         <ReviewCards
           key={reviewInfo.firebaseKey}

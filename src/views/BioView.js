@@ -29,7 +29,6 @@ export default function BioView() {
             </div>
         }
       </div>
-      <hr/>
       {bios.map((bioInfo) => (
         <BioCards
           key={bioInfo.firebaseKey}

@@ -3,14 +3,20 @@ import {
   Card,
   Button,
   CardImg,
-  CardBody,
   CardTitle,
   CardSubtitle,
-  CardText
+  CardText,
+  CardLink,
+  CardFooter,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import GitHub from '../assets/gitHub.png';
+import Instagram from '../assets/instagram.png';
+import LinkedIn from '../assets/linkedin.png';
+import Twitter from '../assets/twitter.png';
 import { deleteBio } from '../helpers/data/BioData';
 import BioForm from '../forms/BioForm';
+import './cstyles/BioComponent.scss';
 
 const BioCards = ({
   firebaseKey,
@@ -39,31 +45,41 @@ const BioCards = ({
   };
 
   return (
-    <Card>
-      <CardImg top width="100%" src={bioImage} alt="Card image cap" />
-      <CardBody>
-        <CardTitle tag="h5">{bioName}</CardTitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{bioTitle}</CardSubtitle>
-        <CardText>{bioLocation}</CardText>
-        <CardText>{bioDescription}</CardText>
-        <CardText>{bioDate}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete Bio</Button>
-        <Button onClick={() => handleClick('edit')}>
-          {editingBios ? 'Close Form' : 'Edit Bio'}
-        </Button>
-        {editingBios && <BioForm
-          bioFormTitle='Edit Bio'
-          firebaseKey={firebaseKey}
-          bioImage={bioImage}
-          bioName={bioName}
-          bioTitle={bioTitle}
-          bioLocation={bioLocation}
-          bioDescription={bioDescription}
-          bioDate={bioDate}
-          setBios={setBios}
-      />}
-      </CardBody>
-    </Card>
+    <div className="bioContainer">
+      <Card className= "bioLeft">
+        <div className="row no-gutters">
+          <div className="col-auto">
+      <CardImg className="bioImg" src={bioImage} alt="Honey-Rae Swan" />
+          <CardTitle tag="h5">{bioName}</CardTitle>
+          <CardText>{bioLocation}</CardText>
+            <CardLink className="outerLink" href="https://github.com/thedigitalmenagerie"><CardImg className="linkImg" src={GitHub} ></CardImg></CardLink>
+            <CardLink className="outerLink" href="https://www.linkedin.com/in/honeyraeswan/"><CardImg className="linkImg" src={LinkedIn} ></CardImg></CardLink>
+            <CardLink className="outerLink" href=""><CardImg className="linkImg" href="" src={Twitter} ></CardImg></CardLink>
+            <CardLink className="outerLink" href=""><CardImg className="linkImg" href="" src-={Instagram} ></CardImg></CardLink>
+          <CardFooter>Last Updated: {bioDate}</CardFooter>
+          </div>
+          <div className="col">
+            {editingBios && <BioForm
+              bioFormTitle='Edit Bio'
+              firebaseKey={firebaseKey}
+              bioImage={bioImage}
+              bioName={bioName}
+              bioTitle={bioTitle}
+              bioLocation={bioLocation}
+              bioDescription={bioDescription}
+              bioDate={bioDate}
+              setBios={setBios}
+            />}
+          <CardSubtitle tag="h6" className="mb-2 text-muted">{bioTitle}</CardSubtitle>
+          <CardText >{bioDescription}</CardText>
+          <Button onClick={() => handleClick('delete')}>Delete Bio</Button>
+          <Button onClick={() => handleClick('edit')}>
+            {editingBios ? 'Close Form' : 'Edit Bio'}
+          </Button>
+        </div>
+        </div>
+      </Card>
+    </div>
   );
 };
 

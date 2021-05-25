@@ -30,8 +30,6 @@ export default function ContactView() {
             </div>
         }
       </div>
-
-      <hr/>
       {contacts.map((contactInfo) => (
         <ContactCards
         key={contactInfo.firebaseKey}

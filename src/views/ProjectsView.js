@@ -29,7 +29,6 @@ export default function ProjectsView() {
              </div>
         }
       </div>
-      <hr/>
       {projects.map((projectInfo) => (
         <ProjectCards
           key={projectInfo.firebaseKey}

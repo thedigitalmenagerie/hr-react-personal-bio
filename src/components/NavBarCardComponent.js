@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
+  Button,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -8,8 +10,11 @@ import {
   Nav,
   NavItem,
 } from 'reactstrap';
+import { signInUser, signOutUser } from '../helpers/Authorization';
+import logoOnly from '../assets/logoOnly.png';
+import './cstyles/NavBarComponent.scss';
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -18,7 +23,7 @@ const NavBar = () => {
     <div>
       <Navbar id="Navbar" light expand="md">
         <NavbarBrand>
-           <Link className="nav-link" to="/">Honey-Rae Elizabeth Swan</Link>
+           <Link className="nav-link" to="/"><img id="homeNavLogo" src={logoOnly}></img></Link>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -43,9 +48,23 @@ const NavBar = () => {
          </NavItem>
         </Nav>
         </Collapse>
+        {
+            user !== null
+            && <NavItem id="authButtons">
+              {
+                user
+                  ? <Button id="signIn" onClick={signOutUser}> Sign Out </Button>
+                  : <Button id="signOut" onClick={signInUser}> Sign In </Button>
+              }
+            </NavItem>
+          }
       </Navbar>
     </div>
   );
+};
+
+NavBar.propTypes = {
+  user: PropTypes.any
 };
 
 export default NavBar;
