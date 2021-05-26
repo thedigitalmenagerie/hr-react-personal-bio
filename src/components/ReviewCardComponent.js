@@ -12,21 +12,16 @@ import { deleteReview } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
 
 const ReviewCards = ({
-  firebaseKey,
-  reviewerName,
-  reviewerCompany,
-  reviewerRole,
-  reviewerLocation,
-  reviewerDate,
-  reviewerDescription,
+  admin,
+  reviews,
   setReviews
 }) => {
   const [editingReview, setEditingReview] = useState(false);
 
-  const handleClick = (type) => {
+  const handleClick = (fbKey, type) => {
     switch (type) {
       case 'delete':
-        deleteReview(firebaseKey)
+        deleteReview(fbKey)
           .then((reviewArray) => setReviews(reviewArray));
         break;
       case 'edit':
@@ -37,42 +32,36 @@ const ReviewCards = ({
     }
   };
   return (
-    <Card>
+    <div className="reviewContainer">
+    {reviews.map((review) => (
+          <Card key={review.firebaseKey}>
       <CardBody>
-        <CardTitle tag="h5">{reviewerName}</CardTitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{reviewerCompany}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{reviewerRole}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{reviewerLocation}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{reviewerDate}</CardSubtitle>
-        <CardText>{reviewerDescription}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete Review</Button>
-        <Button onClick={() => handleClick('edit')}>
+        <CardTitle tag="h5">{review.reviewerName}</CardTitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerCompany}</CardSubtitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerRole}</CardSubtitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerLocation}</CardSubtitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerDate}</CardSubtitle>
+        <CardText>{review.reviewerDescription}</CardText>
+        <Button onClick={() => handleClick(review.firebaseKey, 'delete')}>Delete Review</Button>
+        <Button onClick={() => handleClick(review.firebaseKey, 'edit')}>
           {editingReview ? 'Close Form' : 'Edit Review'}
         </Button>
           {editingReview && <ReviewForm
           reviewFormTitle='Edit Review'
           setReviews={setReviews}
-          firebaseKey={firebaseKey}
-          reviewerName={reviewerName}
-          reviewerCompany={reviewerCompany}
-          reviewerRole={reviewerRole}
-          reviewerLocation={reviewerLocation}
-          reviewerDate={reviewerDate}
-          reviewerDescription={reviewerDescription}
+          admin={admin}
+          reviews={reviews}
           />}
       </CardBody>
     </Card>
+    ))}
+    </div>
   );
 };
 
 ReviewCards.propTypes = {
-  firebaseKey: PropTypes.string.isRequired,
-  reviewerName: PropTypes.string.isRequired,
-  reviewerCompany: PropTypes.string.isRequired,
-  reviewerRole: PropTypes.string.isRequired,
-  reviewerLocation: PropTypes.string.isRequired,
-  reviewerDate: PropTypes.string.isRequired,
-  reviewerDescription: PropTypes.string.isRequired,
+  admin: PropTypes.any,
+  reviews: PropTypes.any,
   setReviews: PropTypes.func
 };
 

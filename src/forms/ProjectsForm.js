@@ -1,30 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { addProjects, updateProjects } from '../helpers/data/ProjectsData';
+import './fStyles/ProjectForm.scss';
 
 const ProjectsForm = ({
   projectsFormTitle,
+  projects,
   setProjects,
-  firebaseKey,
-  projectName,
-  projectImage,
-  projectLink,
-  projectDate,
-  projectAuthors,
-  projectTech
 }) => {
-  const [project, setProject] = useState({
-    projectName: projectName || '',
-    projectImage: projectImage || '',
-    projectLink: projectLink || '',
-    projectDate: projectDate || '',
-    projectAuthors: projectAuthors || '',
-    projectTech: projectTech || '',
-    firebaseKey: firebaseKey || null
-  });
-
   const handleProjectInputChange = (e) => {
-    setProject((prevState) => ({
+    setProjects((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -32,10 +17,10 @@ const ProjectsForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (project.firebaseKey) {
-      updateProjects(project).then((projectsArray) => setProjects(projectsArray));
+    if (projects.firebaseKey) {
+      updateProjects(projects).then((projectsArray) => setProjects(projectsArray));
     } else {
-      addProjects(project).then((projectsArray) => setProjects(projectsArray));
+      addProjects(projects).then((projectsArray) => setProjects(projectsArray));
     }
   };
 
@@ -53,7 +38,7 @@ const ProjectsForm = ({
             name='projectName'
             type='text'
             placeholder='Project Name'
-            value={project.projectName}
+            value={projects.projectName}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -62,7 +47,7 @@ const ProjectsForm = ({
             name='projectImage'
             type='text'
             placeholder='Project Image URL'
-            value={project.projectImage}
+            value={projects.projectImage}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -71,7 +56,7 @@ const ProjectsForm = ({
             name='projectLink'
             type='text'
             placeholder='Project Link'
-            value={project.projectLink}
+            value={projects.projectLink}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -80,7 +65,7 @@ const ProjectsForm = ({
             name='projectDate'
             type='text'
             placeholder='Project Date'
-            value={project.projectDate}
+            value={projects.projectDate}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -89,7 +74,7 @@ const ProjectsForm = ({
             name='projectAuthors'
             type='text'
             placeholder='Project Authors'
-            value={project.projectAuthors}
+            value={projects.projectAuthors}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -98,11 +83,11 @@ const ProjectsForm = ({
             name='projectTech'
             type='text'
             placeholder='Project Tech Used'
-            value={project.projectTech}
+            value={projects.projectTech}
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Add Project</button>
+          <button id="submitProject" type="submit">Add Project</button>
         </form>
       </div>
     </>
@@ -111,14 +96,9 @@ const ProjectsForm = ({
 
 ProjectsForm.propTypes = {
   projectsFormTitle: PropTypes.string.isRequired,
-  setProjects: PropTypes.func,
-  firebaseKey: PropTypes.string,
-  projectName: PropTypes.string,
-  projectImage: PropTypes.string,
-  projectLink: PropTypes.string,
-  projectDate: PropTypes.string,
-  projectAuthors: PropTypes.string,
-  projectTech: PropTypes.string
+  admin: PropTypes.any,
+  projects: PropTypes.any,
+  setProjects: PropTypes.func
 };
 
 export default ProjectsForm;

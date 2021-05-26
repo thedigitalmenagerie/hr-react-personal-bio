@@ -1,28 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { addTechnologies, updateTech } from '../helpers/data/TechnologiesData';
 
 const TechForm = ({
   technologiesFormTitle,
   setTechnologies,
-  firebaseKey,
-  techCategory,
-  techName,
-  techDescription,
-  techImage,
-  techDate
+  technologies,
 }) => {
-  const [tech, setTech] = useState({
-    techCategory: techCategory || '',
-    techName: techName || '',
-    techDescription: techDescription || '',
-    techImage: techImage || '',
-    techDate: techDate || '',
-    firebaseKey: firebaseKey || null
-  });
-
   const handleProjectInputChange = (e) => {
-    setTech((prevState) => ({
+    setTechnologies((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -30,10 +16,10 @@ const TechForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (tech.firebaseKey) {
-      updateTech(tech).then((techArray) => setTechnologies(techArray));
+    if (technologies.firebaseKey) {
+      updateTech(technologies).then((techArray) => setTechnologies(techArray));
     } else {
-      addTechnologies(tech).then((techArray) => setTechnologies(techArray));
+      addTechnologies(technologies).then((techArray) => setTechnologies(techArray));
     }
   };
 
@@ -51,7 +37,7 @@ const TechForm = ({
             name='techCategory'
             type='text'
             placeholder='Category'
-            value={tech.techCategory}
+            value={technologies.techCategory}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -60,7 +46,7 @@ const TechForm = ({
             name='techName'
             type='text'
             placeholder='Name'
-            value={tech.techName}
+            value={technologies.techName}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -69,7 +55,7 @@ const TechForm = ({
             name='techDescription'
             type='text'
             placeholder='Description'
-            value={tech.techDescription}
+            value={technologies.techDescription}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -78,7 +64,7 @@ const TechForm = ({
             name='techImage'
             type='text'
             placeholder='Image URL'
-            value={tech.techImage}
+            value={technologies.techImage}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -87,7 +73,7 @@ const TechForm = ({
             name='techDate'
             type='text'
             placeholder='Date'
-            value={tech.techDate}
+            value={technologies.techDate}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -101,12 +87,8 @@ const TechForm = ({
 TechForm.propTypes = {
   technologiesFormTitle: PropTypes.string.isRequired,
   setTechnologies: PropTypes.func,
-  firebaseKey: PropTypes.string,
-  techCategory: PropTypes.string,
-  techName: PropTypes.string,
-  techDescription: PropTypes.string,
-  techImage: PropTypes.string,
-  techDate: PropTypes.string,
+  technologies: PropTypes.any,
+  admin: PropTypes.any
 };
 
 export default TechForm;

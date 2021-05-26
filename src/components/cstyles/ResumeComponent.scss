@@ -1,0 +1,18 @@
+.resumeContainer {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.resumeCardHolder {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#resumeCard {
+  width: 250px;
+  margin: 75px;
+}

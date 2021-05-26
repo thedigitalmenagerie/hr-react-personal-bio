@@ -1,0 +1,27 @@
+.projectsContainer {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.projectCardHolder {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.projectCards {
+  width: 400px;
+  margin: 25px;
+}
+
+#deleteProject {
+  background-color: #4B240B;
+}
+
+#editProject {
+  background-color: #4B240B;
+}

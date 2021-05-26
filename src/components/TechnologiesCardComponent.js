@@ -11,22 +11,19 @@ import {
 import PropTypes from 'prop-types';
 import { deleteTech } from '../helpers/data/TechnologiesData';
 import TechForm from '../forms/TechnologiesForm';
+import './cstyles/TechnologiesComponent.scss';
 
 const TechCards = ({
-  firebaseKey,
-  techImage,
-  techName,
-  techCategory,
-  techDate,
-  techDescription,
+  admin,
+  technologies,
   setTechnologies
 }) => {
   const [editingTech, setEditingTech] = useState(false);
 
-  const handleClick = (type) => {
+  const handleClick = (fbKey, type) => {
     switch (type) {
       case 'delete':
-        deleteTech(firebaseKey)
+        deleteTech(fbKey)
           .then((techArray) => setTechnologies(techArray));
         break;
       case 'edit':
@@ -37,38 +34,43 @@ const TechCards = ({
     }
   };
   return (
-    <Card>
-      <CardImg top width="100%" src={techImage} alt="Card image cap" />
+    <div className="techContainer">
+      <div className="techCardHolder">
+              {technologies.map((tech) => (
+      <Card id="techCards" key={tech.firebaseKey}>
+      <CardImg top width="100%" src={tech.techImage} alt="Card image cap" />
       <CardBody>
-        <CardTitle tag="h5">{techName}</CardTitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{techCategory}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{techDate}</CardSubtitle>
-        <CardText>{techDescription}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete</Button>
-        <Button onClick={() => handleClick('edit')}>
-          {editingTech ? 'Close Form' : 'Edit Tech'}
-        </Button>
+        <CardTitle tag="h5">{tech.techName}</CardTitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{tech.techCategory}</CardSubtitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{tech.techDate}</CardSubtitle>
+        <CardText>{tech.techDescription}</CardText>
           {editingTech && <TechForm
           technologiesFormTitle='Edit Tech'
           setTechnologies={setTechnologies}
-          firebaseKey={firebaseKey}
-          techImage={techImage}
-          techCategory={techCategory}
-          techDate={techDate}
-          techDescription={techDescription}
+          admin={admin}
+          technologies={technologies}
           />}
+                {
+              admin !== null
+              && <div>
+                        <Button onClick={() => handleClick(tech.firebaseKey, 'delete')}>Delete</Button>
+        <Button onClick={() => handleClick(tech.firebaseKey, 'edit')}>
+          {editingTech ? 'Close Form' : 'Edit Tech'}
+        </Button>
+              </div>
+              }
       </CardBody>
     </Card>
+              ))}
+      </div>
+
+    </div>
   );
 };
 
 TechCards.propTypes = {
-  firebaseKey: PropTypes.string.isRequired,
-  techImage: PropTypes.string.isRequired,
-  techName: PropTypes.string.isRequired,
-  techCategory: PropTypes.string.isRequired,
-  techDate: PropTypes.string.isRequired,
-  techDescription: PropTypes.string.isRequired,
+  admin: PropTypes.any,
+  technologies: PropTypes.any,
   setTechnologies: PropTypes.func
 };
 

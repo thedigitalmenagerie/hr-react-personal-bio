@@ -10,23 +10,19 @@ import {
 import PropTypes from 'prop-types';
 import { deleteResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
+import './cstyles/ResumeComponent.scss';
 
 const ResumeCards = ({
-  firebaseKey,
-  resumeCompany,
-  resumeLocation,
-  resumeDate,
-  resumeLength,
-  resumeRole,
-  resumeSkills,
+  admin,
+  resumes,
   setResumes
 }) => {
   const [editingResume, setEditingResume] = useState(false);
 
-  const handleClick = (type) => {
+  const handleClick = (fbKey, type) => {
     switch (type) {
       case 'delete':
-        deleteResume(firebaseKey)
+        deleteResume(fbKey)
           .then((resumeArray) => setResumes(resumeArray));
         break;
       case 'edit':
@@ -38,42 +34,46 @@ const ResumeCards = ({
   };
 
   return (
-    <Card>
+    <div className="resumeContainer">
+      <div className="resumeCardHolder">
+        {resumes?.map((resume) => (
+              <Card id="resumeCard" key={resume.firebaseKey}>
       <CardBody>
-        <CardTitle tag="h5">{resumeCompany}</CardTitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{resumeLocation}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{resumeDate}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{resumeLength}</CardSubtitle>
-        <CardText>{resumeRole}</CardText>
-        <CardText>{resumeSkills}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete</Button>
-        <Button onClick={() => handleClick('edit')}>
-          {editingResume ? 'Close Form' : 'Edite Resume'}
-        </Button>
+        <CardTitle id="cardTitle" tag="h5">{resume.resumeCompany}</CardTitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{resume.resumeLocation}</CardSubtitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{resume.resumeDate}</CardSubtitle>
+        <CardSubtitle tag="h6" className="mb-2 text-muted">{resume.resumeLength}</CardSubtitle>
+        <CardText>{resume.resumeRole}</CardText>
+        <CardText>{resume.resumeSkills}</CardText>
+
           {editingResume && <ResumeForm
           resumeFormTitle='Edit Resume'
+          admin={admin}
+          resumes={resumes}
           setResumes={setResumes}
-          firebaseKey={firebaseKey}
-          resumeCompany={resumeCompany}
-          resumeLocation={resumeLocation}
-          resumeDate={resumeDate}
-          resumeLength={resumeLength}
-          resumeRole={resumeRole}
-          resumeSkills={resumeSkills}
           />}
+                {
+              admin !== null
+              && <div>
+                        <Button onClick={() => handleClick(resume.firebaseKey, 'delete')}>Delete</Button>
+        <Button onClick={() => handleClick(resume.firebaseKey, 'edit')}>
+          {editingResume ? 'Close Form' : 'Edite Resume'}
+        </Button>
+              </div>
+              }
       </CardBody>
     </Card>
+        ))}
+
+      </div>
+    </div>
+
   );
 };
 
 ResumeCards.propTypes = {
-  firebaseKey: PropTypes.string.isRequired,
-  resumeCompany: PropTypes.string.isRequired,
-  resumeLocation: PropTypes.string.isRequired,
-  resumeDate: PropTypes.string.isRequired,
-  resumeLength: PropTypes.string.isRequired,
-  resumeRole: PropTypes.string.isRequired,
-  resumeSkills: PropTypes.string.isRequired,
+  admin: PropTypes.any,
+  resumes: PropTypes.any,
   setResumes: PropTypes.func
 };
 

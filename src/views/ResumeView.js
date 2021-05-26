@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { getResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
 import ResumeCards from '../components/ResumeCardComponent';
 
-export default function ResumeView() {
+export default function ResumeView({ admin }) {
   const [resumes, setResumes] = useState([]);
   const [showAddResume, setAddResume] = useState(false);
 
@@ -18,30 +19,34 @@ export default function ResumeView() {
   return (
     <div>
       <div>
-        {!showAddResume
-          ? <Button onClick={handleClick}>Add Resume</Button>
-          : <div>
+      {
+          admin !== null
+          && <div>
+            {!showAddResume
+              ? <Button onClick={handleClick}>Add Resume</Button>
+              : <div>
               <Button onClick={handleClick}>Close Form</Button>
               <ResumeForm
                 resumeFormTitle="Add Resume"
+                admin={admin}
+                resumes={resumes}
                 setResumes={setResumes}
               />
             </div>
         }
+          </div>
+        }
+
       </div>
-      {resumes?.map((resumeInfo) => (
         <ResumeCards
-          key={resumeInfo.firebaseKey}
-          firebaseKey={resumeInfo.firebaseKey}
-          resumeCompany={resumeInfo.resumeCompany}
-          resumeLocation={resumeInfo.resumeLocation}
-          resumeDate={resumeInfo.resumeDate}
-          resumeLength={resumeInfo.resumeLength}
-          resumeRole={resumeInfo.resumeLength}
-          resumeSkills={resumeInfo.resumeSkills}
+          admin={admin}
+          resumes={resumes}
           setResumes={setResumes}
         />
-      ))}
     </div>
   );
 }
+
+ResumeView.propTypes = {
+  admin: PropTypes.any
+};

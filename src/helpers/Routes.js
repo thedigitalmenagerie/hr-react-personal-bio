@@ -33,6 +33,7 @@ export default function Routes({
         <Route exact path='/biography'
         component={() => <BioView
         admin={admin}
+        user={user}
         />}
         admin={admin}
         user={user}
@@ -46,10 +47,20 @@ export default function Routes({
           admin={admin}
         />
         <Route exact path='/projects'
-        component={ProjectsView}
+        component={() => <ProjectsView
+        user={user}
+        admin={admin}
+        />}
+        user={user}
+        admin={admin}
         />
         <Route exact path='/resume'
-        component={ResumeView}
+        component={() => <ResumeView
+        user={user}
+        admin={admin}
+        />}
+        user={user}
+        admin={admin}
         />
         <PrivateRoute exact path='/reviews'
         component={() => <ReviewView
@@ -60,7 +71,12 @@ export default function Routes({
         admin={admin}
         />
         <Route exact path='/technologies'
-        component={TechnologiesView}
+        component={() => <TechnologiesView
+        user={user}
+        admin={admin}
+        />}
+        user={user}
+        admin={admin}
         />
       </Switch>
     </div>

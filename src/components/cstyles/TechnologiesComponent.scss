@@ -1,0 +1,26 @@
+.techContainer {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.techCardHolder {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#techCards {
+  width: 800px;
+  margin: 75px;
+}
+
+#deleteTech {
+  background-color: #4B240B;
+}
+
+#editTech {
+  background-color: #4B240B;
+}

@@ -1,30 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { addReview, updateReview } from '../helpers/data/ReviewData';
+import './fStyles/ReviewForm.scss';
 
 const ReviewForm = ({
   reviewFormTitle,
+  reviews,
   setReviews,
-  firebasKey,
-  reviewerName,
-  reviewerCompany,
-  reviewerRole,
-  reviewerLocation,
-  reviewerDescription,
-  reviewerDate
 }) => {
-  const [review, setReview] = useState({
-    reviewerName: reviewerName || '',
-    reviewerCompany: reviewerCompany || '',
-    reviewerRole: reviewerRole || '',
-    reviewerLocation: reviewerLocation || '',
-    reviewerDescription: reviewerDescription || '',
-    reviewerDate: reviewerDate || '',
-    firebasKey: firebasKey || null
-  });
-
   const handleProjectInputChange = (e) => {
-    setReview((prevState) => ({
+    setReviews((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -32,10 +17,10 @@ const ReviewForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (review.firebasKey) {
-      updateReview(review).then((reviewArray) => setReviews(reviewArray));
+    if (reviews.firebasKey) {
+      updateReview(reviews).then((reviewArray) => setReviews(reviewArray));
     } else {
-      addReview(review).then((reviewArray) => setReviews(reviewArray));
+      addReview(reviews).then((reviewArray) => setReviews(reviewArray));
     }
   };
 
@@ -53,7 +38,7 @@ const ReviewForm = ({
             name='reviewerName'
             type='text'
             placeholder='Your Name'
-            value={review.reviewerName}
+            value={reviews.reviewerName}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -62,7 +47,7 @@ const ReviewForm = ({
             name='reviewerCompany'
             type='text'
             placeholder='Your Company Name'
-            value={review.reviewerCompany}
+            value={reviews.reviewerCompany}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -71,7 +56,7 @@ const ReviewForm = ({
             name='reviewerRole'
             type='text'
             placeholder='Your Role'
-            value={review.reviewerRole}
+            value={reviews.reviewerRole}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -80,7 +65,7 @@ const ReviewForm = ({
             name='reviewerLocation'
             type='text'
             placeholder='Date'
-            value={review.reviewerLocation}
+            value={reviews.reviewerLocation}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -89,7 +74,7 @@ const ReviewForm = ({
             name='reviewerDescription'
             type='text'
             placeholder='Say somthing nice'
-            value={review.reviewerDescription}
+            value={reviews.reviewerDescription}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -98,11 +83,11 @@ const ReviewForm = ({
             name='reviewerDate'
             type='text'
             placeholder='Today&apos;s Date'
-            value={review.reviewerDate}
+            value={reviews.reviewerDate}
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Add Review</button>
+          <button id="submitReview" type="submit">Add Review</button>
         </form>
       </div>
     </>
@@ -111,14 +96,8 @@ const ReviewForm = ({
 
 ReviewForm.propTypes = {
   reviewFormTitle: PropTypes.string.isRequired,
+  reviews: PropTypes.any,
   setReviews: PropTypes.func,
-  firebasKey: PropTypes.string,
-  reviewerName: PropTypes.string,
-  reviewerCompany: PropTypes.string,
-  reviewerRole: PropTypes.string,
-  reviewerLocation: PropTypes.string,
-  reviewerDescription: PropTypes.string,
-  reviewerDate: PropTypes.string
 };
 
 export default ReviewForm;

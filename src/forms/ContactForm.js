@@ -78,7 +78,7 @@ const ContactForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Submit Inquiry</button>
+          <button id="submitContact" type="submit">Submit Inquiry</button>
         </form>
       </div>
     </>
