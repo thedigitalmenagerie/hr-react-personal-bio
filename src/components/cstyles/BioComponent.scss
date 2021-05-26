@@ -1,20 +1,21 @@
 .bioContainer {
  background-color: #FBE3A3;
  height: 100%;
- border: 0px;
 }
 
 .bioLeft {
   background-color: #FBE3A3;
-  border: 0px;
+  border: #FBE3A3;
 }
 
 .row {
   background-color: #FBE3A3;
+  border: #FBE3A3;
 }
 
 .col-auto {
   width: 500px;
+  color: #4B240B;
 }
 
 .bioImg {
@@ -30,4 +31,16 @@
   padding-left: 100px;
   padding-right: 100px;
   margin-left: 100px;
+  color: #4B240B;
+}
+
+#deleteBio {
+  background-color: #4B240B;
+}
+
+#editBio {
+  background-color: #4B240B;
+}
+.mb-2 {
+  color: #4B240B;
 }

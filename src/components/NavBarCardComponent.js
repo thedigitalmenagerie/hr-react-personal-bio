@@ -19,6 +19,17 @@ const NavBar = ({ user }) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const authenticated = () => (
+      <NavItem>
+        <Link className="nav-link" to="/reviews">Reviews</Link>
+      </NavItem>
+  );
+  const authenticated2 = () => (
+      <NavItem>
+        <Link className="nav-link" to="/contact">Contact</Link>
+      </NavItem>
+  );
+
   return (
     <div>
       <Navbar id="Navbar" light expand="md">
@@ -31,18 +42,14 @@ const NavBar = ({ user }) => {
           <NavItem>
             <Link className="nav-link" to="/biography">Biography</Link>
           </NavItem>
-          <NavItem>
-            <Link className="nav-link" to="/contact">Contact</Link>
-          </NavItem>
+          { user && authenticated2()}
           <NavItem>
             <Link className="nav-link" to="/projects">Projects</Link>
           </NavItem>
           <NavItem>
             <Link className="nav-link" to="/resume">Resume</Link>
           </NavItem>
-          <NavItem>
-            <Link className="nav-link" to="/reviews">Reviews</Link>
-          </NavItem>
+          { user && authenticated()}
           <NavItem>
             <Link className="nav-link" to="/technologies">Technologies</Link>
          </NavItem>
@@ -64,7 +71,7 @@ const NavBar = ({ user }) => {
 };
 
 NavBar.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any,
 };
 
 export default NavBar;

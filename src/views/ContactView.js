@@ -1,47 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { getContacts } from '../helpers/data/ContactData';
 import ContactForm from '../forms/ContactForm';
 import ContactCards from '../components/ContactCardComponent';
+import './vStyles/ContactView.scss';
 
-export default function ContactView() {
+export default function ContactView({ admin }) {
   const [contacts, setContacts] = useState([]);
-  const [showAddContactForm, setAddContactForm] = useState(false);
-
-  const handleClick = () => {
-    setAddContactForm((prevState) => !prevState);
-  };
 
   useEffect(() => {
     getContacts().then((response) => setContacts(response));
   }, []);
 
   return (
-    <div>
-      <div>
-        {!showAddContactForm
-          ? <Button onClick={handleClick}>Contact</Button>
-          : <div>
-              <Button onClick={handleClick}>Close Form</Button>
-              <ContactForm
-                contactFormTitle="Contact Honey-Rae"
-                setContacts={setContacts}
-              />
-            </div>
-        }
-      </div>
-      {contacts.map((contactInfo) => (
-        <ContactCards
-        key={contactInfo.firebaseKey}
-        firebaseKey={contactInfo.firebaseKey}
-        contactName={contactInfo.contactName}
-        contactEmail={contactInfo.contactEmail}
-        contactPhone={contactInfo.contactPhone}
-        contactDate={contactInfo.contactDate}
-        contactReason={contactInfo.contactReason}
+    <div className="contactContainer">
+       <div className="innerContainer">
+                <ContactForm
+                  contactFormTitle="Contact Honey-Rae"
+                  contacts={contacts}
+                  setContacts={setContacts}
+                />
+        </div>
+        {
+          admin !== null
+          && <ContactCards
+        admin={admin}
+        contacts={contacts}
         setContacts={setContacts}
         />
-      ))}
+        }
     </div>
   );
 }
+
+ContactView.propTypes = {
+  admin: PropTypes.any,
+};

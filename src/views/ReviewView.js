@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { getReviews } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
 import ReviewCards from '../components/ReviewCardComponent';
 
-export default function ReviewView() {
-  const [reviews, setReviews] = useState([]);
+export default function ReviewView({
+  setReviews,
+  user
+}) {
+  const [review, setReview] = useState([]);
   const [showAddReviewForm, setAddReviewForm] = useState(false);
 
   const handleClick = () => {
@@ -13,7 +17,7 @@ export default function ReviewView() {
   };
 
   useEffect(() => {
-    getReviews().then((response) => setReviews(response));
+    getReviews().then((response) => setReview(response));
   }, []);
 
   return (
@@ -24,14 +28,16 @@ export default function ReviewView() {
           : <div>
               <Button onClick={handleClick}>Close Form</Button>
               <ReviewForm
+                user={user}
                 reviewFormTitle="Review Honey-Rae"
                 setReviews={setReviews}
               />
             </div>
         }
       </div>
-      {reviews.map((reviewInfo) => (
+      {review.map((reviewInfo) => (
         <ReviewCards
+          user={user}
           key={reviewInfo.firebaseKey}
           firebaseKey={reviewInfo.firebaseKey}
           reviewerName={reviewInfo.reviewerName}
@@ -46,3 +52,9 @@ export default function ReviewView() {
     </div>
   );
 }
+
+ReviewView.propTypes = {
+  reviews: PropTypes.any,
+  setReviews: PropTypes.any,
+  user: PropTypes.any
+};

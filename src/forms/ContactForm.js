@@ -1,28 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { addContact, updateContacts } from '../helpers/data/ContactData';
+import './fStyles/ContactForm.scss';
 
 const ContactForm = ({
-  contactFormTitle,
+  contacts,
   setContacts,
-  firebaseKey,
-  contactName,
-  contactEmail,
-  contactPhone,
-  contactDate,
-  contactReason
+  contactFormTitle
 }) => {
-  const [contact, setContact] = useState({
-    contactName: contactName || '',
-    contactEmail: contactEmail || '',
-    contactPhone: contactPhone || '',
-    contactDate: contactDate || '',
-    contactReason: contactReason || '',
-    firebaseKey: firebaseKey || null
-  });
-
   const handleProjectInputChange = (e) => {
-    setContact((prevState) => ({
+    setContacts((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -30,10 +17,10 @@ const ContactForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (contact.firebaseKey) {
-      updateContacts(contact).then((contactsArray) => setContacts(contactsArray));
+    if (contacts.firebaseKey) {
+      updateContacts(contacts).then((contactsArray) => setContacts(contactsArray));
     } else {
-      addContact(contact).then((contactsArray) => setContacts(contactsArray));
+      addContact(contacts).then((contactsArray) => setContacts(contactsArray));
     }
   };
 
@@ -51,7 +38,7 @@ const ContactForm = ({
             name='contactName'
             type='text'
             placeholder='Your Name'
-            value={contact.contactName}
+            value={contacts.contactName}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -60,7 +47,7 @@ const ContactForm = ({
             name='contactEmail'
             type='text'
             placeholder='Your email'
-            value={contact.contactEmail}
+            value={contacts.contactEmail}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -69,7 +56,7 @@ const ContactForm = ({
             name='contactPhone'
             type='text'
             placeholder='Contact Phone'
-            value={contact.contactPhone}
+            value={contacts.contactPhone}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -78,7 +65,7 @@ const ContactForm = ({
             name='contactDate'
             type='text'
             placeholder='Date'
-            value={contact.contactDate}
+            value={contacts.contactDate}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -87,7 +74,7 @@ const ContactForm = ({
             name='contactReason'
             type='text'
             placeholder='Reason'
-            value={contact.contactReason}
+            value={contacts.contactReason}
             onChange={handleProjectInputChange}
           >
           </input>
@@ -100,13 +87,8 @@ const ContactForm = ({
 
 ContactForm.propTypes = {
   contactFormTitle: PropTypes.string.isRequired,
+  contacts: PropTypes.any,
   setContacts: PropTypes.func,
-  firebaseKey: PropTypes.string,
-  contactName: PropTypes.string,
-  contactEmail: PropTypes.string,
-  contactPhone: PropTypes.string,
-  contactDate: PropTypes.string,
-  contactReason: PropTypes.string
 };
 
 export default ContactForm;

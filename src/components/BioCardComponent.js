@@ -19,21 +19,16 @@ import BioForm from '../forms/BioForm';
 import './cstyles/BioComponent.scss';
 
 const BioCards = ({
-  firebaseKey,
-  bioImage,
-  bioName,
-  bioTitle,
-  bioLocation,
-  bioDescription,
-  bioDate,
-  setBios
+  admin,
+  bios,
+  setBios,
 }) => {
   const [editingBios, setEditingBios] = useState(false);
 
-  const handleClick = (type) => {
+  const handleClick = (fbKey, type) => {
     switch (type) {
       case 'delete':
-        deleteBio(firebaseKey)
+        deleteBio(fbKey)
           .then((bioArray) => setBios(bioArray));
         break;
       case 'edit':
@@ -46,51 +41,48 @@ const BioCards = ({
 
   return (
     <div className="bioContainer">
-      <Card className= "bioLeft">
+      {bios.map((bio) => (
+        <Card className= "bioLeft" key={bio.firebaseKey}>
         <div className="row no-gutters">
           <div className="col-auto">
-      <CardImg className="bioImg" src={bioImage} alt="Honey-Rae Swan" />
-          <CardTitle tag="h5">{bioName}</CardTitle>
-          <CardText>{bioLocation}</CardText>
+      <CardImg className="bioImg" src={bio.bioImage} alt="Honey-Rae Swan" />
+          <CardTitle tag="h5">{bio.bioName}</CardTitle>
+          <CardText>{bio.bioLocation}</CardText>
             <CardLink className="outerLink" href="https://github.com/thedigitalmenagerie"><CardImg className="linkImg" src={GitHub} ></CardImg></CardLink>
             <CardLink className="outerLink" href="https://www.linkedin.com/in/honeyraeswan/"><CardImg className="linkImg" src={LinkedIn} ></CardImg></CardLink>
             <CardLink className="outerLink" href=""><CardImg className="linkImg" href="" src={Twitter} ></CardImg></CardLink>
             <CardLink className="outerLink" href=""><CardImg className="linkImg" href="" src-={Instagram} ></CardImg></CardLink>
-          <CardFooter>Last Updated: {bioDate}</CardFooter>
+          <CardFooter>Last Updated: {bio.bioDate}</CardFooter>
           </div>
           <div className="col">
             {editingBios && <BioForm
               bioFormTitle='Edit Bio'
-              firebaseKey={firebaseKey}
-              bioImage={bioImage}
-              bioName={bioName}
-              bioTitle={bioTitle}
-              bioLocation={bioLocation}
-              bioDescription={bioDescription}
-              bioDate={bioDate}
+              bio={bio}
               setBios={setBios}
             />}
-          <CardSubtitle tag="h6" className="mb-2 text-muted">{bioTitle}</CardSubtitle>
-          <CardText >{bioDescription}</CardText>
-          <Button onClick={() => handleClick('delete')}>Delete Bio</Button>
-          <Button onClick={() => handleClick('edit')}>
-            {editingBios ? 'Close Form' : 'Edit Bio'}
-          </Button>
-        </div>
+          <CardSubtitle tag="h6" className="mb-2">{bio.bioTitle}</CardSubtitle>
+          <CardText >{bio.bioDescription}</CardText>
+            {
+              admin !== null
+              && <div>
+                <Button id="deleteBio" onClick={() => handleClick(bio.firebaseKey, 'delete')}>Delete Bio</Button>
+                <Button id="editBio" onClick={() => handleClick(bio.firebaseKey, 'edit')}>
+                  {editingBios ? 'Close Form' : 'Edit Bio'}
+                </Button>
+              </div>
+            }
+          </div>
         </div>
       </Card>
+      ))
+      }
     </div>
   );
 };
 
 BioCards.propTypes = {
-  firebaseKey: PropTypes.string.isRequired,
-  bioImage: PropTypes.string.isRequired,
-  bioName: PropTypes.string.isRequired,
-  bioTitle: PropTypes.string.isRequired,
-  bioLocation: PropTypes.string.isRequired,
-  bioDescription: PropTypes.string.isRequired,
-  bioDate: PropTypes.string.isRequired,
+  admin: PropTypes.any,
+  bios: PropTypes.array,
   setBios: PropTypes.func
 };
 

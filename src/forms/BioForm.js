@@ -1,28 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { addBio, updateBio } from '../helpers/data/BioData';
+import './fStyles/BioForm.scss';
 
 const BioForm = ({
-  bioFormTitle,
-  setBios,
-  firebaseKey,
-  bioName,
-  bioImage,
-  bioLocation,
-  bioDate,
-  bioTitle,
-  bioDescription,
+  bio,
+  setBio,
+  bioFormTitle
 }) => {
-  const [bio, setBio] = useState({
-    bioName: bioName || '',
-    bioImage: bioImage || '',
-    bioLocation: bioLocation || '',
-    bioDate: bioDate || '',
-    bioTitle: bioTitle || '',
-    bioDescription: bioDescription || '',
-    firebaseKey: firebaseKey || null
-  });
-
   const handleProjectInputChange = (e) => {
     setBio((prevState) => ({
       ...prevState,
@@ -33,9 +18,9 @@ const BioForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (bio.firebaseKey) {
-      updateBio(bio).then((bioArray) => setBios(bioArray));
+      updateBio(bio).then((bioArray) => setBio(bioArray));
     } else {
-      addBio(bio).then((bioArray) => setBios(bioArray));
+      addBio(bio).then((bioArray) => setBio(bioArray));
     }
   };
 
@@ -102,7 +87,7 @@ const BioForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Add Bio</button>
+          <button id="submitBio" className="sm" type="submit">Add Bio</button>
         </form>
       </div>
     </>
@@ -110,15 +95,9 @@ const BioForm = ({
 };
 
 BioForm.propTypes = {
-  bioFormTitle: PropTypes.string.isRequired,
-  setBios: PropTypes.func,
-  firebaseKey: PropTypes.string,
-  bioName: PropTypes.string,
-  bioImage: PropTypes.string,
-  bioLocation: PropTypes.string,
-  bioDate: PropTypes.string,
-  bioTitle: PropTypes.string,
-  bioDescription: PropTypes.string
+  bio: PropTypes.object,
+  setBio: PropTypes.func,
+  bioFormTitle: PropTypes.any
 };
 
 export default BioForm;

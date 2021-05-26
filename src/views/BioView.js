@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { getBio } from '../helpers/data/BioData';
 import BioForm from '../forms/BioForm';
 import BioCards from '../components/BioCardComponent';
+import './vStyles/BioView.scss';
 
-export default function BioView() {
+export default function BioView({ admin }) {
   const [bios, setBios] = useState([]);
   const [showAddBioForm, setShowAddBioForm] = useState(false);
 
@@ -16,32 +18,35 @@ export default function BioView() {
     getBio().then((response) => setBios(response));
   }, []);
   return (
-    <div>
-      <div>
-        {!showAddBioForm
-          ? <Button onClick={handleClick}>Add Bio</Button>
-          : <div>
-              <Button onClick={handleClick}>Close Form</Button>
+    <div className="bioView">
+      <div className="innerContainer">
+        {
+          admin !== null
+          && <div>
+            {!showAddBioForm
+              ? <Button id="addBio" onClick={handleClick}>Add Bio</Button>
+              : <div>
+              <Button id="closeForm" onClick={handleClick}>Close Form</Button>
               <BioForm
+                className="bioForm"
                 bioFormTitle="Add Bio"
                 setBios={setBios}
-              />
-            </div>
+                bios={bios}
+                />
+              </div>
+            }
+          </div>
         }
       </div>
-      {bios.map((bioInfo) => (
         <BioCards
-          key={bioInfo.firebaseKey}
-          firebaseKey={bioInfo.firebaseKey}
-          bioImage={bioInfo.bioImage}
-          bioName={bioInfo.bioName}
-          bioTitle={bioInfo.bioTitle}
-          bioLocation={bioInfo.bioLocation}
-          bioDescription={bioInfo.bioDescription}
-          bioDate={bioInfo.bioDate}
+          admin={admin}
+          bios={bios}
           setBios={setBios}
         />
-      ))}
     </div>
   );
 }
+
+BioView.propTypes = {
+  admin: PropTypes.any
+};

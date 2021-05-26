@@ -29,7 +29,7 @@ export default function ResumeView() {
             </div>
         }
       </div>
-      {resumes.map((resumeInfo) => (
+      {resumes?.map((resumeInfo) => (
         <ResumeCards
           key={resumeInfo.firebaseKey}
           firebaseKey={resumeInfo.firebaseKey}

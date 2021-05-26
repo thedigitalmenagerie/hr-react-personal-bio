@@ -12,20 +12,16 @@ import { deleteContacts } from '../helpers/data/ContactData';
 import ContactForm from '../forms/ContactForm';
 
 const ContactCards = ({
-  firebaseKey,
-  contactName,
-  contactEmail,
-  contactPhone,
-  contactDate,
-  contactReason,
+  admin,
+  contacts,
   setContacts
 }) => {
   const [editingContacts, setEditingContacts] = useState(false);
 
-  const handleClick = (type) => {
+  const handleClick = (fbKey, type) => {
     switch (type) {
       case 'delete':
-        deleteContacts(firebaseKey)
+        deleteContacts(fbKey)
           .then((contactsArray) => setContacts(contactsArray));
         break;
       case 'edit':
@@ -37,39 +33,42 @@ const ContactCards = ({
   };
 
   return (
-    <Card>
-      <CardBody>
-        <CardTitle tag="h5">{contactName}</CardTitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{contactEmail}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{contactPhone}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{contactDate}</CardSubtitle>
-        <CardText>{contactReason}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete</Button>
-        <Button onClick={() => handleClick('edit')}>
-          {editingContacts ? 'Close Form' : 'Edit Contacts'}
-        </Button>
-          {editingContacts && <ContactForm
-          contactFormTitle='Edit Contact'
-          firebaseKey={firebaseKey}
-          setContacts={setContacts}
-          contactName={contactName}
-          contactEmail={contactEmail}
-          contactPhone={contactPhone}
-          contactDate={contactDate}
-          contactReason={contactReason}
-          />}
+    <div className="cardContainer">
+      {contacts.map((contact) => (
+        <Card key={contact.firebaseKey}>
+          <CardBody>
+            <CardTitle tag="h5">{contact.contactName}</CardTitle>
+            <CardSubtitle tag="h6" className="mb-2 text-muted">{contact.contactEmail}</CardSubtitle>
+            <CardSubtitle tag="h6" className="mb-2 text-muted">{contact.contactPhone}</CardSubtitle>
+            <CardSubtitle tag="h6" className="mb-2 text-muted">{contact.contactDate}</CardSubtitle>
+            <CardText>{contact.contactReason}</CardText>
+              {editingContacts && <ContactForm
+              contactFormTitle='Edit Contact'
+              contacts={contacts}
+              setContacts={setContacts}
+            />
+            }
+            {
+              admin !== null
+              && <div>
+                    <Button onClick={() => handleClick(contact.firebaseKey, 'delete')}>Delete</Button>
+                    <Button onClick={() => handleClick(contact.firebaseKey, 'edit')}>
+                      {editingContacts ? 'Close Form' : 'Edit Contacts'}
+                    </Button>
+                  </div>
+            }
+
       </CardBody>
     </Card>
+      ))
+      }
+    </div>
   );
 };
 
 ContactCards.propTypes = {
-  firebaseKey: PropTypes.string.isRequired,
-  contactName: PropTypes.string.isRequired,
-  contactEmail: PropTypes.string.isRequired,
-  contactPhone: PropTypes.string.isRequired,
-  contactDate: PropTypes.string.isRequired,
-  contactReason: PropTypes.string.isRequired,
+  admin: PropTypes.any,
+  contacts: PropTypes.array,
   setContacts: PropTypes.func
 };
 

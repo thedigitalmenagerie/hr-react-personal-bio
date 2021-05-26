@@ -8,7 +8,7 @@ import Routes from '../helpers/Routes';
 
 function App() {
   const [user, setUser] = useState(null);
-  // const [admin, setAdmin] = useState(null);
+  const [admin, setAdmin] = useState(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
@@ -22,12 +22,11 @@ function App() {
         setUser(userInfoObj);
       } else if (user || user === null) {
         setUser(false);
+      } else if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
+        setAdmin(true);
+      } else if (admin || admin === null) {
+        setAdmin(false);
       }
-      // if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
-      //   setAdmin(true);
-      // } else if (admin || admin === null) {
-      //   setAdmin(false);
-      // }
     });
   }, []);
 
@@ -35,8 +34,13 @@ function App() {
     <div className='App'>
       <>
       <Router>
-        <NavBar user={user}/>
-        <Routes user={user}/>
+        <NavBar
+        user={user}
+        />
+        <Routes
+        user={user}
+        admin={admin}
+        />
       </Router>
       </>
 
