@@ -21,12 +21,22 @@
   font-family: 'Unica One', cursive;
 }
 
+#adminButtons {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
 #deleteResume {
   background-color: #4B240B;
   font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #editResume {
   background-color: #4B240B;
   font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
 }

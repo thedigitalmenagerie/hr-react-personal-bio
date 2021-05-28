@@ -53,7 +53,7 @@ const TechCards = ({
           />}
                 {
               admin !== null
-              && <div>
+              && <div id="authButtons">
                         <AnimationWrapper><Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
         <AnimationWrapper><Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'edit')}>
           {editingTech ? 'Close Form' : 'Edit Tech'}

@@ -20,6 +20,12 @@
   font-family: 'Unica One', cursive;
 }
 
+#adminButtons {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
 #deleteTech {
   background-color: #4B240B;
   font-family: 'Unica One', cursive;

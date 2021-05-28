@@ -55,7 +55,7 @@ const ResumeCards = ({
           />}
                 {
               admin !== null
-              && <div>
+              && <div id="adminButtons">
                         <AnimationWrapper><Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
         <AnimationWrapper><Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'edit')}>
           {editingResume ? 'Close Form' : 'Edite Resume'}

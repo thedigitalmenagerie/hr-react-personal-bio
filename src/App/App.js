@@ -12,7 +12,10 @@ function App() {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
-      if (authed) {
+      if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
+        setAdmin(true);
+        setUser(false);
+      } else if (authed) {
         const userInfoObj = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
@@ -20,12 +23,13 @@ function App() {
           user: authed.email.split('@')[0]
         };
         setUser(userInfoObj);
-      } else if (user || user === null) {
-        setUser(false);
-      } else if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
-        setAdmin(true);
-      } else if (admin || admin === null) {
         setAdmin(false);
+      } else if (admin || admin === null) {
+        setUser(false);
+        setAdmin(false);
+      } else if (user || user === null) {
+        setAdmin(false);
+        setUser(false);
       }
     });
   }, []);

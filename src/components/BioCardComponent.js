@@ -61,7 +61,7 @@ const BioCards = ({
           <CardText id="description" >{bio.bioDescription}</CardText>
           {
               user !== null
-              && <div>
+              && <div id="hiddenContact">
                 <div id="phone">Phone: (615)-956-1551</div>
                 <div id="email">Email: honeyraeswan@gmail.com</div>
               </div>
@@ -71,7 +71,7 @@ const BioCards = ({
             <AnimationWrapper><CardLink className="outerLink" href=""><CardImg className="linkImg" href="" src={Twitter} ></CardImg></CardLink></AnimationWrapper></div>
             {
               admin !== null
-              && <div>
+              && <div id="adminButtons">
                 <AnimationWrapper><Button id="deleteBio" onClick={() => handleClick(bio.firebaseKey, 'delete')}>Delete Bio</Button></AnimationWrapper>
                 <AnimationWrapper><Button id="editBio" onClick={() => handleClick(bio.firebaseKey, 'edit')}>
                   {editingBios ? 'Close Form' : 'Edit Bio'}

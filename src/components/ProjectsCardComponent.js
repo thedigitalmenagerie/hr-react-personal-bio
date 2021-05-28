@@ -56,7 +56,7 @@ const ProjectCards = ({
                   }
       {
               admin !== null
-              && <div>
+              && <div id="adminButtons">
                 <AnimationWrapper><Button id="deleteProject" onClick={() => handleClick(project.firebaseKey, 'delete')}>Delete Project</Button></AnimationWrapper>
                 <AnimationWrapper><Button id="editProject" onClick={() => handleClick(project.firebaseKey, 'edit')}>
                 {editingProjects ? 'Close Form' : 'Edit Project'}

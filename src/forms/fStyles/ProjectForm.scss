@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
 #submitProject {
   background-color: #4B240B;
   color: whitesmoke;
@@ -13,9 +15,16 @@
   flex-flow: column;
   align-items: center;
   margin-top: 25px;
+  #addProjectFormTitle {
+    font-family: 'Unica One', cursive;
+  }
+  label {
+    font-family: 'Unica One', cursive;
+  }
     input {
       width: 500px;
       border-radius: 5px;
+      font-family: 'Unica One', cursive;
     }
     button {
       width: 200px;
@@ -24,6 +33,7 @@
       background-color: #4B240B;
       color: whitesmoke;
       border-radius: 5px;
+      font-family: 'Unica One', cursive;
     }
   }
 }

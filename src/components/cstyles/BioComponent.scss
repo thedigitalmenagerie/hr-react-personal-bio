@@ -41,12 +41,25 @@
   color: #4B240B;
 }
 
+#adminButtons {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
 #deleteBio {
   background-color: #4B240B;
+  font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
+  
 }
 
 #editBio {
   background-color: #4B240B;
+  font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .mb-2 {
@@ -54,6 +67,10 @@
   font-size: large;
   font-family: 'Unica One', cursive;
   font-weight: bold;
+}
+
+#hiddenContact {
+  margin: 10px;
 }
 
 #description {
@@ -66,5 +83,6 @@
   display: flex;
   flex-flow: row;
   justify-content: center;
-  margin: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
