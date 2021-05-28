@@ -8,6 +8,7 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap';
+import { AnimationWrapper } from 'react-hover-animation';
 import PropTypes from 'prop-types';
 import { deleteTech } from '../helpers/data/TechnologiesData';
 import TechForm from '../forms/TechnologiesForm';
@@ -53,10 +54,10 @@ const TechCards = ({
                 {
               admin !== null
               && <div>
-                        <Button onClick={() => handleClick(tech.firebaseKey, 'delete')}>Delete</Button>
-        <Button onClick={() => handleClick(tech.firebaseKey, 'edit')}>
+                        <AnimationWrapper><Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
+        <AnimationWrapper><Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'edit')}>
           {editingTech ? 'Close Form' : 'Edit Tech'}
-        </Button>
+        </Button></AnimationWrapper>
               </div>
               }
       </CardBody>

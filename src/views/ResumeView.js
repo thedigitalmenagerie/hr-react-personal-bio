@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
+import { animations } from 'react-animation';
+import { AnimationWrapper } from 'react-hover-animation';
 import { getResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
 import ResumeCards from '../components/ResumeCardComponent';
+import './vStyles/ResumeView.scss';
 
 export default function ResumeView({ admin }) {
   const [resumes, setResumes] = useState([]);
@@ -17,15 +20,15 @@ export default function ResumeView({ admin }) {
     getResume().then((response) => setResumes((response)));
   }, []);
   return (
-    <div>
+    <div id="resumeView" style={{ animation: animations.fadeIn }}>
       <div>
       {
           admin !== null
           && <div>
             {!showAddResume
-              ? <Button onClick={handleClick}>Add Resume</Button>
+              ? <AnimationWrapper><Button id="addResume" onClick={handleClick}>Add Resume</Button></AnimationWrapper>
               : <div>
-              <Button onClick={handleClick}>Close Form</Button>
+              <AnimationWrapper><Button id="closeForm" onClick={handleClick}>Close Form</Button></AnimationWrapper>
               <ResumeForm
                 resumeFormTitle="Add Resume"
                 admin={admin}

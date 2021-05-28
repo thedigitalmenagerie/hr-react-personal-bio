@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
 .resumeContainer {
   display: flex;
   flex-flow: column;
@@ -10,9 +12,21 @@
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  margin-top: 100px;
 }
 
-#resumeCard {
-  width: 250px;
-  margin: 75px;
+#resumeCards {
+  width: 400px;
+  margin: 25px;
+  font-family: 'Unica One', cursive;
+}
+
+#deleteResume {
+  background-color: #4B240B;
+  font-family: 'Unica One', cursive;
+}
+
+#editResume {
+  background-color: #4B240B;
+  font-family: 'Unica One', cursive;
 }

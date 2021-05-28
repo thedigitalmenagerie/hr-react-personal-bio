@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addContact, updateContacts } from '../helpers/data/ContactData';
 import './fStyles/ContactForm.scss';
 
@@ -8,8 +9,17 @@ const ContactForm = ({
   setContacts,
   contactFormTitle
 }) => {
+  const [contact, setContact] = useState({
+    contactDate: contacts.contactDate || '',
+    contactEmail: contacts.contactEmail || '',
+    contactName: contacts.contactName || '',
+    contactPhone: contacts.contactPhone || '',
+    contactReason: contacts.contactReason || '',
+    firebaseKey: contacts.firebaseKey || null,
+  });
+
   const handleProjectInputChange = (e) => {
-    setContacts((prevState) => ({
+    setContact((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -18,9 +28,18 @@ const ContactForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (contacts.firebaseKey) {
-      updateContacts(contacts).then((contactsArray) => setContacts(contactsArray));
+      updateContacts(contact).then((contactsArray) => setContacts(contactsArray));
     } else {
-      addContact(contacts).then((contactsArray) => setContacts(contactsArray));
+      addContact(contact).then((contactsArray) => setContacts(contactsArray));
+
+      setContact({
+        contactDate: '',
+        contactEmail: '',
+        contactName: '',
+        contactPhone: '',
+        contactReason: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -78,7 +97,7 @@ const ContactForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button id="submitContact" type="submit">Submit Inquiry</button>
+          <AnimationWrapper><button id="submitContact" type="submit">Submit Inquiry</button></AnimationWrapper>
         </form>
       </div>
     </>

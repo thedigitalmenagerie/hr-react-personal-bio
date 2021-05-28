@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addProjects, updateProjects } from '../helpers/data/ProjectsData';
 import './fStyles/ProjectForm.scss';
 
@@ -8,6 +9,16 @@ const ProjectsForm = ({
   projects,
   setProjects,
 }) => {
+  const [project, setProject] = useState({
+    projectAuthors: projects.projectAuthors || '',
+    projectDate: projects.projectDate || '',
+    projectImage: projects.projectImage || '',
+    projectLink: projects.projectLink || '',
+    projectName: projects.projectName || '',
+    projectTech: projects.projectTech || '',
+    firebaseKey: projects.firebaseKey || null,
+  });
+
   const handleProjectInputChange = (e) => {
     setProjects((prevState) => ({
       ...prevState,
@@ -18,9 +29,19 @@ const ProjectsForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (projects.firebaseKey) {
-      updateProjects(projects).then((projectsArray) => setProjects(projectsArray));
+      updateProjects(project).then((projectsArray) => setProjects(projectsArray));
     } else {
-      addProjects(projects).then((projectsArray) => setProjects(projectsArray));
+      addProjects(project).then((projectsArray) => setProjects(projectsArray));
+
+      setProject({
+        bioDate: '',
+        bioDescription: '',
+        bioImage: '',
+        bioLocation: '',
+        bioName: '',
+        bioTitle: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -87,7 +108,7 @@ const ProjectsForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button id="submitProject" type="submit">Add Project</button>
+          <AnimationWrapper><button id="submitProject" type="submit">Add Project</button></AnimationWrapper>
         </form>
       </div>
     </>

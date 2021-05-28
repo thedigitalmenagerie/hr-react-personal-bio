@@ -8,6 +8,7 @@ import {
   CardText
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { deleteResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
 import './cstyles/ResumeComponent.scss';
@@ -37,7 +38,7 @@ const ResumeCards = ({
     <div className="resumeContainer">
       <div className="resumeCardHolder">
         {resumes?.map((resume) => (
-              <Card id="resumeCard" key={resume.firebaseKey}>
+              <Card id="resumeCards" key={resume.firebaseKey}>
       <CardBody>
         <CardTitle id="cardTitle" tag="h5">{resume.resumeCompany}</CardTitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{resume.resumeLocation}</CardSubtitle>
@@ -55,10 +56,10 @@ const ResumeCards = ({
                 {
               admin !== null
               && <div>
-                        <Button onClick={() => handleClick(resume.firebaseKey, 'delete')}>Delete</Button>
-        <Button onClick={() => handleClick(resume.firebaseKey, 'edit')}>
+                        <AnimationWrapper><Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
+        <AnimationWrapper><Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'edit')}>
           {editingResume ? 'Close Form' : 'Edite Resume'}
-        </Button>
+        </Button></AnimationWrapper>
               </div>
               }
       </CardBody>

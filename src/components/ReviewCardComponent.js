@@ -7,6 +7,7 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap';
+import { AnimationWrapper } from 'react-hover-animation';
 import PropTypes from 'prop-types';
 import { deleteReview } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
@@ -42,10 +43,10 @@ const ReviewCards = ({
         <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerLocation}</CardSubtitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerDate}</CardSubtitle>
         <CardText>{review.reviewerDescription}</CardText>
-        <Button onClick={() => handleClick(review.firebaseKey, 'delete')}>Delete Review</Button>
-        <Button onClick={() => handleClick(review.firebaseKey, 'edit')}>
+        <AnimationWrapper><Button onClick={() => handleClick(review.firebaseKey, 'delete')}>Delete Review</Button></AnimationWrapper>
+        <AnimationWrapper><Button onClick={() => handleClick(review.firebaseKey, 'edit')}>
           {editingReview ? 'Close Form' : 'Edit Review'}
-        </Button>
+        </Button></AnimationWrapper>
           {editingReview && <ReviewForm
           reviewFormTitle='Edit Review'
           setReviews={setReviews}

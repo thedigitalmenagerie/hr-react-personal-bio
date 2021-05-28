@@ -8,6 +8,7 @@ import {
   CardText
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { deleteContacts } from '../helpers/data/ContactData';
 import ContactForm from '../forms/ContactForm';
 
@@ -51,10 +52,10 @@ const ContactCards = ({
             {
               admin !== null
               && <div>
-                    <Button onClick={() => handleClick(contact.firebaseKey, 'delete')}>Delete</Button>
-                    <Button onClick={() => handleClick(contact.firebaseKey, 'edit')}>
+                    <AnimationWrapper><Button onClick={() => handleClick(contact.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
+                    <AnimationWrapper><Button onClick={() => handleClick(contact.firebaseKey, 'edit')}>
                       {editingContacts ? 'Close Form' : 'Edit Contacts'}
-                    </Button>
+                    </Button></AnimationWrapper>
                   </div>
             }
       </CardBody>

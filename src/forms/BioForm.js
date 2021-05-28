@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addBio, updateBio } from '../helpers/data/BioData';
 import './fStyles/BioForm.scss';
 
@@ -8,6 +9,16 @@ const BioForm = ({
   setBio,
   bioFormTitle
 }) => {
+  const [bios, setBios] = useState({
+    bioDate: bio.bioDate || '',
+    bioDescription: bio.bioDescription || '',
+    bioImage: bio.bioImage || '',
+    bioLocation: bio.bioLocation || '',
+    bioName: bio.bioName || '',
+    bioTitle: bio.bioTitle || '',
+    firebaseKey: bio.firebaseKey || null,
+  });
+
   const handleProjectInputChange = (e) => {
     setBio((prevState) => ({
       ...prevState,
@@ -18,9 +29,19 @@ const BioForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (bio.firebaseKey) {
-      updateBio(bio).then((bioArray) => setBio(bioArray));
+      updateBio(bios).then((bioArray) => setBio(bioArray));
     } else {
-      addBio(bio).then((bioArray) => setBio(bioArray));
+      addBio(bios).then((bioArray) => setBio(bioArray));
+
+      setBios({
+        bioDate: '',
+        bioDescription: '',
+        bioImage: '',
+        bioLocation: '',
+        bioName: '',
+        bioTitle: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -87,7 +108,7 @@ const BioForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button id="submitBio" className="sm" type="submit">Add Bio</button>
+          <AnimationWrapper><button id="submitBio" className="sm" type="submit">Add Bio</button></AnimationWrapper>
         </form>
       </div>
     </>

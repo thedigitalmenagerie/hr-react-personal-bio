@@ -28,7 +28,12 @@ export default function Routes({
     <div>
       <Switch>
         <Route exact path='/'
-        component={HomeView}
+        component={() => <HomeView
+        user={user}
+        admin={admin}
+        />}
+        admin={admin}
+        user={user}
         />
         <Route exact path='/biography'
         component={() => <BioView

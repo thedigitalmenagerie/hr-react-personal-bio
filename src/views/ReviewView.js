@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { animations } from 'react-animation';
 import { getReviews } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
 import ReviewCards from '../components/ReviewCardComponent';
@@ -13,7 +14,7 @@ export default function ReviewView({ admin }) {
   }, []);
 
   return (
-    <div className="reviewView">
+    <div className="reviewView" style={{ animation: animations.fadeIn }}>
       <div>
               <ReviewForm
                 reviewFormTitle="Review Honey-Rae"

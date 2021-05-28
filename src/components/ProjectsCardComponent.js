@@ -8,6 +8,7 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap';
+import { AnimationWrapper } from 'react-hover-animation';
 import PropTypes from 'prop-types';
 import { deleteProjects } from '../helpers/data/ProjectsData';
 import ProjectsForm from '../forms/ProjectsForm';
@@ -56,10 +57,10 @@ const ProjectCards = ({
       {
               admin !== null
               && <div>
-                <Button id="deleteProject" onClick={() => handleClick(project.firebaseKey, 'delete')}>Delete Project</Button>
-                <Button id="editProject" onClick={() => handleClick(project.firebaseKey, 'edit')}>
+                <AnimationWrapper><Button id="deleteProject" onClick={() => handleClick(project.firebaseKey, 'delete')}>Delete Project</Button></AnimationWrapper>
+                <AnimationWrapper><Button id="editProject" onClick={() => handleClick(project.firebaseKey, 'edit')}>
                 {editingProjects ? 'Close Form' : 'Edit Project'}
-                </Button>
+                </Button></AnimationWrapper>
 
               </div>
               }

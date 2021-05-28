@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addReview, updateReview } from '../helpers/data/ReviewData';
 import './fStyles/ReviewForm.scss';
 
@@ -8,6 +9,16 @@ const ReviewForm = ({
   reviews,
   setReviews,
 }) => {
+  const [review, setReview] = useState({
+    reviewerCompany: reviews.reviewerCompany || '',
+    reviewerDate: reviews.reviewerDate || '',
+    reviewerDescription: reviews.reviewerDescription || '',
+    reviewerLocation: reviews.reviewerLocation || '',
+    reviewerName: reviews.reviewerName || '',
+    reviewerRole: reviews.reviewerRole || '',
+    firebaseKey: reviews.firebaseKey || null,
+  });
+
   const handleProjectInputChange = (e) => {
     setReviews((prevState) => ({
       ...prevState,
@@ -18,9 +29,19 @@ const ReviewForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (reviews.firebasKey) {
-      updateReview(reviews).then((reviewArray) => setReviews(reviewArray));
+      updateReview(review).then((reviewArray) => setReviews(reviewArray));
     } else {
-      addReview(reviews).then((reviewArray) => setReviews(reviewArray));
+      addReview(review).then((reviewArray) => setReviews(reviewArray));
+
+      setReview({
+        resumeCompany: '',
+        resumeDate: '',
+        resumeLength: '',
+        resumeLocation: '',
+        resumeRole: '',
+        resumeSkills: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -87,7 +108,7 @@ const ReviewForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button id="submitReview" type="submit">Add Review</button>
+          <AnimationWrapper><button id="submitReview" type="submit">Add Review</button></AnimationWrapper>
         </form>
       </div>
     </>

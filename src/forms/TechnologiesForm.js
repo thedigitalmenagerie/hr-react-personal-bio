@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addTechnologies, updateTech } from '../helpers/data/TechnologiesData';
+import './fStyles/TechnologiesForm.scss';
 
 const TechForm = ({
   technologiesFormTitle,
   setTechnologies,
   technologies,
 }) => {
+  const [tech, setTech] = useState({
+    techCategory: technologies.techCategory || '',
+    techDate: technologies.techDate || '',
+    techDescription: technologies.techDescription || '',
+    techImage: technologies.techImage || '',
+    techName: technologies.techName || '',
+    firebaseKey: technologies.firebaseKey || null,
+  });
+
   const handleProjectInputChange = (e) => {
     setTechnologies((prevState) => ({
       ...prevState,
@@ -17,9 +28,18 @@ const TechForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (technologies.firebaseKey) {
-      updateTech(technologies).then((techArray) => setTechnologies(techArray));
+      updateTech(tech).then((techArray) => setTechnologies(techArray));
     } else {
-      addTechnologies(technologies).then((techArray) => setTechnologies(techArray));
+      addTechnologies(tech).then((techArray) => setTechnologies(techArray));
+
+      setTech({
+        techCategory: '',
+        techDate: '',
+        techDescription: '',
+        techImage: '',
+        techName: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -77,7 +97,7 @@ const TechForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Add Technology</button>
+          <AnimationWrapper><button type="submit">Add Technology</button></AnimationWrapper>
         </form>
       </div>
     </>

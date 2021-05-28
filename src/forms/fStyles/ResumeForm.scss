@@ -1,0 +1,29 @@
+#submitResume {
+  background-color: #4B240B;
+  color: whitesmoke;
+  border-radius: 3px;
+}
+
+.ResumeForm {
+  display: flex;
+  justify-content: center;
+  form {
+  color: #4B240B;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 25px;
+    input {
+      width: 500px;
+      border-radius: 5px;
+    }
+    button {
+      width: 200px;
+      margin-top: 25px;
+      align-items: center;
+      background-color: #4B240B;
+      color: whitesmoke;
+      border-radius: 5px;
+    }
+  }
+}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
 .techContainer {
   display: flex;
   flex-flow: column;
@@ -15,12 +17,15 @@
 #techCards {
   width: 800px;
   margin: 75px;
+  font-family: 'Unica One', cursive;
 }
 
 #deleteTech {
   background-color: #4B240B;
+  font-family: 'Unica One', cursive;
 }
 
 #editTech {
   background-color: #4B240B;
+  font-family: 'Unica One', cursive;
 }

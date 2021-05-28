@@ -36,6 +36,7 @@ function App() {
       <Router>
         <NavBar
         user={user}
+        admin={admin}
         />
         <Routes
         user={user}

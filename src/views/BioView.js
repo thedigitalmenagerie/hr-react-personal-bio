@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
+import { animations } from 'react-animation';
+import { AnimationWrapper } from 'react-hover-animation';
 import { getBio } from '../helpers/data/BioData';
 import BioForm from '../forms/BioForm';
 import BioCards from '../components/BioCardComponent';
 import './vStyles/BioView.scss';
 
-export default function BioView({ admin }) {
+export default function BioView({ admin, user }) {
   const [bios, setBios] = useState([]);
   const [showAddBioForm, setShowAddBioForm] = useState(false);
 
@@ -18,15 +20,15 @@ export default function BioView({ admin }) {
     getBio().then((response) => setBios(response));
   }, []);
   return (
-    <div className="bioView">
+    <div className="bioView" style={{ animation: animations.fadeIn }}>
       <div className="innerContainer">
         {
           admin !== null
           && <div>
             {!showAddBioForm
-              ? <Button id="addBio" onClick={handleClick}>Add Bio</Button>
+              ? <AnimationWrapper><Button id="addBio" onClick={handleClick}>Add Bio</Button></AnimationWrapper>
               : <div>
-              <Button id="closeForm" onClick={handleClick}>Close Form</Button>
+              <AnimationWrapper><Button id="closeForm" onClick={handleClick}>Close Form</Button></AnimationWrapper>
               <BioForm
                 className="bioForm"
                 bioFormTitle="Add Bio"
@@ -40,6 +42,7 @@ export default function BioView({ admin }) {
       </div>
         <BioCards
           admin={admin}
+          user={user}
           bios={bios}
           setBios={setBios}
         />
@@ -48,5 +51,6 @@ export default function BioView({ admin }) {
 }
 
 BioView.propTypes = {
+  user: PropTypes.any,
   admin: PropTypes.any
 };

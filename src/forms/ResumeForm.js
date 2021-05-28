@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addResume, updateResume } from '../helpers/data/ResumeData';
+import './fStyles/ResumeForm.scss';
 
 const ResumeForm = ({
   resumeFormTitle,
   resumes,
   setResumes,
 }) => {
+  const [resume, setResume] = useState({
+    resumeCompany: resumes.resumeCompany || '',
+    resumeDate: resumes.resumeDate || '',
+    resumeLength: resumes.resumeLength || '',
+    resumeLocation: resumes.resumeLocation || '',
+    resumeRole: resumes.resumeRole || '',
+    resumeSkills: resumes.resumeSkills || '',
+    firebaseKey: resumes.firebaseKey || null,
+  });
+
   const handleProjectInputChange = (e) => {
     setResumes((prevState) => ({
       ...prevState,
@@ -17,9 +29,19 @@ const ResumeForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (resumes.firebaseKey) {
-      updateResume(resumes).then((resumeArray) => setResumes(resumeArray));
+      updateResume(resume).then((resumeArray) => setResumes(resumeArray));
     } else {
-      addResume(resumes).then((resumeArray) => setResumes(resumeArray));
+      addResume(resume).then((resumeArray) => setResumes(resumeArray));
+
+      setResume({
+        resumeCompany: '',
+        resumeDate: '',
+        resumeLength: '',
+        resumeLocation: '',
+        resumeRole: '',
+        resumeSkills: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -86,7 +108,7 @@ const ResumeForm = ({
             onChange={handleProjectInputChange}
           >
           </input>
-          <button type="submit">Add Resume</button>
+          <AnimationWrapper><button id="submitResume" type="submit">Add Resume</button></AnimationWrapper>
         </form>
       </div>
     </>
