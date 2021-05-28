@@ -16,6 +16,7 @@ import './cstyles/ProjectsComponent.scss';
 
 const ProjectCards = ({
   admin,
+  setAdmin,
   projects,
   setProjects
 }) => {
@@ -50,20 +51,29 @@ const ProjectCards = ({
         {editingProjects && <ProjectsForm
                     projectsFormTitle='Edit Project'
                     admin={admin}
+                    setAdmin={setAdmin}
                     projects={projects}
                     setProjects={setProjects}
                     />
                   }
-      {
-              admin !== null
-              && <div id="adminButtons">
-                <AnimationWrapper><Button id="deleteProject" onClick={() => handleClick(project.firebaseKey, 'delete')}>Delete Project</Button></AnimationWrapper>
-                <AnimationWrapper><Button id="editProject" onClick={() => handleClick(project.firebaseKey, 'edit')}>
-                {editingProjects ? 'Close Form' : 'Edit Project'}
-                </Button></AnimationWrapper>
-
-              </div>
-              }
+        {
+          admin !== null
+            && <div id="adminButtons">
+                {
+                admin
+                  ? <div>
+                      <AnimationWrapper>
+                        <Button id="deleteProject" onClick={() => handleClick(project.firebaseKey, 'delete')}>Delete Project</Button>
+                      </AnimationWrapper>
+                      <AnimationWrapper>
+                        <Button id="editProject" onClick={() => handleClick(project.firebaseKey, 'edit')}>
+                          {editingProjects ? 'Close Form' : 'Edit Project'}
+                        </Button>
+                      </AnimationWrapper>
+                    </div>
+                  : <div></div>
+                } </div>
+            }
               </CardBody>
               </Card>
               ))}
@@ -75,6 +85,7 @@ const ProjectCards = ({
 
 ProjectCards.propTypes = {
   admin: PropTypes.any,
+  setAdmin: PropTypes.any,
   projects: PropTypes.any,
   setProjects: PropTypes.func
 };

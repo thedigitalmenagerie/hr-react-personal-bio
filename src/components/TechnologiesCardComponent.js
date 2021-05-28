@@ -16,6 +16,7 @@ import './cstyles/TechnologiesComponent.scss';
 
 const TechCards = ({
   admin,
+  setAdmin,
   technologies,
   setTechnologies
 }) => {
@@ -49,17 +50,28 @@ const TechCards = ({
           technologiesFormTitle='Edit Tech'
           setTechnologies={setTechnologies}
           admin={admin}
+          setAdmin={setAdmin}
           technologies={technologies}
           />}
+          {
+            admin !== null
+              && <div id="adminButtons">
                 {
-              admin !== null
-              && <div id="authButtons">
-                        <AnimationWrapper><Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
-        <AnimationWrapper><Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'edit')}>
-          {editingTech ? 'Close Form' : 'Edit Tech'}
-        </Button></AnimationWrapper>
+                  admin
+                    ? <div id="authButtons">
+                        <AnimationWrapper>
+                          <Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'delete')}>Delete</Button>
+                        </AnimationWrapper>
+                        <AnimationWrapper>
+                          <Button id="deleteTech" onClick={() => handleClick(tech.firebaseKey, 'edit')}>
+                            {editingTech ? 'Close Form' : 'Edit Tech'}
+                          </Button>
+                        </AnimationWrapper>
+                      </div>
+                    : <div></div>
+                }
               </div>
-              }
+          }
       </CardBody>
     </Card>
               ))}
@@ -71,6 +83,7 @@ const TechCards = ({
 
 TechCards.propTypes = {
   admin: PropTypes.any,
+  setAdmin: PropTypes.any,
   technologies: PropTypes.any,
   setTechnologies: PropTypes.func
 };

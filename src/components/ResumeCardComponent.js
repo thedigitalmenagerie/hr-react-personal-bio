@@ -15,6 +15,7 @@ import './cstyles/ResumeComponent.scss';
 
 const ResumeCards = ({
   admin,
+  setAdmin,
   resumes,
   setResumes
 }) => {
@@ -50,22 +51,32 @@ const ResumeCards = ({
           {editingResume && <ResumeForm
           resumeFormTitle='Edit Resume'
           admin={admin}
+          setAdmin={setAdmin}
           resumes={resumes}
           setResumes={setResumes}
           />}
+
+        {
+          admin !== null
+            && <div id="adminButtons">
                 {
-              admin !== null
-              && <div id="adminButtons">
-                        <AnimationWrapper><Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
-        <AnimationWrapper><Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'edit')}>
-          {editingResume ? 'Close Form' : 'Edite Resume'}
-        </Button></AnimationWrapper>
-              </div>
-              }
+                admin
+                  ? <div>
+                      <AnimationWrapper>
+                        <Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'delete')}>Delete</Button>
+                      </AnimationWrapper>
+                      <AnimationWrapper>
+                        <Button id="deleteResume" onClick={() => handleClick(resume.firebaseKey, 'edit')}>
+                          {editingResume ? 'Close Form' : 'Edite Resume'}
+                        </Button>
+                      </AnimationWrapper>
+                    </div>
+                  : <div></div>
+                } </div>
+            }
       </CardBody>
     </Card>
         ))}
-
       </div>
     </div>
 
@@ -74,6 +85,7 @@ const ResumeCards = ({
 
 ResumeCards.propTypes = {
   admin: PropTypes.any,
+  setAdmin: PropTypes.any,
   resumes: PropTypes.any,
   setResumes: PropTypes.func
 };

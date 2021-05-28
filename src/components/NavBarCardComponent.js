@@ -19,15 +19,28 @@ const NavBar = ({ user, admin }) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const authenticated = () => (
+  const authenticatedUser = () => (
       <NavItem>
         <AnimationWrapper><Link className="nav-link" to="/reviews">Reviews</Link></AnimationWrapper>
       </NavItem>
   );
-  const authenticated2 = () => (
+
+  const authenticatedUser2 = () => (
       <NavItem>
         <AnimationWrapper><Link className="nav-link" to="/contact">Contact</Link></AnimationWrapper>
       </NavItem>
+  );
+
+  const authenticatedAdmin = () => (
+    <NavItem>
+      <AnimationWrapper><Link className="nav-link" to="/reviews">Reviews</Link></AnimationWrapper>
+    </NavItem>
+  );
+
+  const authenticatedAdmin2 = () => (
+    <NavItem>
+      <AnimationWrapper><Link className="nav-link" to="/contact">Contact</Link></AnimationWrapper>
+    </NavItem>
   );
 
   return (
@@ -42,35 +55,27 @@ const NavBar = ({ user, admin }) => {
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/biography">- Biography -</Link></AnimationWrapper>
           </NavItem>
-          { user && authenticated2()}
+          { user && authenticatedUser2()}
+          { admin && authenticatedAdmin2()}
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/projects">- Projects -</Link></AnimationWrapper>
           </NavItem>
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/resume">- Resume -</Link></AnimationWrapper>
           </NavItem>
-          { user && authenticated()}
+          { user && authenticatedUser()}
+          { admin && authenticatedAdmin()}
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/technologies">- Technologies -</Link></AnimationWrapper>
          </NavItem>
         </Nav>
         </Collapse>
         {
-            user !== null
+            (user || admin) !== null
             && <NavItem id="authButtons">
               {
-                user
+                (user || admin)
                   ? <AnimationWrapper><button id="signIn" onClick={signOutUser}> Sign Out </button></AnimationWrapper>
-                  : <div></div>
-              }
-            </NavItem>
-          }
-                  {
-            admin !== null
-            && <NavItem id="authButtons">
-              {
-                user
-                  ? <div></div>
                   : <div></div>
               }
             </NavItem>

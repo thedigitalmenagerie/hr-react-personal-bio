@@ -6,7 +6,12 @@ import ReviewForm from '../forms/ReviewForm';
 import ReviewCards from '../components/ReviewCardComponent';
 import './vStyles/ReviewView.scss';
 
-export default function ReviewView({ admin }) {
+export default function ReviewView({
+  admin,
+  setAdmin,
+  user,
+  setUser,
+}) {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
@@ -15,27 +20,50 @@ export default function ReviewView({ admin }) {
 
   return (
     <div className="reviewView" style={{ animation: animations.fadeIn }}>
-      <div>
-              <ReviewForm
-                reviewFormTitle="Review Honey-Rae"
-                reviews={reviews}
-                setReviews={setReviews}
-              />
+      <div className="innerContainer">
+      {
+          user !== null
+          && <div>
+            { user
+              ? <ReviewForm
+              reviewFormTitle="Review Honey-Rae"
+              reviews={reviews}
+              setReviews={setReviews}
+              user={user}
+              setUser={setUser}
+              admin={admin}
+              setAdmin={setAdmin}
+            />
+              : <div></div>
 
-      </div>
+            }
+            </div>
+        }
       {
           admin !== null
-          && <ReviewCards
-          admin={admin}
-          reviews={reviews}
-          setReviews={setReviews}
-        />
-        }
+          && <div>
+            { admin
+              ? <ReviewCards
+              reviews={reviews}
+              setReviews={setReviews}
+              user={user}
+              setUser={setUser}
+              admin={admin}
+              setAdmin={setAdmin}
+            />
+              : <div></div>
 
+            }
+            </div>
+        }
+      </div>
     </div>
   );
 }
 
 ReviewView.propTypes = {
-  admin: PropTypes.any
+  user: PropTypes.any,
+  setUser: PropTypes.any,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.any,
 };

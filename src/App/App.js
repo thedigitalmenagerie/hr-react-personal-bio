@@ -17,13 +17,13 @@ function App() {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
           uid: authed.uid,
-          user: authed.email.split('@')[0]
+          admin: authed.email.split('@')[0]
         };
         console.warn(adminInfoObj);
         console.warn(authed.uid);
         setAdmin(adminInfoObj);
         setUser(false);
-      } else if (authed) {
+      } else if (authed && (authed.uid !== process.env.REACT_APP_ADMIN_UID)) {
         const userInfoObj = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
@@ -32,6 +32,8 @@ function App() {
         };
         setUser(userInfoObj);
         setAdmin(false);
+        console.warn(userInfoObj);
+        console.warn(authed.uid);
       } else if ((user || user === null) || (admin || admin === null)) {
         setUser(false);
         setAdmin(false);

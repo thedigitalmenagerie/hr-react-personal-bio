@@ -8,7 +8,10 @@ import ResumeForm from '../forms/ResumeForm';
 import ResumeCards from '../components/ResumeCardComponent';
 import './vStyles/ResumeView.scss';
 
-export default function ResumeView({ admin }) {
+export default function ResumeView({
+  admin,
+  setAdmin
+}) {
   const [resumes, setResumes] = useState([]);
   const [showAddResume, setAddResume] = useState(false);
 
@@ -25,24 +28,31 @@ export default function ResumeView({ admin }) {
       {
           admin !== null
           && <div>
-            {!showAddResume
-              ? <AnimationWrapper><Button id="addResume" onClick={handleClick}>Add Resume</Button></AnimationWrapper>
-              : <div>
-              <AnimationWrapper><Button id="closeForm" onClick={handleClick}>Close Form</Button></AnimationWrapper>
-              <ResumeForm
-                resumeFormTitle="Add Resume"
-                admin={admin}
-                resumes={resumes}
-                setResumes={setResumes}
-              />
+            { admin
+              ? <div>
+                  {!showAddResume
+                    ? <AnimationWrapper><Button id="addResume" onClick={handleClick}>Add Resume</Button></AnimationWrapper>
+                    : <div>
+                      <AnimationWrapper><Button id="closeForm" onClick={handleClick}>Close Form</Button></AnimationWrapper>
+                      <ResumeForm
+                        resumeFormTitle="Add Resume"
+                        admin={admin}
+                        setAdmin={setAdmin}
+                        resumes={resumes}
+                        setResumes={setResumes}
+                      />
+                    </div>
+                  }
+                </div>
+              : <div></div>
+            }
             </div>
-        }
-          </div>
         }
 
       </div>
         <ResumeCards
           admin={admin}
+          setAdmin={setAdmin}
           resumes={resumes}
           setResumes={setResumes}
         />
@@ -51,5 +61,6 @@ export default function ResumeView({ admin }) {
 }
 
 ResumeView.propTypes = {
-  admin: PropTypes.any
+  admin: PropTypes.any,
+  setAdmin: PropTypes.any
 };

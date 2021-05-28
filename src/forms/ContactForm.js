@@ -7,7 +7,7 @@ import './fStyles/ContactForm.scss';
 const ContactForm = ({
   contacts,
   setContacts,
-  contactFormTitle
+  contactFormTitle,
 }) => {
   const [contact, setContact] = useState({
     contactDate: contacts.contactDate || '',

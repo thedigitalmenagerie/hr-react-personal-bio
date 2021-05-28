@@ -6,15 +6,18 @@ import homeLogo from '../assets/homeLogo.png';
 import { signInUser } from '../helpers/Authorization';
 import './vStyles/HomeView.scss';
 
-export default function HomeView({ user }) {
+export default function HomeView({
+  admin,
+  user,
+}) {
   return (
     <div>
       <img id="homeLogo" src={homeLogo} style={{ animation: animations.fadeIn }} />
       {
-            user !== null
+            (user || admin) !== null
             && <div id="authButtonsHome" style={{ animation: animations.fadeIn }} >
               {
-                user
+                (user || admin)
                   ? <AnimationWrapper></AnimationWrapper>
                   : <AnimationWrapper>
                       <div id="instructions" style={{ animation: animations.fadeIn }} >To Contact Honey-Rae or submit a recommendation, please sign in below:</div>
@@ -28,5 +31,6 @@ export default function HomeView({ user }) {
 }
 
 HomeView.propTypes = {
+  admin: PropTypes.any,
   user: PropTypes.any,
 };

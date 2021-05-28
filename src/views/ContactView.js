@@ -10,7 +10,12 @@ import LinkedIn from '../assets/linkedin.png';
 import Twitter from '../assets/twitter.png';
 import './vStyles/ContactView.scss';
 
-export default function ContactView({ admin }) {
+export default function ContactView({
+  admin,
+  setAdmin,
+  user,
+  setUser,
+}) {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
@@ -20,32 +25,57 @@ export default function ContactView({ admin }) {
   return (
     <div className="contactContainer" style={{ animation: animations.fadeIn }}>
        <div className="innerContainer">
-                <ContactForm
-                  contactFormTitle="Contact Honey-Rae"
-                  contacts={contacts}
-                  setContacts={setContacts}
-                />
-                <div id="phone">Phone: (615)-956-1551</div>
-                <div id="email">Email: honeyraeswan@gmail.com</div>
-                <div id="link">
-                  <AnimationWrapper><img className="cLink" src={GitHub}></img></AnimationWrapper>
-                  <AnimationWrapper><img className="cLink" src={LinkedIn}></img></AnimationWrapper>
-                  <AnimationWrapper><img className="cLink" src={Twitter}></img></AnimationWrapper>
-                </div>
-        </div>
+       {
+          user !== null
+          && <div>
+            { user
+              ? <div><ContactForm
+              contactFormTitle="Contact Honey-Rae"
+              contacts={contacts}
+              setContacts={setContacts}
+              user={user}
+              setUser={setUser}
+              admin={admin}
+              setAdmin={setAdmin}
+            />
+            <div id="phone">Phone: (615)-956-1551</div>
+            <div id="email">Email: honeyraeswan@gmail.com</div>
+            <div id="link">
+              <AnimationWrapper><img className="cLink" src={GitHub}></img></AnimationWrapper>
+              <AnimationWrapper><img className="cLink" src={LinkedIn}></img></AnimationWrapper>
+              <AnimationWrapper><img className="cLink" src={Twitter}></img></AnimationWrapper>
+            </div>
+          </div>
+              : <div></div>
+
+            }
+            </div>
+        }
         {
           admin !== null
-          && <ContactCards
-        admin={admin}
-        contacts={contacts}
-        setContacts={setContacts}
-        />
-        }
+          && <div>
+            { admin
+              ? <ContactCards
+                  contacts={contacts}
+                  setContacts={setContacts}
+                  user={user}
+                  setUser={setUser}
+                  admin={admin}
+                  setAdmin={setAdmin}
+                />
+              : <div></div>
 
+            }
+            </div>
+        }
+    </div>
     </div>
   );
 }
 
 ContactView.propTypes = {
+  user: PropTypes.any,
+  setUser: PropTypes.any,
   admin: PropTypes.any,
+  setAdmin: PropTypes.any,
 };

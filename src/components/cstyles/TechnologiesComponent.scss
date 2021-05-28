@@ -20,18 +20,25 @@
   font-family: 'Unica One', cursive;
 }
 
+#authButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
 #adminButtons {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-flow: row;
 }
 
 #deleteTech {
   background-color: #4B240B;
   font-family: 'Unica One', cursive;
+  margin: 10px;
 }
 
 #editTech {
   background-color: #4B240B;
   font-family: 'Unica One', cursive;
+  margin: 10px;
 }

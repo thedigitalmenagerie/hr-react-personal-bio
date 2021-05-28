@@ -8,7 +8,10 @@ import ProjectsForm from '../forms/ProjectsForm';
 import ProjectCards from '../components/ProjectsCardComponent';
 import './vStyles/ProjectsView.scss';
 
-export default function ProjectsView({ admin }) {
+export default function ProjectsView({
+  admin,
+  setAdmin,
+}) {
   const [projects, setProjects] = useState([]);
   const [showAddProjectForm, setAddProjectForm] = useState(false);
 
@@ -22,26 +25,34 @@ export default function ProjectsView({ admin }) {
   return (
     <div className="projectsView" style={{ animation: animations.fadeIn }}>
       <div>
-      {
+        {
           admin !== null
           && <div>
-              {!showAddProjectForm
-                ? <AnimationWrapper><Button id="addProject" onClick={handleClick}>Add Project</Button></AnimationWrapper>
-                : <div>
-                <AnimationWrapper><Button id="closeForm" onClick={handleClick}>Close Form</Button></AnimationWrapper>
-                <ProjectsForm
-                projectsFormTitle="Add Project"
-                admin={admin}
-                projects={projects}
-                setProjects={setProjects}
-                />
-             </div>
-        }
-          </div>
+            { admin
+              ? <div>
+                  {!showAddProjectForm
+                    ? <AnimationWrapper><Button id="addProject" onClick={handleClick}>Add Project</Button></AnimationWrapper>
+                    : <div>
+                      <AnimationWrapper><Button id="closeForm" onClick={handleClick}>Close Form</Button></AnimationWrapper>
+                      <ProjectsForm
+                        projectsFormTitle="Add Project"
+                        admin={admin}
+                        setAdmin={setAdmin}
+                        projects={projects}
+                        setProjects={setProjects}
+                      />
+                    </div>
+                  }
+                </div>
+              : <div></div>
+
+            }
+            </div>
         }
       </div>
         <HideUntilLoaded><ProjectCards
           admin={admin}
+          setAdmin={setAdmin}
           projects={projects}
           setProjects={setProjects}
         /></HideUntilLoaded>
@@ -50,5 +61,6 @@ export default function ProjectsView({ admin }) {
 }
 
 ProjectsView.propTypes = {
-  admin: PropTypes.any
+  admin: PropTypes.any,
+  setAdmin: PropTypes.any,
 };
