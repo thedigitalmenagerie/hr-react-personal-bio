@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
+.contactContainer {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contactCardHolder {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+#contactCards {
+  width: 400px;
+  margin: 25px;
+  font-family: 'Unica One', cursive;
+}
+
+#adminButtons {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
+#deleteContact {
+  background-color: #4B240B;
+  font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#editContact {
+  background-color: #4B240B;
+  font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
+}

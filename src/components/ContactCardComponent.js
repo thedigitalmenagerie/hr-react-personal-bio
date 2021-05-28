@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { AnimationWrapper } from 'react-hover-animation';
 import { deleteContacts } from '../helpers/data/ContactData';
 import ContactForm from '../forms/ContactForm';
+import './cstyles/ContactComponent.scss';
 
 const ContactCards = ({
   admin,
@@ -34,9 +35,10 @@ const ContactCards = ({
   };
 
   return (
-    <div className="cardContainer">
+    <div className="contactContainer">
+      <div className="contactCardHolder"></div>
       {contacts.map((contact) => (
-        <Card key={contact.firebaseKey}>
+        <Card id="contactCards" key={contact.firebaseKey}>
           <CardBody>
             <CardTitle tag="h5">{contact.contactName}</CardTitle>
             <CardSubtitle tag="h6" className="mb-2 text-muted">{contact.contactEmail}</CardSubtitle>
@@ -51,9 +53,9 @@ const ContactCards = ({
             }
             {
               admin !== null
-              && <div>
-                    <AnimationWrapper><Button onClick={() => handleClick(contact.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
-                    <AnimationWrapper><Button onClick={() => handleClick(contact.firebaseKey, 'edit')}>
+              && <div id="authButtons">
+                    <AnimationWrapper><Button id="deleteContact" onClick={() => handleClick(contact.firebaseKey, 'delete')}>Delete</Button></AnimationWrapper>
+                    <AnimationWrapper><Button id="editContact" onClick={() => handleClick(contact.firebaseKey, 'edit')}>
                       {editingContacts ? 'Close Form' : 'Edit Contacts'}
                     </Button></AnimationWrapper>
                   </div>

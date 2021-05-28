@@ -24,8 +24,6 @@ const BioCards = ({
   setBios,
 }) => {
   const [editingBios, setEditingBios] = useState(false);
-  console.warn(user);
-  console.warn(admin);
 
   const handleClick = (fbKey, type) => {
     switch (type) {
@@ -72,7 +70,6 @@ const BioCards = ({
             {
               admin !== null
               && <div id="adminButtons">
-                <AnimationWrapper><Button id="deleteBio" onClick={() => handleClick(bio.firebaseKey, 'delete')}>Delete Bio</Button></AnimationWrapper>
                 <AnimationWrapper><Button id="editBio" onClick={() => handleClick(bio.firebaseKey, 'edit')}>
                   {editingBios ? 'Close Form' : 'Edit Bio'}
                 </Button></AnimationWrapper>

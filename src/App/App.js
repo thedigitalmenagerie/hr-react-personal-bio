@@ -7,13 +7,21 @@ import NavBar from '../components/NavBarCardComponent';
 import Routes from '../helpers/Routes';
 
 function App() {
-  const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
-        setAdmin(true);
+        const adminInfoObj = {
+          fullName: authed.displayName,
+          profileImage: authed.photoURL,
+          uid: authed.uid,
+          user: authed.email.split('@')[0]
+        };
+        console.warn(adminInfoObj);
+        console.warn(authed.uid);
+        setAdmin(adminInfoObj);
         setUser(false);
       } else if (authed) {
         const userInfoObj = {
@@ -24,12 +32,9 @@ function App() {
         };
         setUser(userInfoObj);
         setAdmin(false);
-      } else if (admin || admin === null) {
+      } else if ((user || user === null) || (admin || admin === null)) {
         setUser(false);
         setAdmin(false);
-      } else if (user || user === null) {
-        setAdmin(false);
-        setUser(false);
       }
     });
   }, []);
@@ -39,12 +44,12 @@ function App() {
       <>
       <Router>
         <NavBar
-        user={user}
         admin={admin}
+        user={user}
         />
         <Routes
-        user={user}
         admin={admin}
+        user={user}
         />
       </Router>
       </>

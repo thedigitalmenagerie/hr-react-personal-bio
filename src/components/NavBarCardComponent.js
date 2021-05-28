@@ -14,7 +14,7 @@ import { signOutUser } from '../helpers/Authorization';
 import logoOnly from '../assets/logoOnly.png';
 import './cstyles/NavBarComponent.scss';
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user, admin }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -65,12 +65,23 @@ const NavBar = ({ user }) => {
               }
             </NavItem>
           }
+                  {
+            admin !== null
+            && <NavItem id="authButtons">
+              {
+                user
+                  ? <div></div>
+                  : <div></div>
+              }
+            </NavItem>
+          }
       </Navbar>
     </div>
   );
 };
 
 NavBar.propTypes = {
+  admin: PropTypes.any,
   user: PropTypes.any,
 };
 

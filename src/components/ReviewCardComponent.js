@@ -11,6 +11,7 @@ import { AnimationWrapper } from 'react-hover-animation';
 import PropTypes from 'prop-types';
 import { deleteReview } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
+import './cstyles/ReviewComponent.scss';
 
 const ReviewCards = ({
   admin,
@@ -34,8 +35,9 @@ const ReviewCards = ({
   };
   return (
     <div className="reviewContainer">
+      <div className="reviewCardHolder"></div>
     {reviews.map((review) => (
-          <Card key={review.firebaseKey}>
+          <Card id="reviewCards" key={review.firebaseKey}>
       <CardBody>
         <CardTitle tag="h5">{review.reviewerName}</CardTitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerCompany}</CardSubtitle>
@@ -43,10 +45,12 @@ const ReviewCards = ({
         <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerLocation}</CardSubtitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{review.reviewerDate}</CardSubtitle>
         <CardText>{review.reviewerDescription}</CardText>
-        <AnimationWrapper><Button onClick={() => handleClick(review.firebaseKey, 'delete')}>Delete Review</Button></AnimationWrapper>
-        <AnimationWrapper><Button onClick={() => handleClick(review.firebaseKey, 'edit')}>
+        <div id="authButtons">
+                  <AnimationWrapper><Button id="deleteReview" onClick={() => handleClick(review.firebaseKey, 'delete')}>Delete Review</Button></AnimationWrapper>
+        <AnimationWrapper><Button id="editReview" onClick={() => handleClick(review.firebaseKey, 'edit')}>
           {editingReview ? 'Close Form' : 'Edit Review'}
         </Button></AnimationWrapper>
+        </div>
           {editingReview && <ReviewForm
           reviewFormTitle='Edit Review'
           setReviews={setReviews}
