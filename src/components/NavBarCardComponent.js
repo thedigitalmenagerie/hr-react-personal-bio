@@ -31,18 +31,6 @@ const NavBar = ({ user, admin }) => {
       </NavItem>
   );
 
-  const authenticatedAdmin = () => (
-    <NavItem>
-      <AnimationWrapper><Link className="nav-link" to="/reviews">Reviews</Link></AnimationWrapper>
-    </NavItem>
-  );
-
-  const authenticatedAdmin2 = () => (
-    <NavItem>
-      <AnimationWrapper><Link className="nav-link" to="/contact">Contact</Link></AnimationWrapper>
-    </NavItem>
-  );
-
   return (
     <div>
       <Navbar id="Navbar" light expand="md" >
@@ -55,16 +43,14 @@ const NavBar = ({ user, admin }) => {
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/biography">- Biography -</Link></AnimationWrapper>
           </NavItem>
-          { user && authenticatedUser2()}
-          { admin && authenticatedAdmin2()}
+          { (user || admin) && authenticatedUser2()}
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/projects">- Projects -</Link></AnimationWrapper>
           </NavItem>
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/resume">- Resume -</Link></AnimationWrapper>
           </NavItem>
-          { user && authenticatedUser()}
-          { admin && authenticatedAdmin()}
+          { (user || admin) && authenticatedUser()}
           <NavItem>
             <AnimationWrapper><Link className="nav-link" to="/technologies">- Technologies -</Link></AnimationWrapper>
          </NavItem>
