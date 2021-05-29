@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
 import { addReview, updateReview } from '../helpers/data/ReviewData';
 import './fStyles/ReviewForm.scss';
 
@@ -114,7 +113,7 @@ const ReviewForm = ({
             onChange={handleInputChange}
           >
           </input>
-          <AnimationWrapper><button type="submit">Add Review</button></AnimationWrapper>
+          <button type="submit">Add Review</button>
         </form>
       </div>
     </>

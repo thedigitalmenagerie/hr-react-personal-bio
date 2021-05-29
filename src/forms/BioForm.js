@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
 import { addBio, updateBio } from '../helpers/data/BioData';
 import './fStyles/BioForm.scss';
 
@@ -114,7 +113,7 @@ const BioForm = ({
             onChange={handleInputChange}
           >
           </input>
-          <AnimationWrapper><button type="submit">Add Bio</button></AnimationWrapper>
+          <button type="submit">Add Bio</button>
         </form>
       </div>
     </>

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
-import { animations } from 'react-animation';
 import { getReviews } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
 import ReviewCards from '../components/ReviewCardComponent';
@@ -24,7 +22,7 @@ export default function ReviewView({
   }, []);
 
   return (
-    <div style={{ animation: animations.fadeIn }}>
+    <div>
       {
         user !== null
           && <div>
@@ -42,10 +40,10 @@ export default function ReviewView({
                   <div>Phone: (615)-956-1551</div>
                   <div>Email: honeyraeswan@gmail.com</div>
                   <div className="cardLinks">
-                    <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={GitHub} alt="link icon"/></a></AnimationWrapper>
-                    <AnimationWrapper><a className="outerLink" href="https://www.linkedin.com/in/honeyraeswan/" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={LinkedIn} alt="link icon"/></a></AnimationWrapper>
-                    <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Twitter} alt="link icon"/></a></AnimationWrapper>
-                    <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Instagram} alt="link icon"/></a></AnimationWrapper>
+                    <a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={GitHub} alt="link icon"/></a>
+                    <a className="outerLink" href="https://www.linkedin.com/in/honeyraeswan/" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={LinkedIn} alt="link icon"/></a>
+                    <a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Twitter} alt="link icon"/></a>
+                    <a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Instagram} alt="link icon"/></a>
                   </div>
                 </div>
                 </div>

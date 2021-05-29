@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
 import { Link } from 'react-router-dom';
 import {
   Collapse,
@@ -21,13 +20,13 @@ const NavBar = ({ user, admin }) => {
 
   const authenticatedUser = () => (
       <NavItem>
-        <AnimationWrapper><Link className="nav-link" to="/reviews">Reviews</Link></AnimationWrapper>
+        <Link className="nav-link" to="/reviews">Reviews</Link>
       </NavItem>
   );
 
   const authenticatedUser2 = () => (
       <NavItem>
-        <AnimationWrapper><Link className="nav-link" to="/contact">Contact</Link></AnimationWrapper>
+        <Link className="nav-link" to="/contact">Contact</Link>
       </NavItem>
   );
 
@@ -35,24 +34,24 @@ const NavBar = ({ user, admin }) => {
     <div>
       <Navbar id="Navbar" light expand="md" >
         <NavbarBrand>
-           <AnimationWrapper><Link className="nav-link" to="/"><img id="homeNavLogo" src={logoOnly}></img></Link></AnimationWrapper>
+           <Link className="nav-link" to="/"><img id="homeNavLogo" src={logoOnly}></img></Link>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>
           <NavItem>
-            <AnimationWrapper><Link className="nav-link" to="/biography">- Biography -</Link></AnimationWrapper>
+           <Link className="nav-link" to="/biography">- Biography -</Link>
           </NavItem>
           { (user || admin) && authenticatedUser2()}
           <NavItem>
-            <AnimationWrapper><Link className="nav-link" to="/projects">- Projects -</Link></AnimationWrapper>
+            <Link className="nav-link" to="/projects">- Projects -</Link>
           </NavItem>
           <NavItem>
-            <AnimationWrapper><Link className="nav-link" to="/resume">- Resume -</Link></AnimationWrapper>
+            <Link className="nav-link" to="/resume">- Resume -</Link>
           </NavItem>
           { (user || admin) && authenticatedUser()}
           <NavItem>
-            <AnimationWrapper><Link className="nav-link" to="/technologies">- Technologies -</Link></AnimationWrapper>
+            <Link className="nav-link" to="/technologies">- Technologies -</Link>
          </NavItem>
         </Nav>
         </Collapse>
@@ -61,7 +60,7 @@ const NavBar = ({ user, admin }) => {
             && <NavItem id="authButtons">
               {
                 (user || admin)
-                  ? <AnimationWrapper><button id="signOut" onClick={signOutUser}> Sign Out </button></AnimationWrapper>
+                  ? <button id="signOut" onClick={signOutUser}> Sign Out </button>
                   : <div></div>
               }
             </NavItem>

@@ -7,7 +7,6 @@ import {
   CardText,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
 import GitHub from '../assets/gitHub.png';
 import Instagram from '../assets/instagram.png';
 import LinkedIn from '../assets/linkedin.png';
@@ -72,10 +71,10 @@ const BioCards = ({
                   </div>
               }
               <div className="cardLinks">
-                <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={GitHub} alt="link icon"/></a></AnimationWrapper>
-                <AnimationWrapper><a className="outerLink" href="https://www.linkedin.com/in/honeyraeswan/" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={LinkedIn} alt="link icon"/></a></AnimationWrapper>
-                <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Twitter} alt="link icon"/></a></AnimationWrapper>
-                <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Instagram} alt="link icon"/></a></AnimationWrapper>
+                <a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={GitHub} alt="link icon"/></a>
+                <a className="outerLink" href="https://www.linkedin.com/in/honeyraeswan/" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={LinkedIn} alt="link icon"/></a>
+                <a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Twitter} alt="link icon"/></a>
+                <a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Instagram} alt="link icon"/></a>
               </div>
               {
                 admin !== null
@@ -83,14 +82,10 @@ const BioCards = ({
                     { admin
                       ? <div>
                           <div id="adminButtons">
-                            <AnimationWrapper>
                               <button id="deleteBio" onClick={() => handleClick('delete')}>Delete Bio</button>
-                            </AnimationWrapper>
-                            <AnimationWrapper>
                               <button id="editBio" onClick={() => handleClick('edit')}>
                                 {editingBios ? 'Close Form' : 'Edit Bio'}
                               </button>
-                            </AnimationWrapper>
                           </div>
                           <div>
                             {editingBios && <BioForm

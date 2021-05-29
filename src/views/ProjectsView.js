@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
-import { animations } from 'react-animation';
 import { getProjects } from '../helpers/data/ProjectsData';
 import ProjectsForm from '../forms/ProjectsForm';
 import ProjectCards from '../components/ProjectsCardComponent';
@@ -24,16 +22,16 @@ export default function ProjectsView({
     getProjects().then((response) => setProjects(response));
   }, []);
   return (
-    <div style={{ animation: animations.fadeIn }}>
+    <div>
       {
         admin !== null
           && <div>
             { admin
               ? <div>
                   {!showAddProjectForm
-                    ? <AnimationWrapper><button id="addProject" onClick={handleClick}>Add Project</button></AnimationWrapper>
+                    ? <button id="addProject" onClick={handleClick}>Add Project</button>
                     : <div>
-                      <AnimationWrapper><button id="closeForm" onClick={handleClick}>Close Form</button></AnimationWrapper>
+                      <button id="closeForm" onClick={handleClick}>Close Form</button>
                       <ProjectsForm
                         projectsFormTitle="Add Project"
                         setProjects={setProjects}

@@ -7,7 +7,6 @@ import {
   CardText
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
 import { deleteReview } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
 import './cstyles/ReviewComponents.scss';
@@ -58,10 +57,10 @@ const ReviewCards = ({
                   { admin
                     ? <div>
                         <div id="adminButtons">
-                        <AnimationWrapper><button id="deleteReview"onClick={() => handleClick('delete')}>Delete Review</button></AnimationWrapper>
-                        <AnimationWrapper><button id="editReview" onClick={() => handleClick('edit')}>
+                        <button id="deleteReview"onClick={() => handleClick('delete')}>Delete Review</button>
+                        <button id="editReview" onClick={() => handleClick('edit')}>
                           {editingReview ? 'Close Form' : 'Edit Review'}
-                        </button></AnimationWrapper>
+                        </button>
                           {editingReview && <ReviewForm
                             reviewFormTitle='Edit Review'
                             setReviews={setReviews}

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { animations } from 'react-animation';
-import { AnimationWrapper } from 'react-hover-animation';
 import { getBio } from '../helpers/data/BioData';
 import BioForm from '../forms/BioForm';
 import BioCards from '../components/BioCardComponent';
@@ -24,7 +22,7 @@ export default function BioView({
     getBio().then((response) => setBios(response));
   }, []);
   return (
-    <div className="bioView" style={{ animation: animations.fadeIn }}>
+    <div className="bioView">
       <div className="innerContainer">
       {
           admin !== null
@@ -32,9 +30,9 @@ export default function BioView({
             { admin
               ? <div>
                   {!showAddBioForm
-                    ? <AnimationWrapper><button id="addBio" onClick={handleClick}>Add Bio</button></AnimationWrapper>
+                    ? <button id="addBio" onClick={handleClick}>Add Bio</button>
                     : <div>
-                    <AnimationWrapper><button id="closeForm" onClick={handleClick}>Close Form</button></AnimationWrapper>
+                    <button id="closeForm" onClick={handleClick}>Close Form</button>
                     <BioForm
                       bioFormTitle="Add Bio"
                       setBios={setBios}

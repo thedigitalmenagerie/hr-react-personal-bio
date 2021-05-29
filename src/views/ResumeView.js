@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { AnimationWrapper } from 'react-hover-animation';
-import { animations } from 'react-animation';
 import { getResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
 import ResumeCards from '../components/ResumeCardComponent';
@@ -24,7 +22,7 @@ export default function ResumeView({
     getResume().then((response) => setResumes((response)));
   }, []);
   return (
-    <div className="resumeView" style={{ animation: animations.fadeIn }}>
+    <div className="resumeView">
       <div>
       {
         admin !== null
@@ -32,9 +30,9 @@ export default function ResumeView({
             { admin
               ? <div>
                 {!showAddResume
-                  ? <AnimationWrapper><button id="addResume" onClick={handleClick}>Add Resume</button></AnimationWrapper>
+                  ? <button id="addResume" onClick={handleClick}>Add Resume</button>
                   : <div>
-                      <AnimationWrapper><button id="closeForm" onClick={handleClick}>Close Form</button></AnimationWrapper>
+                      <button id="closeForm" onClick={handleClick}>Close Form</button>
                       <ResumeForm
                       resumeFormTitle="Add Resume"
                       setResumes={setResumes}
