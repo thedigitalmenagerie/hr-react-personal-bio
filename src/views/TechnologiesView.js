@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
+import { animations } from 'react-animation';
 import TechForm from '../forms/TechnologiesForm';
 import { getTechnologies } from '../helpers/data/TechnologiesData';
 import TechCards from '../components/TechnologiesCardComponent';
@@ -23,7 +25,7 @@ export default function TechnologiesView({
   }, []);
 
   return (
-    <div>
+    <div style={{ animation: animations.fadeIn }}>
       <div>
       {
         admin !== null
@@ -31,9 +33,9 @@ export default function TechnologiesView({
             { admin
               ? <div>
                 {!showAddTechForm
-                  ? <button id="addTech" onClick={handleClick}>Add Tech</button>
+                  ? <AnimationWrapper><button id="addTech" onClick={handleClick}>Add Tech</button></AnimationWrapper>
                   : <div>
-                      <button id="closeForm" onClick={handleClick}>Close Form</button>
+                      <AnimationWrapper><button id="closeForm" onClick={handleClick}>Close Form</button></AnimationWrapper>
                         <TechForm
                           technologiesFormTitle="Add Technology"
                           setTechnologies={setTechnologies}

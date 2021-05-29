@@ -8,6 +8,7 @@ import {
   CardText
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { deleteProjects } from '../helpers/data/ProjectsData';
 import ProjectsForm from '../forms/ProjectsForm';
 import './cstyles/ProjectsComponent.scss';
@@ -59,10 +60,10 @@ const ProjectCards = ({
                 { admin
                   ? <div>
                       <div id="adminButtons">
-                        <button id="deleteProject" onClick={() => handleClick('delete')}>Delete Project</button>
-                        <button id="closeForm" onClick={() => handleClick('edit')}>
+                        <AnimationWrapper><button id="deleteProject" onClick={() => handleClick('delete')}>Delete Project</button></AnimationWrapper>
+                        <AnimationWrapper><button id="closeForm" onClick={() => handleClick('edit')}>
                           {editingProjects ? 'Close Form' : 'Edit Project'}
-                        </button>
+                        </button></AnimationWrapper>
                           {editingProjects && <ProjectsForm
                             projectsFormTitle='Edit Project'
                             setProjects={setProjects}

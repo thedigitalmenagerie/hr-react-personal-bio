@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addTechnologies, updateTech } from '../helpers/data/TechnologiesData';
 import './fStyles/TechnologiesForm.scss';
 
@@ -101,7 +102,7 @@ const TechForm = ({
             onChange={handleInputChange}
           >
           </input>
-          <button type="submit">Add Technology</button>
+          <AnimationWrapper><button type="submit">Add Technology</button></AnimationWrapper>
         </form>
       </div>
     </>

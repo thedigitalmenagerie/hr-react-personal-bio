@@ -21,7 +21,7 @@ const PrivateRoute = ({
   const routeChecker2 = (taco) => (user
     ? (<Component {...taco} user={user}/>)
     : (<Redirect to={{ pathname: '/', state: { from: taco.location } }} />));
-  return <Route {...rest} render={(props) => (routeChecker(props) || routeChecker2(props))} />;
+  return <Route {...rest} render={(props) => (routeChecker(props) && routeChecker2(props))} />;
 };
 
 PrivateRoute.propTypes = {

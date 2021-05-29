@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addContact, updateContacts } from '../helpers/data/ContactData';
 import './fStyles/ContactForm.scss';
 
@@ -101,7 +102,7 @@ const ContactForm = ({
             onChange={handleInputChange}
           >
           </input>
-          <button type="submit">Submit Inquiry</button>
+          <AnimationWrapper><button type="submit">Submit Inquiry</button></AnimationWrapper>
         </form>
       </div>
     </>

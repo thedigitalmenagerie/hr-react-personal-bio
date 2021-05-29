@@ -8,6 +8,7 @@ import {
   CardText
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { deleteTech } from '../helpers/data/TechnologiesData';
 import TechForm from '../forms/TechnologiesForm';
 import './cstyles/TechnologiesComponent.scss';
@@ -56,10 +57,10 @@ const TechCards = ({
                   { admin
                     ? <div>
                         <div id="adminButtons">
-                        <button id="deleteTech" onClick={() => handleClick('delete')}>Delete</button>
-                        <button id="editTech" onClick={() => handleClick('edit')}>
+                        <AnimationWrapper><button id="deleteTech" onClick={() => handleClick('delete')}>Delete</button></AnimationWrapper>
+                        <AnimationWrapper><button id="editTech" onClick={() => handleClick('edit')}>
                           {editingTech ? 'Close Form' : 'Edit Tech'}
-                        </button>
+                        </button></AnimationWrapper>
                           {editingTech && <TechForm
                             technologiesFormTitle='Edit Tech'
                             setTechnologies={setTechnologies}

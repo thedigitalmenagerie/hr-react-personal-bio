@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { AnimationWrapper } from 'react-hover-animation';
+import { animations } from 'react-animation';
 import { getReviews } from '../helpers/data/ReviewData';
 import ReviewForm from '../forms/ReviewForm';
 import ReviewCards from '../components/ReviewCardComponent';
@@ -23,7 +24,7 @@ export default function ReviewView({
   }, []);
 
   return (
-    <div>
+    <div style={{ animation: animations.fadeIn }}>
       {
         user !== null
           && <div>

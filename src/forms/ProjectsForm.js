@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { addProjects, updateProjects } from '../helpers/data/ProjectsData';
 import './fStyles/ProjectForm.scss';
 
@@ -112,7 +113,7 @@ const ProjectsForm = ({
             onChange={handleInputChange}
           >
           </input>
-          <button type="submit">Add Project</button>
+          <AnimationWrapper><button type="submit">Add Project</button></AnimationWrapper>
         </form>
       </div>
     </>

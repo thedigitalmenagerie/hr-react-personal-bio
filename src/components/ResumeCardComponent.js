@@ -7,6 +7,7 @@ import {
   CardText
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { deleteResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
 import './cstyles/ResumeComponent.scss';
@@ -58,10 +59,10 @@ const ResumeCards = ({
                 { admin
                   ? <div>
                       <div id="adminButtons">
-                      <button id="deleteResume" onClick={() => handleClick('delete')}>Delete</button>
-        <button id="editResume" onClick={() => handleClick('edit')}>
+                      <AnimationWrapper><button id="deleteResume" onClick={() => handleClick('delete')}>Delete</button></AnimationWrapper>
+        <AnimationWrapper><button id="editResume" onClick={() => handleClick('edit')}>
           {editingResume ? 'Close Form' : 'Edite Resume'}
-        </button>
+        </button></AnimationWrapper>
           {editingResume && <ResumeForm
           resumeFormTitle='Edit Resume'
           setResumes={setResumes}
