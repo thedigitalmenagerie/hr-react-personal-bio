@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Card,
-  Button,
   CardBody,
   CardTitle,
   CardSubtitle,
@@ -10,6 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import { deleteContacts } from '../helpers/data/ContactData';
 import ContactForm from '../forms/ContactForm';
+import './cstyles/ContactComponent.scss';
 
 const ContactCards = ({
   firebaseKey,
@@ -18,7 +18,11 @@ const ContactCards = ({
   contactPhone,
   contactDate,
   contactReason,
-  setContacts
+  setContacts,
+  admin,
+  setAdmin,
+  user,
+  setUser,
 }) => {
   const [editingContacts, setEditingContacts] = useState(false);
 
@@ -37,29 +41,47 @@ const ContactCards = ({
   };
 
   return (
-    <Card>
-      <CardBody>
-        <CardTitle tag="h5">{contactName}</CardTitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{contactEmail}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{contactPhone}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted">{contactDate}</CardSubtitle>
-        <CardText>{contactReason}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete</Button>
-        <Button onClick={() => handleClick('edit')}>
-          {editingContacts ? 'Close Form' : 'Edit Contacts'}
-        </Button>
-          {editingContacts && <ContactForm
-          contactFormTitle='Edit Contact'
-          firebaseKey={firebaseKey}
-          setContacts={setContacts}
-          contactName={contactName}
-          contactEmail={contactEmail}
-          contactPhone={contactPhone}
-          contactDate={contactDate}
-          contactReason={contactReason}
-          />}
-      </CardBody>
-    </Card>
+    <div className="contactContainer">
+      <div className="conactCardHolder">
+        <Card id="contactCards">
+          <CardBody>
+            <CardTitle tag="h5">{contactName}</CardTitle>
+            <CardSubtitle tag="h6" className="mb-2 text-muted">{contactEmail}</CardSubtitle>
+            <CardSubtitle tag="h6" className="mb-2 text-muted">{contactPhone}</CardSubtitle>
+            <CardSubtitle tag="h6" className="mb-2 text-muted">{contactDate}</CardSubtitle>
+            <CardText>{contactReason}</CardText>
+            {
+              admin !== null
+                && <div id="hiddenAdminContent">
+                  { admin
+                    ? <div>
+                        <div id="adminButtons">
+                          <button id="deleteContact"onClick={() => handleClick('delete')}>Delete</button>
+                          <button id="editContact" onClick={() => handleClick('edit')}>
+                            {editingContacts ? 'Close Form' : 'Edit Contacts'}
+                          </button>
+                            {editingContacts && <ContactForm
+                              contactFormTitle='Edit Contact'
+                              firebaseKey={firebaseKey}
+                              setContacts={setContacts}
+                              contactName={contactName}
+                              contactEmail={contactEmail}
+                              contactPhone={contactPhone}
+                              contactDate={contactDate}
+                              contactReason={contactReason}
+                              admin={admin}
+                              setAdmin={setAdmin}
+                              user={user}
+                              setUser={setUser}
+                            />}
+                          </div>
+                          </div>
+                    : <div></div>
+                  } </div>
+              } </CardBody>
+          </Card>
+      </div>
+    </div>
   );
 };
 
@@ -70,7 +92,11 @@ ContactCards.propTypes = {
   contactPhone: PropTypes.string.isRequired,
   contactDate: PropTypes.string.isRequired,
   contactReason: PropTypes.string.isRequired,
-  setContacts: PropTypes.func
+  setContacts: PropTypes.func,
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
 };
 
 export default ContactCards;

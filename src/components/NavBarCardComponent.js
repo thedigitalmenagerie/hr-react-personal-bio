@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AnimationWrapper } from 'react-hover-animation';
 import { Link } from 'react-router-dom';
 import {
-  Button,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -10,51 +10,73 @@ import {
   Nav,
   NavItem,
 } from 'reactstrap';
-import { signInUser, signOutUser } from '../helpers/Authorization';
+import { signOutUser } from '../helpers/Authorization';
 import logoOnly from '../assets/logoOnly.png';
 import './cstyles/NavBarComponent.scss';
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user, admin }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const authenticatedUser = () => (
+      <NavItem>
+        <AnimationWrapper><Link className="nav-link" to="/reviews">Reviews</Link></AnimationWrapper>
+      </NavItem>
+  );
+
+  const authenticatedUser2 = () => (
+      <NavItem>
+        <AnimationWrapper><Link className="nav-link" to="/contact">Contact</Link></AnimationWrapper>
+      </NavItem>
+  );
+
+  const authenticatedAdmin = () => (
+    <NavItem>
+      <AnimationWrapper><Link className="nav-link" to="/reviews">Reviews</Link></AnimationWrapper>
+    </NavItem>
+  );
+
+  const authenticatedAdmin2 = () => (
+    <NavItem>
+      <AnimationWrapper><Link className="nav-link" to="/contact">Contact</Link></AnimationWrapper>
+    </NavItem>
+  );
+
   return (
     <div>
-      <Navbar id="Navbar" light expand="md">
+      <Navbar id="Navbar" light expand="md" >
         <NavbarBrand>
-           <Link className="nav-link" to="/"><img id="homeNavLogo" src={logoOnly}></img></Link>
+           <AnimationWrapper><Link className="nav-link" to="/"><img id="homeNavLogo" src={logoOnly}></img></Link></AnimationWrapper>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>
           <NavItem>
-            <Link className="nav-link" to="/biography">Biography</Link>
+            <AnimationWrapper><Link className="nav-link" to="/biography">- Biography -</Link></AnimationWrapper>
+          </NavItem>
+          { user && authenticatedUser2()}
+          { admin && authenticatedAdmin2()}
+          <NavItem>
+            <AnimationWrapper><Link className="nav-link" to="/projects">- Projects -</Link></AnimationWrapper>
           </NavItem>
           <NavItem>
-            <Link className="nav-link" to="/contact">Contact</Link>
+            <AnimationWrapper><Link className="nav-link" to="/resume">- Resume -</Link></AnimationWrapper>
           </NavItem>
+          { user && authenticatedUser()}
+          { admin && authenticatedAdmin()}
           <NavItem>
-            <Link className="nav-link" to="/projects">Projects</Link>
-          </NavItem>
-          <NavItem>
-            <Link className="nav-link" to="/resume">Resume</Link>
-          </NavItem>
-          <NavItem>
-            <Link className="nav-link" to="/reviews">Reviews</Link>
-          </NavItem>
-          <NavItem>
-            <Link className="nav-link" to="/technologies">Technologies</Link>
+            <AnimationWrapper><Link className="nav-link" to="/technologies">- Technologies -</Link></AnimationWrapper>
          </NavItem>
         </Nav>
         </Collapse>
         {
-            user !== null
+            (user || admin) !== null
             && <NavItem id="authButtons">
               {
-                user
-                  ? <Button id="signIn" onClick={signOutUser}> Sign Out </Button>
-                  : <Button id="signOut" onClick={signInUser}> Sign In </Button>
+                (user || admin)
+                  ? <AnimationWrapper><button id="signOut" onClick={signOutUser}> Sign Out </button></AnimationWrapper>
+                  : <div></div>
               }
             </NavItem>
           }
@@ -64,7 +86,8 @@ const NavBar = ({ user }) => {
 };
 
 NavBar.propTypes = {
-  user: PropTypes.any
+  admin: PropTypes.any,
+  user: PropTypes.any,
 };
 
 export default NavBar;

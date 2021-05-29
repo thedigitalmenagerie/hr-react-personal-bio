@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addProjects, updateProjects } from '../helpers/data/ProjectsData';
+import './fStyles/ProjectForm.scss';
 
 const ProjectsForm = ({
   projectsFormTitle,
@@ -23,7 +24,7 @@ const ProjectsForm = ({
     firebaseKey: firebaseKey || null
   });
 
-  const handleProjectInputChange = (e) => {
+  const handleInputChange = (e) => {
     setProject((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -36,6 +37,15 @@ const ProjectsForm = ({
       updateProjects(project).then((projectsArray) => setProjects(projectsArray));
     } else {
       addProjects(project).then((projectsArray) => setProjects(projectsArray));
+      setProject({
+        projectName: '',
+        projectImage: '',
+        projectLink: '',
+        projectDate: '',
+        projectAuthors: '',
+        projectTech: '',
+        firebaseKey: null
+      });
     }
   };
 
@@ -54,7 +64,7 @@ const ProjectsForm = ({
             type='text'
             placeholder='Project Name'
             value={project.projectName}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Image: </label>
@@ -63,7 +73,7 @@ const ProjectsForm = ({
             type='text'
             placeholder='Project Image URL'
             value={project.projectImage}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Link: </label>
@@ -72,7 +82,7 @@ const ProjectsForm = ({
             type='text'
             placeholder='Project Link'
             value={project.projectLink}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Date: </label>
@@ -81,7 +91,7 @@ const ProjectsForm = ({
             type='text'
             placeholder='Project Date'
             value={project.projectDate}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Authors: </label>
@@ -90,7 +100,7 @@ const ProjectsForm = ({
             type='text'
             placeholder='Project Authors'
             value={project.projectAuthors}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Tech Used: </label>
@@ -99,7 +109,7 @@ const ProjectsForm = ({
             type='text'
             placeholder='Project Tech Used'
             value={project.projectTech}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <button type="submit">Add Project</button>

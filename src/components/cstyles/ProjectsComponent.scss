@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
+.projectsContainer {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.projectCardHolder {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.projectCards {
+  width: 400px;
+  margin: 25px;
+  font-family: 'Unica One', cursive;
+}
+
+#adminButtons {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
+#deleteProject {
+  color: whitesmoke;
+  background-color: #4B240B;
+  font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+#editProject {
+  color: whitesmoke;
+  background-color: #4B240B;
+  font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}

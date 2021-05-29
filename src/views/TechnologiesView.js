@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 import TechForm from '../forms/TechnologiesForm';
 import { getTechnologies } from '../helpers/data/TechnologiesData';
 import TechCards from '../components/TechnologiesCardComponent';
+import './vStyles/TechnologiesView.scss';
 
-export default function TechnologiesView() {
+export default function TechnologiesView({
+  admin,
+  setAdmin,
+  user,
+  setUser,
+}) {
   const [technologies, setTechnologies] = useState([]);
   const [showAddTechForm, setAddTechForm] = useState(false);
 
@@ -19,16 +25,29 @@ export default function TechnologiesView() {
   return (
     <div>
       <div>
-        {!showAddTechForm
-          ? <Button onClick={handleClick}>Add Tech</Button>
-          : <div>
-              <Button onClick={handleClick}>Close Form</Button>
-              <TechForm
-                technologiesFormTitle="Add Technology"
-                setTechnologies={setTechnologies}
-              />
-            </div>
-        }
+      {
+        admin !== null
+          && <div>
+            { admin
+              ? <div>
+                {!showAddTechForm
+                  ? <button id="addTech" onClick={handleClick}>Add Tech</button>
+                  : <div>
+                      <button id="closeForm" onClick={handleClick}>Close Form</button>
+                        <TechForm
+                          technologiesFormTitle="Add Technology"
+                          setTechnologies={setTechnologies}
+                          admin={admin}
+                          setAdmin={setAdmin}
+                          user={user}
+                          setUser={setUser}
+                        />
+                    </div>
+                }
+                </div>
+              : <div></div>
+            } </div>
+          }
       </div>
       {technologies.map((techInfo) => (
         <TechCards
@@ -40,8 +59,19 @@ export default function TechnologiesView() {
         techDate={techInfo.techDate}
         techDescription={techInfo.techDescription}
         setTechnologies={setTechnologies}
+        admin={admin}
+        setAdmin={setAdmin}
+        user={user}
+        setUser={setUser}
         />
       ))}
     </div>
   );
 }
+
+TechnologiesView.propTypes = {
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
+};

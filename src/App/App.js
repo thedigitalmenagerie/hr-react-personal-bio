@@ -7,12 +7,21 @@ import NavBar from '../components/NavBarCardComponent';
 import Routes from '../helpers/Routes';
 
 function App() {
+  const [admin, setAdmin] = useState(null);
   const [user, setUser] = useState(null);
-  // const [admin, setAdmin] = useState(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
-      if (authed) {
+      if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
+        const adminInfoObj = {
+          fullName: authed.displayName,
+          profileImage: authed.photoURL,
+          uid: authed.uid,
+          admin: authed.email.split('@')[0]
+        };
+        setAdmin(adminInfoObj);
+        setUser(false);
+      } else if (authed && (authed.uid !== process.env.REACT_APP_ADMIN_UID)) {
         const userInfoObj = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
@@ -20,14 +29,11 @@ function App() {
           user: authed.email.split('@')[0]
         };
         setUser(userInfoObj);
-      } else if (user || user === null) {
+        setAdmin(false);
+      } else if ((user || user === null) || (admin || admin === null)) {
         setUser(false);
+        setAdmin(false);
       }
-      // if (authed && (authed.uid === process.env.REACT_APP_ADMIN_UID)) {
-      //   setAdmin(true);
-      // } else if (admin || admin === null) {
-      //   setAdmin(false);
-      // }
     });
   }, []);
 
@@ -35,8 +41,14 @@ function App() {
     <div className='App'>
       <>
       <Router>
-        <NavBar user={user}/>
-        <Routes user={user}/>
+        <NavBar
+        admin={admin}
+        user={user}
+        />
+        <Routes
+        admin={admin}
+        user={user}
+        />
       </Router>
       </>
 

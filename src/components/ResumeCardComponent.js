@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Card,
-  Button,
   CardBody,
   CardTitle,
   CardSubtitle,
@@ -10,6 +9,7 @@ import {
 import PropTypes from 'prop-types';
 import { deleteResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
+import './cstyles/ResumeComponent.scss';
 
 const ResumeCards = ({
   firebaseKey,
@@ -19,7 +19,11 @@ const ResumeCards = ({
   resumeLength,
   resumeRole,
   resumeSkills,
-  setResumes
+  setResumes,
+  admin,
+  setAdmin,
+  user,
+  setUser,
 }) => {
   const [editingResume, setEditingResume] = useState(false);
 
@@ -38,7 +42,9 @@ const ResumeCards = ({
   };
 
   return (
-    <Card>
+    <div className="resumeContainer">
+      <div className="resumeCardHolder">
+        <Card id="resumeCards">
       <CardBody>
         <CardTitle tag="h5">{resumeCompany}</CardTitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{resumeLocation}</CardSubtitle>
@@ -46,10 +52,16 @@ const ResumeCards = ({
         <CardSubtitle tag="h6" className="mb-2 text-muted">{resumeLength}</CardSubtitle>
         <CardText>{resumeRole}</CardText>
         <CardText>{resumeSkills}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete</Button>
-        <Button onClick={() => handleClick('edit')}>
+        {
+            admin !== null
+              && <div id="hiddenAdminContent">
+                { admin
+                  ? <div>
+                      <div id="adminButtons">
+                      <button id="deleteResume" onClick={() => handleClick('delete')}>Delete</button>
+        <button id="editResume" onClick={() => handleClick('edit')}>
           {editingResume ? 'Close Form' : 'Edite Resume'}
-        </Button>
+        </button>
           {editingResume && <ResumeForm
           resumeFormTitle='Edit Resume'
           setResumes={setResumes}
@@ -60,9 +72,22 @@ const ResumeCards = ({
           resumeLength={resumeLength}
           resumeRole={resumeRole}
           resumeSkills={resumeSkills}
+          admin={admin}
+          setAdmin={setAdmin}
+          user={user}
+          setUser={setUser}
           />}
+                      </div>
+                     </div>
+                  : <div></div>
+
+                } </div>
+              }
       </CardBody>
     </Card>
+      </div>
+    </div>
+
   );
 };
 
@@ -74,7 +99,11 @@ ResumeCards.propTypes = {
   resumeLength: PropTypes.string.isRequired,
   resumeRole: PropTypes.string.isRequired,
   resumeSkills: PropTypes.string.isRequired,
-  setResumes: PropTypes.func
+  setResumes: PropTypes.func,
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
 };
 
 export default ResumeCards;

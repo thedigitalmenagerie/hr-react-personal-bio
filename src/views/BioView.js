@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
+import { animations } from 'react-animation';
+import { AnimationWrapper } from 'react-hover-animation';
 import { getBio } from '../helpers/data/BioData';
 import BioForm from '../forms/BioForm';
 import BioCards from '../components/BioCardComponent';
+import './vStyles/BioView.scss';
 
-export default function BioView() {
+export default function BioView({
+  admin,
+  setAdmin,
+  user,
+  setUser,
+}) {
   const [bios, setBios] = useState([]);
   const [showAddBioForm, setShowAddBioForm] = useState(false);
 
@@ -16,18 +24,32 @@ export default function BioView() {
     getBio().then((response) => setBios(response));
   }, []);
   return (
-    <div>
-      <div>
-        {!showAddBioForm
-          ? <Button onClick={handleClick}>Add Bio</Button>
-          : <div>
-              <Button onClick={handleClick}>Close Form</Button>
-              <BioForm
-                bioFormTitle="Add Bio"
-                setBios={setBios}
-              />
-            </div>
-        }
+    <div className="bioView" style={{ animation: animations.fadeIn }}>
+      <div className="innerContainer">
+      {
+          admin !== null
+          && <div>
+            { admin
+              ? <div>
+                  {!showAddBioForm
+                    ? <AnimationWrapper><button id="addBio" onClick={handleClick}>Add Bio</button></AnimationWrapper>
+                    : <div>
+                    <AnimationWrapper><button id="closeForm" onClick={handleClick}>Close Form</button></AnimationWrapper>
+                    <BioForm
+                      bioFormTitle="Add Bio"
+                      setBios={setBios}
+                      admin={admin}
+                      setAdmin={setAdmin}
+                      user={user}
+                      setUser={setUser}
+                    />
+                  </div>
+                  }
+                </div>
+              : <div></div>
+
+            } </div>
+          }
       </div>
       {bios.map((bioInfo) => (
         <BioCards
@@ -40,8 +62,19 @@ export default function BioView() {
           bioDescription={bioInfo.bioDescription}
           bioDate={bioInfo.bioDate}
           setBios={setBios}
+          admin={admin}
+          setAdmin={setAdmin}
+          user={user}
+          setUser={setUser}
         />
       ))}
     </div>
   );
 }
+
+BioView.propTypes = {
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
+};

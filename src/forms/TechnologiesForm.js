@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addTechnologies, updateTech } from '../helpers/data/TechnologiesData';
+import './fStyles/TechnologiesForm.scss';
 
 const TechForm = ({
   technologiesFormTitle,
@@ -21,7 +22,7 @@ const TechForm = ({
     firebaseKey: firebaseKey || null
   });
 
-  const handleProjectInputChange = (e) => {
+  const handleInputChange = (e) => {
     setTech((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -34,6 +35,15 @@ const TechForm = ({
       updateTech(tech).then((techArray) => setTechnologies(techArray));
     } else {
       addTechnologies(tech).then((techArray) => setTechnologies(techArray));
+
+      setTech({
+        techCategory: '',
+        techName: '',
+        techDescription: '',
+        techImage: '',
+        techDate: '',
+        firebaseKey: null
+      });
     }
   };
 
@@ -52,7 +62,7 @@ const TechForm = ({
             type='text'
             placeholder='Category'
             value={tech.techCategory}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Name: </label>
@@ -61,7 +71,7 @@ const TechForm = ({
             type='text'
             placeholder='Name'
             value={tech.techName}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Description: </label>
@@ -70,7 +80,7 @@ const TechForm = ({
             type='text'
             placeholder='Description'
             value={tech.techDescription}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Image: </label>
@@ -79,7 +89,7 @@ const TechForm = ({
             type='text'
             placeholder='Image URL'
             value={tech.techImage}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Date: </label>
@@ -88,7 +98,7 @@ const TechForm = ({
             type='text'
             placeholder='Date'
             value={tech.techDate}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <button type="submit">Add Technology</button>

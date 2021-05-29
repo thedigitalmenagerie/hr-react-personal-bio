@@ -1,3 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
 #homeLogo {
-  width: 900px;
+  width: 750px;
+}
+
+#instructions {
+  color: #4B240B;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-family: 'Unica One', cursive;
+}
+
+#welcome {
+  color: #4B240B;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-family: 'Unica One', cursive;
+}
+
+#authButtonsHome {
+  display: flex;
+  justify-content: center;
+  padding-left: 5px;
+  padding-bottom: 75px;
+}
+
+#signIn {
+  background-color: #4B240B;
+  color: whitesmoke;
+  border-radius: 5px;
+  font-family: 'Unica One', cursive;
 }

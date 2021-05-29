@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Card,
-  Button,
   CardImg,
   CardBody,
   CardTitle,
@@ -11,6 +10,7 @@ import {
 import PropTypes from 'prop-types';
 import { deleteTech } from '../helpers/data/TechnologiesData';
 import TechForm from '../forms/TechnologiesForm';
+import './cstyles/TechnologiesComponent.scss';
 
 const TechCards = ({
   firebaseKey,
@@ -19,7 +19,11 @@ const TechCards = ({
   techCategory,
   techDate,
   techDescription,
-  setTechnologies
+  setTechnologies,
+  admin,
+  setAdmin,
+  user,
+  setUser,
 }) => {
   const [editingTech, setEditingTech] = useState(false);
 
@@ -37,28 +41,48 @@ const TechCards = ({
     }
   };
   return (
-    <Card>
+    <div className="techContainer">
+      <div className="techCardHolder">
+            <Card id="techCards">
       <CardImg top width="100%" src={techImage} alt="Card image cap" />
       <CardBody>
         <CardTitle tag="h5">{techName}</CardTitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{techCategory}</CardSubtitle>
         <CardSubtitle tag="h6" className="mb-2 text-muted">{techDate}</CardSubtitle>
         <CardText>{techDescription}</CardText>
-        <Button onClick={() => handleClick('delete')}>Delete</Button>
-        <Button onClick={() => handleClick('edit')}>
-          {editingTech ? 'Close Form' : 'Edit Tech'}
-        </Button>
-          {editingTech && <TechForm
-          technologiesFormTitle='Edit Tech'
-          setTechnologies={setTechnologies}
-          firebaseKey={firebaseKey}
-          techImage={techImage}
-          techCategory={techCategory}
-          techDate={techDate}
-          techDescription={techDescription}
-          />}
+        {
+              admin !== null
+                && <div id="hiddenAdminContent">
+                  { admin
+                    ? <div>
+                        <div id="adminButtons">
+                        <button id="deleteTech" onClick={() => handleClick('delete')}>Delete</button>
+                        <button id="editTech" onClick={() => handleClick('edit')}>
+                          {editingTech ? 'Close Form' : 'Edit Tech'}
+                        </button>
+                          {editingTech && <TechForm
+                            technologiesFormTitle='Edit Tech'
+                            setTechnologies={setTechnologies}
+                            firebaseKey={firebaseKey}
+                            techImage={techImage}
+                            techCategory={techCategory}
+                            techDate={techDate}
+                            techDescription={techDescription}
+                            admin={admin}
+                            setAdmin={setAdmin}
+                            user={user}
+                            setUser={setUser}
+                          />}
+                          </div>
+                          </div>
+                    : <div></div>
+                  } </div>
+              }
       </CardBody>
     </Card>
+      </div>
+    </div>
+
   );
 };
 
@@ -69,7 +93,11 @@ TechCards.propTypes = {
   techCategory: PropTypes.string.isRequired,
   techDate: PropTypes.string.isRequired,
   techDescription: PropTypes.string.isRequired,
-  setTechnologies: PropTypes.func
+  setTechnologies: PropTypes.func,
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
 };
 
 export default TechCards;

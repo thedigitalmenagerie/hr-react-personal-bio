@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addContact, updateContacts } from '../helpers/data/ContactData';
+import './fStyles/ContactForm.scss';
 
 const ContactForm = ({
   contactFormTitle,
@@ -21,7 +22,7 @@ const ContactForm = ({
     firebaseKey: firebaseKey || null
   });
 
-  const handleProjectInputChange = (e) => {
+  const handleInputChange = (e) => {
     setContact((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -34,6 +35,15 @@ const ContactForm = ({
       updateContacts(contact).then((contactsArray) => setContacts(contactsArray));
     } else {
       addContact(contact).then((contactsArray) => setContacts(contactsArray));
+
+      setContact({
+        contactName: '',
+        contactEmail: '',
+        contactPhone: '',
+        contactDate: '',
+        contactReason: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -52,7 +62,7 @@ const ContactForm = ({
             type='text'
             placeholder='Your Name'
             value={contact.contactName}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Email: </label>
@@ -61,7 +71,7 @@ const ContactForm = ({
             type='text'
             placeholder='Your email'
             value={contact.contactEmail}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Phone: </label>
@@ -70,7 +80,7 @@ const ContactForm = ({
             type='text'
             placeholder='Contact Phone'
             value={contact.contactPhone}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Date: </label>
@@ -79,7 +89,7 @@ const ContactForm = ({
             type='text'
             placeholder='Date'
             value={contact.contactDate}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Reason: </label>
@@ -88,7 +98,7 @@ const ContactForm = ({
             type='text'
             placeholder='Reason'
             value={contact.contactReason}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <button type="submit">Submit Inquiry</button>

@@ -4,16 +4,16 @@ import firebaseConfig from '../apiKeys';
 const DBURL = firebaseConfig.databaseURL;
 
 const getContacts = () => new Promise((resolve, reject) => {
-  axios.get(`${DBURL}/contact.json`)
+  axios.get(`${DBURL}/contacts.json`)
     .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
 const addContact = (contacts) => new Promise((resolve, reject) => {
-  axios.post(`${DBURL}/contact.json`, contacts)
+  axios.post(`${DBURL}/contacts.json`, contacts)
     .then((response) => {
       const body = { firebaseKey: response.data.name };
-      axios.patch(`${DBURL}/contact/${response.data.name}.json`, body)
+      axios.patch(`${DBURL}/contacts/${response.data.name}.json`, body)
         .then(() => {
           getContacts().then((contactsArray) => resolve(contactsArray));
         });

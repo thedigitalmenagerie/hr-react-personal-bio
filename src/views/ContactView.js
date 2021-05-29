@@ -1,47 +1,80 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
+import { animations } from 'react-animation';
+import { AnimationWrapper } from 'react-hover-animation';
 import { getContacts } from '../helpers/data/ContactData';
 import ContactForm from '../forms/ContactForm';
 import ContactCards from '../components/ContactCardComponent';
+import GitHub from '../assets/gitHub.png';
+import Instagram from '../assets/instagram.png';
+import LinkedIn from '../assets/linkedin.png';
+import Twitter from '../assets/twitter.png';
+import './vStyles/ContactView.scss';
 
-export default function ContactView() {
+export default function ContactView({
+  admin,
+  setAdmin,
+  user,
+  setUser,
+}) {
   const [contacts, setContacts] = useState([]);
-  const [showAddContactForm, setAddContactForm] = useState(false);
-
-  const handleClick = () => {
-    setAddContactForm((prevState) => !prevState);
-  };
 
   useEffect(() => {
     getContacts().then((response) => setContacts(response));
   }, []);
 
   return (
-    <div>
-      <div>
-        {!showAddContactForm
-          ? <Button onClick={handleClick}>Contact</Button>
-          : <div>
-              <Button onClick={handleClick}>Close Form</Button>
-              <ContactForm
-                contactFormTitle="Contact Honey-Rae"
-                setContacts={setContacts}
-              />
-            </div>
-        }
-      </div>
-      {contacts.map((contactInfo) => (
-        <ContactCards
-        key={contactInfo.firebaseKey}
-        firebaseKey={contactInfo.firebaseKey}
-        contactName={contactInfo.contactName}
-        contactEmail={contactInfo.contactEmail}
-        contactPhone={contactInfo.contactPhone}
-        contactDate={contactInfo.contactDate}
-        contactReason={contactInfo.contactReason}
-        setContacts={setContacts}
-        />
-      ))}
+    <div className="contactView" style={{ animation: animations.fadeIn }}>
+            {
+          user !== null
+          && <div>
+            { user
+              ? <div>
+                  <ContactForm
+                    contactFormTitle="Contact Honey-Rae"
+                    setContacts={setContacts}
+                    admin={admin}
+                    setAdmin={setAdmin}
+                    user={user}
+                    setUser={setUser}
+                  />
+                <div id="hiddenUserContent">
+                  <div>Phone: (615)-956-1551</div>
+                  <div>Email: honeyraeswan@gmail.com</div>
+                  <div className="cardLinks">
+                    <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={GitHub} alt="link icon"/></a></AnimationWrapper>
+                    <AnimationWrapper><a className="outerLink" href="https://www.linkedin.com/in/honeyraeswan/" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={LinkedIn} alt="link icon"/></a></AnimationWrapper>
+                    <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Twitter} alt="link icon"/></a></AnimationWrapper>
+                    <AnimationWrapper><a className="outerLink" href="https://github.com/thedigitalmenagerie" target="_blank" rel="noopener noreferrer"><img className="linkImg" src={Instagram} alt="link icon"/></a></AnimationWrapper>
+                  </div>
+                </div>
+              </div>
+              : <div>
+                  {contacts.map((contactInfo) => (
+                    <ContactCards
+                      key={contactInfo.firebaseKey}
+                      firebaseKey={contactInfo.firebaseKey}
+                      contactName={contactInfo.contactName}
+                      contactEmail={contactInfo.contactEmail}
+                      contactPhone={contactInfo.contactPhone}
+                      contactDate={contactInfo.contactDate}
+                      contactReason={contactInfo.contactReason}
+                      setContacts={setContacts}
+                      admin={admin}
+                      setAdmin={setAdmin}
+                      user={user}
+                      setUser={setUser}
+                    />
+                  ))}</div>
+            } </div>
+          }
     </div>
   );
 }
+
+ContactView.propTypes = {
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
+};

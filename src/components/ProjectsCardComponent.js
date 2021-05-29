@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Card,
-  Button,
   CardImg,
   CardBody,
   CardTitle,
@@ -11,6 +10,7 @@ import {
 import PropTypes from 'prop-types';
 import { deleteProjects } from '../helpers/data/ProjectsData';
 import ProjectsForm from '../forms/ProjectsForm';
+import './cstyles/ProjectsComponent.scss';
 
 const ProjectCards = ({
   firebaseKey,
@@ -20,7 +20,11 @@ const ProjectCards = ({
   projectDate,
   projectAuthors,
   projectTech,
-  setProjects
+  setProjects,
+  admin,
+  setAdmin,
+  user,
+  setUser,
 }) => {
   const [editingProjects, setEditingProjects] = useState(false);
 
@@ -39,31 +43,51 @@ const ProjectCards = ({
   };
 
   return (
-  <Card>
-    <CardImg top width="100%" src={projectImage} alt="Card image cap" />
-    <CardBody>
-      <CardTitle tag="h5">{projectName}</CardTitle>
-      <CardSubtitle tag="h6" className="mb-2 text-muted"><a>{projectLink}</a></CardSubtitle>
-      <CardSubtitle tag="h6" className="mb-2 text-muted"><a>{projectDate}</a></CardSubtitle>
-      <CardText>{projectAuthors}</CardText>
-      <CardText>{projectTech}</CardText>
-      <Button onClick={() => handleClick('delete')}>Delete Project</Button>
-      <Button onClick={() => handleClick('edit')}>
-      {editingProjects ? 'Close Form' : 'Edit Project'}
-      </Button>
-      {editingProjects && <ProjectsForm
-        projectsFormTitle='Edit Project'
-        setProjects={setProjects}
-        firebaseKey={firebaseKey}
-        projectImage={projectImage}
-        projectName={projectName}
-        projectLink={projectLink}
-        projectDate={projectDate}
-        projectAuthors={projectAuthors}
-        projectTech={projectTech}
-      />}
-    </CardBody>
-  </Card>
+    <div className="projectsContainer">
+      <div className="projectCardHolder">
+        <Card className="projectCards">
+          <CardImg top width="100%" src={projectImage} alt="Card image cap" />
+          <CardBody>
+          <CardTitle tag="h5">{projectName}</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted"><a>{projectLink}</a></CardSubtitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted"><a>{projectDate}</a></CardSubtitle>
+          <CardText>{projectAuthors}</CardText>
+          <CardText>{projectTech}</CardText>
+          {
+            admin !== null
+              && <div id="hiddenAdminContent">
+                { admin
+                  ? <div>
+                      <div id="adminButtons">
+                        <button id="deleteProject" onClick={() => handleClick('delete')}>Delete Project</button>
+                        <button id="closeForm" onClick={() => handleClick('edit')}>
+                          {editingProjects ? 'Close Form' : 'Edit Project'}
+                        </button>
+                          {editingProjects && <ProjectsForm
+                            projectsFormTitle='Edit Project'
+                            setProjects={setProjects}
+                            firebaseKey={firebaseKey}
+                            projectImage={projectImage}
+                            projectName={projectName}
+                            projectLink={projectLink}
+                            projectDate={projectDate}
+                            projectAuthors={projectAuthors}
+                            projectTech={projectTech}
+                            admin={admin}
+                            setAdmin={setAdmin}
+                            user={user}
+                            setUser={setUser}
+                          />}
+                      </div>
+                     </div>
+                  : <div></div>
+
+                } </div>
+              }
+          </CardBody>
+        </Card>
+      </div>
+    </div>
   );
 };
 
@@ -75,7 +99,11 @@ ProjectCards.propTypes = {
   projectDate: PropTypes.string.isRequired,
   projectAuthors: PropTypes.string.isRequired,
   projectTech: PropTypes.string.isRequired,
-  setProjects: PropTypes.func
+  setProjects: PropTypes.func,
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
 };
 
 export default ProjectCards;

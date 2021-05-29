@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
+.contactView {
+  background-color: #FBE3A3;
+}
+
+.cardLinks {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+  padding: 20px;
+  .outerLink {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    .linkImg {
+      max-width: 25px;
+      padding-bottom: 50px;
+    }
+  }
+}
+
+#hiddenUserContent {
+  font-family: 'Unica One', cursive;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-bottom: 20px;
+}

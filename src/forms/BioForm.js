@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addBio, updateBio } from '../helpers/data/BioData';
+import './fStyles/BioForm.scss';
 
 const BioForm = ({
   bioFormTitle,
@@ -23,7 +24,7 @@ const BioForm = ({
     firebaseKey: firebaseKey || null
   });
 
-  const handleProjectInputChange = (e) => {
+  const handleInputChange = (e) => {
     setBio((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -36,6 +37,16 @@ const BioForm = ({
       updateBio(bio).then((bioArray) => setBios(bioArray));
     } else {
       addBio(bio).then((bioArray) => setBios(bioArray));
+
+      setBio({
+        bioDate: '',
+        bioDescription: '',
+        bioImage: '',
+        bioLocation: '',
+        bioName: '',
+        bioTitle: '',
+        firebaseKey: null,
+      });
     }
   };
 
@@ -54,7 +65,7 @@ const BioForm = ({
             type='text'
             placeholder='Bio Name'
             value={bio.bioName}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Image: </label>
@@ -63,7 +74,7 @@ const BioForm = ({
             type='text'
             placeholder='Bio Image URL'
             value={bio.bioImage}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Location: </label>
@@ -72,7 +83,7 @@ const BioForm = ({
             type='text'
             placeholder='Bio Location'
             value={bio.bioLocation}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Date: </label>
@@ -81,7 +92,7 @@ const BioForm = ({
             type='text'
             placeholder='Bio Date'
             value={bio.bioDate}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Title: </label>
@@ -90,7 +101,7 @@ const BioForm = ({
             type='text'
             placeholder='Bio Title'
             value={bio.bioTitle}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Description: </label>
@@ -99,7 +110,7 @@ const BioForm = ({
             type='text'
             placeholder='Bio Description'
             value={bio.bioDescription}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <button type="submit">Add Bio</button>
@@ -118,7 +129,8 @@ BioForm.propTypes = {
   bioLocation: PropTypes.string,
   bioDate: PropTypes.string,
   bioTitle: PropTypes.string,
-  bioDescription: PropTypes.string
+  bioDescription: PropTypes.string,
+  bio: PropTypes.any,
 };
 
 export default BioForm;

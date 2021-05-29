@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addReview, updateReview } from '../helpers/data/ReviewData';
+import './fStyles/ReviewForm.scss';
 
 const ReviewForm = ({
   reviewFormTitle,
@@ -23,7 +24,7 @@ const ReviewForm = ({
     firebasKey: firebasKey || null
   });
 
-  const handleProjectInputChange = (e) => {
+  const handleInputChange = (e) => {
     setReview((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -36,6 +37,16 @@ const ReviewForm = ({
       updateReview(review).then((reviewArray) => setReviews(reviewArray));
     } else {
       addReview(review).then((reviewArray) => setReviews(reviewArray));
+
+      setReview({
+        reviewerName: '',
+        reviewerCompany: '',
+        reviewerRole: '',
+        reviewerLocation: '',
+        reviewerDescription: '',
+        reviewerDate: '',
+        firebasKey: null
+      });
     }
   };
 
@@ -54,7 +65,7 @@ const ReviewForm = ({
             type='text'
             placeholder='Your Name'
             value={review.reviewerName}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Your Company: </label>
@@ -63,7 +74,7 @@ const ReviewForm = ({
             type='text'
             placeholder='Your Company Name'
             value={review.reviewerCompany}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Your Role: </label>
@@ -72,7 +83,7 @@ const ReviewForm = ({
             type='text'
             placeholder='Your Role'
             value={review.reviewerRole}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Your Location: </label>
@@ -81,7 +92,7 @@ const ReviewForm = ({
             type='text'
             placeholder='Date'
             value={review.reviewerLocation}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Review: </label>
@@ -90,7 +101,7 @@ const ReviewForm = ({
             type='text'
             placeholder='Say somthing nice'
             value={review.reviewerDescription}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Date: </label>
@@ -99,7 +110,7 @@ const ReviewForm = ({
             type='text'
             placeholder='Today&apos;s Date'
             value={review.reviewerDate}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <button type="submit">Add Review</button>

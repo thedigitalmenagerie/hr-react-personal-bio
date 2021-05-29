@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { getResume } from '../helpers/data/ResumeData';
 import ResumeForm from '../forms/ResumeForm';
 import ResumeCards from '../components/ResumeCardComponent';
+import './vStyles/ResumeView.scss';
 
-export default function ResumeView() {
+export default function ResumeView({
+  admin,
+  setAdmin,
+  user,
+  setUser,
+}) {
   const [resumes, setResumes] = useState([]);
   const [showAddResume, setAddResume] = useState(false);
 
@@ -16,18 +22,31 @@ export default function ResumeView() {
     getResume().then((response) => setResumes((response)));
   }, []);
   return (
-    <div>
+    <div className="resumeView">
       <div>
-        {!showAddResume
-          ? <Button onClick={handleClick}>Add Resume</Button>
-          : <div>
-              <Button onClick={handleClick}>Close Form</Button>
-              <ResumeForm
-                resumeFormTitle="Add Resume"
-                setResumes={setResumes}
-              />
-            </div>
-        }
+      {
+        admin !== null
+          && <div>
+            { admin
+              ? <div>
+                {!showAddResume
+                  ? <button id="addResume" onClick={handleClick}>Add Resume</button>
+                  : <div>
+                      <button id="closeForm" onClick={handleClick}>Close Form</button>
+                      <ResumeForm
+                      resumeFormTitle="Add Resume"
+                      setResumes={setResumes}
+                      admin={admin}
+                      setAdmin={setAdmin}
+                      user={user}
+                      setUser={setUser}
+                    />
+                  </div>
+                }
+                </div>
+              : <div></div>
+            } </div>
+          }
       </div>
       {resumes.map((resumeInfo) => (
         <ResumeCards
@@ -40,8 +59,19 @@ export default function ResumeView() {
           resumeRole={resumeInfo.resumeLength}
           resumeSkills={resumeInfo.resumeSkills}
           setResumes={setResumes}
+          admin={admin}
+          setAdmin={setAdmin}
+          user={user}
+          setUser={setUser}
         />
       ))}
     </div>
   );
 }
+
+ResumeView.propTypes = {
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
+};

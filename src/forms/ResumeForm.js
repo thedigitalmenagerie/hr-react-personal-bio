@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addResume, updateResume } from '../helpers/data/ResumeData';
+import './fStyles/ResumeForm.scss';
 
 const ResumeForm = ({
   resumeFormTitle,
@@ -23,7 +24,7 @@ const ResumeForm = ({
     firebaseKey: firebaseKey || null
   });
 
-  const handleProjectInputChange = (e) => {
+  const handleInputChange = (e) => {
     setResume((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -36,6 +37,16 @@ const ResumeForm = ({
       updateResume(resume).then((resumeArray) => setResumes(resumeArray));
     } else {
       addResume(resume).then((resumeArray) => setResumes(resumeArray));
+
+      setResume({
+        resumeCompany: '',
+        resumeRole: '',
+        resumeLocation: '',
+        resumeDate: '',
+        resumeLength: '',
+        resumeSkills: '',
+        firebaseKey: null
+      });
     }
   };
 
@@ -54,7 +65,7 @@ const ResumeForm = ({
             type='text'
             placeholder='Company Name'
             value={resume.resumeCompany}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Role: </label>
@@ -63,7 +74,7 @@ const ResumeForm = ({
             type='text'
             placeholder='Role'
             value={resume.resumeRole}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Location: </label>
@@ -72,7 +83,7 @@ const ResumeForm = ({
             type='text'
             placeholder='Location'
             value={resume.resumeLocation}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Date: </label>
@@ -81,7 +92,7 @@ const ResumeForm = ({
             type='text'
             placeholder='Date'
             value={resume.resumeDate}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Length: </label>
@@ -90,7 +101,7 @@ const ResumeForm = ({
             type='text'
             placeholder='Length'
             value={resume.resumeLength}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <label>Skills: </label>
@@ -99,7 +110,7 @@ const ResumeForm = ({
             type='text'
             placeholder='Skills'
             value={resume.resumeSkills}
-            onChange={handleProjectInputChange}
+            onChange={handleInputChange}
           >
           </input>
           <button type="submit">Add Resume</button>

@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { getProjects } from '../helpers/data/ProjectsData';
 import ProjectsForm from '../forms/ProjectsForm';
 import ProjectCards from '../components/ProjectsCardComponent';
+import './vStyles/ProjectsView.scss';
 
-export default function ProjectsView() {
+export default function ProjectsView({
+  admin,
+  setAdmin,
+  user,
+  setUser,
+}) {
   const [projects, setProjects] = useState([]);
   const [showAddProjectForm, setAddProjectForm] = useState(false);
 
@@ -17,31 +23,54 @@ export default function ProjectsView() {
   }, []);
   return (
     <div>
-      <div>
-        {!showAddProjectForm
-          ? <Button onClick={handleClick}>Add Project</Button>
-          : <div>
-              <Button onClick={handleClick}>Close Form</Button>
-              <ProjectsForm
-                projectsFormTitle="Add Project"
-                setProjects={setProjects}
-              />
-             </div>
-        }
-      </div>
-      {projects.map((projectInfo) => (
-        <ProjectCards
-          key={projectInfo.firebaseKey}
-          firebaseKey={projectInfo.firebaseKey}
-          projectImage={projectInfo.projectImage}
-          projectName={projectInfo.projectName}
-          projectLink={projectInfo.projectLink}
-          projectDate={projectInfo.projectDate}
-          projectAuthors={projectInfo.projectAuthors}
-          projectTech={projectInfo.projectTech}
-          setProjects={setProjects}
-        />
-      ))}
+      {
+        admin !== null
+          && <div>
+            { admin
+              ? <div>
+                  {!showAddProjectForm
+                    ? <button id="addProject" onClick={handleClick}>Add Project</button>
+                    : <div>
+                      <button id="closeForm" onClick={handleClick}>Close Form</button>
+                      <ProjectsForm
+                        projectsFormTitle="Add Project"
+                        setProjects={setProjects}
+                        admin={admin}
+                        setAdmin={setAdmin}
+                        user={user}
+                        setUser={setUser}
+                      />
+                    </div>
+                  }
+                </div>
+              : <div></div>
+
+            } </div>
+          }
+          {projects.map((projectInfo) => (
+            <ProjectCards
+              key={projectInfo.firebaseKey}
+              firebaseKey={projectInfo.firebaseKey}
+              projectImage={projectInfo.projectImage}
+              projectName={projectInfo.projectName}
+              projectLink={projectInfo.projectLink}
+              projectDate={projectInfo.projectDate}
+              projectAuthors={projectInfo.projectAuthors}
+              projectTech={projectInfo.projectTech}
+              setProjects={setProjects}
+              admin={admin}
+              setAdmin={setAdmin}
+              user={user}
+              setUser={setUser}
+            />
+          ))}
     </div>
   );
 }
+
+ProjectsView.propTypes = {
+  user: PropTypes.any,
+  setUser: PropTypes.func,
+  admin: PropTypes.any,
+  setAdmin: PropTypes.func
+};
