@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
+#Navbar {
+  font-family: 'Unica One', cursive;
+}
+#homeNavLogo {
+  max-width: 2em;
+}
+
+#authButtons {
+  display: flex;
+  justify-content: space-between;
+
+}
+#signOut {
+  background-color: #4B240B;
+  color: whitesmoke;
+  border-radius: 5px;
+  font-family: 'Unica One', cursive;
+}

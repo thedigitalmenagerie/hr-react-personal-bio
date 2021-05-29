@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
 
-#submitContact {
+#submitReview {
   background-color: #4B240B;
   color: whitesmoke;
   border-radius: 3px;
 }
 
-.ContactForm {
+.ReviewForm {
   display: flex;
   justify-content: center;
   form {
@@ -16,12 +16,12 @@
   align-items: center;
   margin-top: 25px;
   margin-bottom: 100px;
-    #addContactFormTitle {
-      font-family: 'Unica One', cursive;
-    }
-    label {
-      font-family: 'Unica One', cursive;
-    }
+  #addReviewFormTitle {
+    font-family: 'Unica One', cursive;
+  }
+  label {
+    font-family: 'Unica One', cursive;
+  }
     input {
       width: 500px;
       border-radius: 5px;

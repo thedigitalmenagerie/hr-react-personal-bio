@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
+#submitBio {
+  background-color: #4B240B;
+  color: whitesmoke;
+  border-radius: 3px;
+}
+
+.BioForm {
+  display: flex;
+  justify-content: center;
+  form {
+  color: #4B240B;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 25px;
+  font-family: 'Unica One', cursive;
+    input {
+      width: 500px;
+      border-radius: 5px;
+      font-family: 'Unica One', cursive;
+    }
+    button {
+      width: 200px;
+      margin-top: 25px;
+      align-items: center;
+      background-color: #4B240B;
+      color: whitesmoke;
+      border-radius: 5px;
+      font-family: 'Unica One', cursive;
+    }
+  }
+}
