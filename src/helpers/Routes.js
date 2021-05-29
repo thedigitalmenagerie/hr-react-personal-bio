@@ -15,13 +15,10 @@ const PrivateRoute = ({
   admin,
   ...rest
 }) => {
-  const routeChecker = (taco) => (admin
-    ? (<Component {...taco} admin={admin}/>)
+  const routeChecker = (taco) => (admin || user
+    ? (<Component {...taco} admin={admin} user={user}/>)
     : (<Redirect to={{ pathname: '/', state: { from: taco.location } }} />));
-  const routeChecker2 = (taco) => (user
-    ? (<Component {...taco} user={user}/>)
-    : (<Redirect to={{ pathname: '/', state: { from: taco.location } }} />));
-  return <Route {...rest} render={(props) => (routeChecker(props) && routeChecker2(props))} />;
+  return <Route {...rest} render={(props) => (routeChecker(props))} />;
 };
 
 PrivateRoute.propTypes = {
