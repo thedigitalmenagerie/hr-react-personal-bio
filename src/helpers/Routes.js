@@ -46,8 +46,6 @@ export default function Routes({
         />}
         admin={admin}
         user={user}
-        setUser={setUser}
-        setAdmin={setAdmin}
         />
         <Route exact path='/biography'
         component={() => <BioView
@@ -58,8 +56,6 @@ export default function Routes({
         />}
         admin={admin}
         user={user}
-        setUser={setUser}
-        setAdmin={setAdmin}
         />
         <PrivateRoute exact path='/contact'
         component={() => <ContactView
@@ -70,8 +66,6 @@ export default function Routes({
           />}
           user={user}
           admin={admin}
-          setUser={setUser}
-          setAdmin={setAdmin}
         />
         <Route exact path='/projects'
         component={() => <ProjectsView
@@ -82,8 +76,6 @@ export default function Routes({
         />}
         user={user}
         admin={admin}
-        setUser={setUser}
-        setAdmin={setAdmin}
         />
         <Route exact path='/resume'
         component={() => <ResumeView
@@ -94,8 +86,6 @@ export default function Routes({
         />}
         user={user}
         admin={admin}
-        setUser={setUser}
-        setAdmin={setAdmin}
         />
         <PrivateRoute exact path='/reviews'
         component={() => <ReviewView
@@ -106,8 +96,7 @@ export default function Routes({
         />}
         user={user}
         admin={admin}
-        setUser={setUser}
-        setAdmin={setAdmin}
+
         />
         <Route exact path='/technologies'
         component={() => <TechnologiesView
@@ -118,8 +107,6 @@ export default function Routes({
         />}
         user={user}
         admin={admin}
-        setUser={setUser}
-        setAdmin={setAdmin}
         />
       </Switch>
     </div>
