@@ -72,4 +72,4 @@ https://github.com/thedigitalmenagerie
 
 ### Link to Loom video walkthrough of application:
 
-https://www.loom.com/share/241010004c544596b168711c913f0029
+https://www.loom.com/share/b1da22792d9343a1bf1b3f42b34e2b78
