@@ -61,6 +61,9 @@ SCSS, JS, REACT, REACTSTRAP, FIREBASE, React-animation, React-hover-animation
 
 <img width="1440" alt="Screen Shot 2021-06-01 at 8 16 10 AM" src="https://user-images.githubusercontent.com/76716670/120321756-ac42f000-c2b1-11eb-844a-42e76bcd9432.png">
 
+<img width="1440" alt="Screen Shot 2021-06-01 at 8 17 21 AM" src="https://user-images.githubusercontent.com/76716670/120321984-edd39b00-c2b1-11eb-96c3-278562de2560.png">
+
+<img width="1440" alt="Screen Shot 2021-06-01 at 8 18 35 AM" src="https://user-images.githubusercontent.com/76716670/120322069-017f0180-c2b2-11eb-9f17-849768a36ed2.png">
 
 
 ### List of contributors and links to GH profiles:
